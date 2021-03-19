@@ -1,0 +1,13 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "incremental": true,
+    "module": "es6",
+    "outDir": "es6",
+    "removeComments": false,
+    "target": "es5",
+    "tsBuildInfoFile": "tsbuildinfo/build-es6.tsbuildinfo"
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "test"]
+}

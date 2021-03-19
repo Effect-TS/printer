@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "declaration": true,
+    "declarationMap": true,
+    "downlevelIteration": true,
+    "forceConsistentCasingInFileNames": true,
+    "lib": ["es2020"],
+    "moduleResolution": "node",
+    "noEmit": false,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "preserveSymlinks": true,
+    "sourceMap": false,
+    "strict": true,
+    "target": "es2017",
+    "paths": {
+      "@prettyprinter-ts/core/*": ["packages/core/lib/*"],
+      "@prettyprinter-ts/core": ["packages/core/lib"]
+    }
+  },
+  "exclude": ["node_modules", "es6", "lib"]
+}

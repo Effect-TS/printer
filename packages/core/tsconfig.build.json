@@ -1,0 +1,13 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "incremental": true,
+    "module": "commonjs",
+    "outDir": "lib",
+    "removeComments": false,
+    "target": "es5",
+    "tsBuildInfoFile": "tsbuildinfo/build.tsbuildinfo"
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "test"]
+}
