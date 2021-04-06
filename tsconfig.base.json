@@ -30,17 +30,7 @@
     "noUncheckedIndexedAccess": true,
     "strictNullChecks": true,
     "baseUrl": ".",
-    "paths": {
-      "@effect-ts/core/*": ["packages/core/build/*"],
-      "@effect-ts/core": ["packages/core/build"],
-      "@effect-ts/system/*": ["packages/system/build/*"],
-      "@effect-ts/system": ["packages/system/build"],
-      "@effect-ts/tracing-utils/*": ["packages/tracing-utils/build/*"],
-      "@effect-ts/tracing-utils": ["packages/tracing-utils/build"],
-      "@effect-ts/tracing-plugin/*": ["packages/tracing-plugin/build/*"],
-      "@effect-ts/tracing-plugin": ["packages/tracing-plugin/build"]
-    },
-    "target": "ES2017"
+    "target": "ES2018"
   },
   "exclude": ["node_modules", "build", "lib"]
 }
