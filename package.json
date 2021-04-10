@@ -30,7 +30,7 @@
     "@effect-ts/core": "^0.28.12",
     "@effect-ts/monocle": "^0.25.2",
     "@effect-ts/morphic": "^0.26.1",
-    "@effect-ts/tracing-plugin": "^0.8.4",
+    "@effect-ts/tracing-plugin": "^0.9.0",
     "@types/cpx": "^1.5.1",
     "@types/glob": "^7.1.3",
     "@types/jest": "^26.0.22",
