@@ -342,9 +342,9 @@
     "@effect-ts/system" "^0.25.13"
 
 "@effect-ts/monocle@^0.25.2":
-  version "0.25.2"
-  resolved "https://registry.yarnpkg.com/@effect-ts/monocle/-/monocle-0.25.2.tgz#620c93a615a3afe9118a1970d6c1a3bfdf63c59a"
-  integrity sha512-x/Mk1cIpV4V8K2IxdPOSdlwY0QQt1hQCLkYyKOqSmS71Os3YqQGXF2m7WFOv/GbK6BI4WArAMI9cR7nye3fOlA==
+  version "0.25.4"
+  resolved "https://registry.yarnpkg.com/@effect-ts/monocle/-/monocle-0.25.4.tgz#2e9c94cf7fa81d9c25d09a9f81dd938323abaaaa"
+  integrity sha512-tZJ3Goehcjn7PVWQQe3rRXbCiNGNfgXcu82luzrlmlXZRvxD9I3ma3A7RR1t7M64g6KC5Mo08C/iab2R1PWl7A==
 
 "@effect-ts/morphic@^0.26.1":
   version "0.26.1"
