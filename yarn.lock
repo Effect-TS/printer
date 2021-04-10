@@ -334,12 +334,12 @@
   resolved "https://registry.yarnpkg.com/@effect-ts/build-utils/-/build-utils-0.8.8.tgz#c6e7debf918c03901752e93a939b25b3a6506d16"
   integrity sha512-085EHsKxL6EOAfmcDokfJTwP8vOO3C3xHQVAF9lfCkaQfUWoLFAylovQwnwY9ETVPaHwiKEcIOtaQU+vN96Cyw==
 
-"@effect-ts/core@^0.28.12":
-  version "0.28.13"
-  resolved "https://registry.yarnpkg.com/@effect-ts/core/-/core-0.28.13.tgz#9ac5f284f91e382be86066250e6aa1c5d5a5c22c"
-  integrity sha512-hxOU/jztrIdepMbfvwf7qsoFTfiqs3VbuU9WO76kFvrruMbGbzyIUvtFyTD2qTNVVoiJZjv80eWuphrAQFVwkg==
+"@effect-ts/core@^0.29.0":
+  version "0.29.0"
+  resolved "https://registry.yarnpkg.com/@effect-ts/core/-/core-0.29.0.tgz#e70c43587d1ab505e1ebcc21ebdf83e25d29ce2a"
+  integrity sha512-mqCzEsznEw1yGRjneWQjrexUFeg9X/bsBG2N+uGxczVjEL5LcGII8f4lY9gHTfRKJSiQq9ZWKEvHMa5LM59J5A==
   dependencies:
-    "@effect-ts/system" "^0.25.13"
+    "@effect-ts/system" "^0.26.0"
 
 "@effect-ts/monocle@^0.25.2":
   version "0.25.4"
@@ -351,10 +351,10 @@
   resolved "https://registry.yarnpkg.com/@effect-ts/morphic/-/morphic-0.26.2.tgz#e02dc2c936e012aae6565a0efd78ef891c8b6103"
   integrity sha512-9AWKXsRyqnbWcEOzdDHtPopTYMfQ9HFRv9Gxq2d0uk9lfLotUhScgo6UcQlL18pZxfKBF2e632q/IaL5N/cBBA==
 
-"@effect-ts/system@^0.25.13":
-  version "0.25.13"
-  resolved "https://registry.yarnpkg.com/@effect-ts/system/-/system-0.25.13.tgz#a0fdd37795e9cfb7a9caf20d826581fd8cbcf7a4"
-  integrity sha512-HGWxVwkoJLyHn++/5Dx84xztOAoXHw/6qYKzPW7j9oqCHcBhGncwJD1aYOOCySn85SBLk7cUjsnFIqxnhQyDZQ==
+"@effect-ts/system@^0.26.0":
+  version "0.26.0"
+  resolved "https://registry.yarnpkg.com/@effect-ts/system/-/system-0.26.0.tgz#6ecf59b51030ff3739ea8e7adccc1deb917ffd29"
+  integrity sha512-tHxivRUAMZdT2IVAEy8Zbu0OfZ9S+vE9LjJJofBe/1MjNd3OtcUm14++eCWshCSGhT0s/Ttj4VyctUXhWEqhpw==
 
 "@effect-ts/tracing-plugin@^0.9.0":
   version "0.9.0"
