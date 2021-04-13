@@ -376,16 +376,6 @@
   dependencies:
     "@effect-ts/system" "^0.27.1"
 
-"@effect-ts/monocle@^0.27.0":
-  version "0.27.0"
-  resolved "https://registry.yarnpkg.com/@effect-ts/monocle/-/monocle-0.27.0.tgz#434a843db22e472e40755463578a012eb08dcaf2"
-  integrity sha512-UK+0W/i5s3dfroJzC0gPpKML7AyN+t8XZayoFdRzE4Jyn0mYcY5R25jl9gysTSIhnztn0u9YXXXmoT/elUNofA==
-
-"@effect-ts/morphic@^0.29.1":
-  version "0.29.1"
-  resolved "https://registry.yarnpkg.com/@effect-ts/morphic/-/morphic-0.29.1.tgz#442a3f805f0d4a0b81437bef59d9adf649c5ef53"
-  integrity sha512-ADrfpmgBUptB41fz+DiAjzR1xN7taHuvYuvj/j91JdP1lEqdQl6gMdtNaRLrHq6rN3f22q5nQROAmuICWId2DA==
-
 "@effect-ts/system@^0.27.1":
   version "0.27.1"
   resolved "https://registry.yarnpkg.com/@effect-ts/system/-/system-0.27.1.tgz#d8cf83070c92935c2102c95fab793bc031d70e77"

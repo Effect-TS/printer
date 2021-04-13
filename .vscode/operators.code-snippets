@@ -1,12 +1,12 @@
 {
   "Pipe Operator |": {
     "prefix": "|",
-    "body": ["[\"|>\"]()"],
+    "body": ["[\"|>\"]($0)"],
     "description": "Pipe Operator"
   },
   "Flow Operator": {
     "prefix": ">",
-    "body": ["[\">>\"]()"],
+    "body": ["[\">>\"]($0)"],
     "description": "Flow Operator"
   },
   "Operators Import": {
@@ -16,22 +16,22 @@
   },
   "Gen Function": {
     "prefix": "gen",
-    "body": ["function* (_) {}"],
+    "body": ["function* (_) {$0}"],
     "description": "Generator FUnction with _ input"
   },
   "Gen Function $": {
     "prefix": "gen$",
-    "body": ["function* ($) {}"],
+    "body": ["function* ($) {$0}"],
     "description": "Generator FUnction with _ input"
   },
   "Gen Yield *": {
     "prefix": "!",
-    "body": ["yield* _()"],
+    "body": ["yield* _($0)"],
     "description": "Yield generator calling _()"
   },
   "Gen Yield $": {
     "prefix": "$",
-    "body": ["yield* $()"],
+    "body": ["yield* $($0)"],
     "description": "Yield generator calling $()"
   }
 }
