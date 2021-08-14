@@ -1560,9 +1560,9 @@
     "@babel/types" "^7.3.0"
 
 "@types/cpx@^1.5.1":
-  version "1.5.1"
-  resolved "https://registry.yarnpkg.com/@types/cpx/-/cpx-1.5.1.tgz#b5fd05b4828622cc3cb14552fd1ee15d44355638"
-  integrity sha512-PVFRjClbYw22ckQR1OtjlQpg3ZqbSIIOq+/dbkqsIEYWmpZqL9OXLXTLUEhsYaST+1oNfx5c067aMqoXnAp8+w==
+  version "1.5.2"
+  resolved "https://registry.yarnpkg.com/@types/cpx/-/cpx-1.5.2.tgz#10f1ac2d27c8cf5f606575afdbcb45136388504a"
+  integrity sha512-CL9DbTAdf5NYcbYpBTli6JxVIpCAhJp1FeQiXd9SNjbC4o9k6McnHkU0FHgj9UYoN7TVX3poaaBrwFabTY7Skw==
   dependencies:
     "@types/node" "*"
 
