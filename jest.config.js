@@ -11,6 +11,7 @@ module.exports = {
   setupFilesAfterEnv: [],
   modulePathIgnorePatterns: [
     "<rootDir>/packages/.*/build",
+    "<rootDir>/packages/.*/dist",
     "<rootDir>/packages/.*/compiler-debug",
     "<rootDir>/_tmp"
   ],
@@ -18,8 +19,7 @@ module.exports = {
   moduleNameMapper: {},
   globals: {
     "ts-jest": {
-      tsconfig: "<rootDir>/tsconfig.jest.json",
-      compiler: "ttypescript"
+      tsconfig: "<rootDir>/tsconfig.jest.json"
     }
   }
 }

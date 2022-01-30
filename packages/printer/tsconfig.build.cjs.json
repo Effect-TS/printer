@@ -1,7 +1,8 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "build",
+    "outDir": "build/cjs",
+    "declarationDir": "build/dts",
     "target": "ES2018",
     "module": "CommonJS",
     "incremental": true,
@@ -9,6 +10,11 @@
     "removeComments": false,
     "plugins": []
   },
-  "include": ["src/**/*"],
-  "exclude": ["test", "node_modules"]
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "test",
+    "node_modules"
+  ]
 }
