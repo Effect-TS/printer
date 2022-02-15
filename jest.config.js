@@ -16,10 +16,14 @@ module.exports = {
     "<rootDir>/_tmp"
   ],
   verbose: true,
-  moduleNameMapper: {},
+  extensionsToTreatAsEsm: [".ts"],
   globals: {
     "ts-jest": {
-      tsconfig: "<rootDir>/tsconfig.jest.json"
+      tsconfig: "<rootDir>/tsconfig.jest.json",
+      useESM: true
     }
+  },
+  moduleNameMapper: {
+    "^(\\.{1,2}/.*)\\.js$": "$1"
   }
 }
