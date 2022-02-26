@@ -2,6 +2,10 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "outDir": "build/esm",
+    "declarationDir": "build/dts",
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
     "module": "ES6",
     "target": "ES2018",
     "incremental": true,
