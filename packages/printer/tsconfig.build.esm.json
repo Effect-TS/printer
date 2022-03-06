@@ -11,7 +11,14 @@
     "incremental": true,
     "tsBuildInfoFile": "tsbuildinfo/es6.tsbuildinfo",
     "removeComments": false,
-    "plugins": []
+    "plugins": [
+      {
+        "transform": "@effect-ts/tracing-plugin",
+        "moduleMap": {
+          "^src/(.*)": "(@effect-ts/printer): _src/$1"
+        }
+      }
+    ]
   },
   "include": [
     "src/**/*"
