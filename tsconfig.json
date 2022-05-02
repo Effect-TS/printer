@@ -1,8 +1,11 @@
 {
   "extends": "./tsconfig.base.json",
-  "files": [],
-  "compilerOptions": {
-    "baseUrl": ".",
-    "target": "ES2018"
-  }
+  "references": [
+    {
+      "path": "packages/printer"
+    },
+    {
+      "path": "packages/printer-ansi"
+    }
+  ]
 }

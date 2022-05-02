@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "moduleDetection": "force",
+    "composite": true,
     "downlevelIteration": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
@@ -10,7 +12,7 @@
     "preserveSymlinks": true,
     "moduleResolution": "node",
     "noEmit": false,
-    "lib": ["es2020"],
+    "lib": ["ES2021"],
     "sourceMap": true,
     "declarationMap": true,
     "strict": true,
@@ -30,7 +32,24 @@
     "noUncheckedIndexedAccess": true,
     "strictNullChecks": true,
     "baseUrl": ".",
-    "target": "ES2018"
+    "target": "ES2021",
+    "module": "ES6",
+    "incremental": true,
+    "removeComments": false,
+    "paths": {
+      "@effect/printer": ["./packages/printer/_src/index.ts"],
+      "@effect/printer/test/*": ["./packages/printer/_test/*"],
+      "@effect/printer/examples/*": ["./packages/printer/_examples/*"],
+      "@effect/printer/*": ["./packages/printer/_src/*"],
+      "@effect/printer-ansi": ["./packages/printer-ansi/_src/index.ts"],
+      "@effect/printer-ansi/test/*": ["./packages/printer-ansi/_test/*"],
+      "@effect/printer-ansi/examples/*": [
+        "./packages/printer-ansi/_examples/*"
+      ],
+      "@effect/printer-ansi/*": ["./packages/printer-ansi/_src/*"]
+    }
   },
+  "files": ["./tsplus.prelude.d.ts"],
+  "include": [],
   "exclude": ["node_modules", "build", "lib"]
 }
