@@ -1,110 +1,97 @@
-import * as A from "@effect-ts/core/Collections/Immutable/Array"
-import { flow, pipe } from "@effect-ts/core/Function"
-import * as I from "@effect-ts/core/Identity"
+function fun<A>(doc: Doc<A>): Doc<A> {
+  return Doc.cat(
+    Doc.hcat([Doc.text("fun("), Doc.softLineBreak, doc]).hang(2),
+    Doc.text(")")
+  );
+}
 
-import type { Doc } from "../src/Core/Doc"
-import * as D from "../src/Core/Doc"
-import * as R from "../src/Core/Render"
+function funs<A>(doc: Doc<A>): Doc<A> {
+  return fun(fun(fun(fun(fun(doc)))));
+}
 
-const fun = <A>(doc: Doc<A>): Doc<A> =>
-  D.hcat([D.hang_(D.hcat([D.text("fun("), D.softLineBreak, doc]), 2), D.text(")")])
+const dashes = Doc.text(Chunk.fill(26 - 2, () => "-").join(""));
 
-const funs = flow(fun, fun, fun, fun, fun)
+const hr = Doc.hcat([Doc.vbar, dashes, Doc.vbar]);
 
-const doc = funs(D.align(D.list(D.words("abcdef ghijklm"))))
+const doc = Doc.vsep([hr, funs(Doc.list(Doc.words("abcdef ghijklm")).align()), hr]);
 
-const dashes = D.text(pipe(A.replicate_(26 - 2, "-"), I.fold(I.string)))
+describe.concurrent("Render", () => {
+  it("renderPretty", () => {
+    assert.strictEqual(
+      doc.renderPretty(14, 1),
+      `||------------------------|
+       |fun(fun(fun(
+       |          fun(
+       |            fun(
+       |              [ abcdef
+       |              , ghijklm ])))))
+       ||------------------------|`.stripMargin()
+    );
+  });
 
-const hr = D.hcat([D.vbar, dashes, D.vbar])
+  it("renderPrettyDefault", () => {
+    assert.strictEqual(
+      doc.renderPrettyDefault(),
+      `||------------------------|
+       |fun(fun(fun(fun(fun([abcdef, ghijklm])))))
+       ||------------------------|`.stripMargin()
+    );
+  });
 
-const page = D.vsep([hr, doc, hr])
+  it("renderPrettyUnbounded", () => {
+    assert.strictEqual(
+      doc.renderPrettyUnbounded(),
+      `||------------------------|
+       |fun(fun(fun(fun(fun([abcdef, ghijklm])))))
+       ||------------------------|`.stripMargin()
+    );
+  });
 
-describe("Render", () => {
-  describe("rendering algorithms", () => {
-    it("renderPretty", () => {
-      expect(R.renderPretty_(page, 14, 1)).toBe(
-        `
-|------------------------|
-fun(fun(fun(
-          fun(
-            fun(
-              [ abcdef
-              , ghijklm ])))))
-|------------------------|
-        `.trim()
-      )
-    })
+  it("renderSmart", () => {
+    assert.strictEqual(
+      doc.renderSmart(14, 1),
+      `||------------------------|
+       |fun(
+       |  fun(
+       |    fun(
+       |      fun(
+       |        fun(
+       |          [ abcdef
+       |          , ghijklm ])))))
+       ||------------------------|`.stripMargin()
+    );
+  });
 
-    it("renderPrettyDefault", () => {
-      expect(R.renderPrettyDefault(page)).toBe(
-        `
-|------------------------|
-fun(fun(fun(fun(fun([abcdef, ghijklm])))))
-|------------------------|
-        `.trim()
-      )
-    })
+  it("renderSmartDefault", () => {
+    assert.strictEqual(
+      doc.renderSmartDefault(),
+      `||------------------------|
+       |fun(fun(fun(fun(fun([abcdef, ghijklm])))))
+       ||------------------------|`.stripMargin()
+    );
+  });
 
-    it("renderPrettyUnbounded", () => {
-      expect(R.renderPrettyUnbounded(page)).toBe(
-        `
-|------------------------|
-fun(fun(fun(fun(fun([abcdef, ghijklm])))))
-|------------------------|
-      `.trim()
-      )
-    })
+  it("renderSmartUnbounded", () => {
+    assert.strictEqual(
+      doc.renderSmartDefault(),
+      `||------------------------|
+       |fun(fun(fun(fun(fun([abcdef, ghijklm])))))
+       ||------------------------|`.stripMargin()
+    );
+  });
 
-    it("renderSmart", () => {
-      expect(R.renderSmart_(page, 14, 1)).toBe(
-        `
-|------------------------|
-fun(
-  fun(
-    fun(
-      fun(
-        fun(
-          [ abcdef
-          , ghijklm ])))))
-|------------------------|
-      `.trim()
-      )
-    })
-
-    it("renderSmartDefault", () => {
-      expect(R.renderSmartDefault(page)).toBe(
-        `
-|------------------------|
-fun(fun(fun(fun(fun([abcdef, ghijklm])))))
-|------------------------|
-      `.trim()
-      )
-    })
-
-    it("renderSmartUnbounded", () => {
-      expect(R.renderSmartDefault(page)).toBe(
-        `
-|------------------------|
-fun(fun(fun(fun(fun([abcdef, ghijklm])))))
-|------------------------|
-      `.trim()
-      )
-    })
-
-    it("renderCompact", () => {
-      expect(R.renderCompact(page)).toBe(
-        `
-|------------------------|
-fun(
-fun(
-fun(
-fun(
-fun(
-[ abcdef
-, ghijklm ])))))
-|------------------------|
-      `.trim()
-      )
-    })
-  })
-})
+  it("renderCompact", () => {
+    assert.strictEqual(
+      doc.renderCompact(),
+      `||------------------------|
+       |fun(
+       |fun(
+       |fun(
+       |fun(
+       |fun(
+       |[ abcdef
+       |, ghijklm ])))))
+       ||------------------------|`.stripMargin()
+    );
+  });
+});

@@ -14,6 +14,7 @@
  * ```
  *
  * @tsplus fluent ets/printer/Doc appendWithLine
+ * @tsplus static ets/printer/Doc/Ops appendWithLine
  */
 export function appendWithLine_<A>(self: Doc<A>, that: Doc<A>): Doc<A> {
   return Doc.cat(self, Doc.cat(Doc.line, that));

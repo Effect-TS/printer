@@ -13,6 +13,7 @@
  * ```
  *
  * @tsplus fluent ets/printer/Doc appendWithSpace
+ * @tsplus static ets/printer/Doc/Ops appendWithSpace
  */
 export function appendWithSpace_<A>(self: Doc<A>, that: Doc<A>): Doc<A> {
   return Doc.cat(self, Doc.cat(Doc.space, that));

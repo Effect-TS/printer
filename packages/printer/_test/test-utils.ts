@@ -1,49 +1,47 @@
-import { constant } from "@effect-ts/core/Function"
-import * as fc from "fast-check"
+import { constant } from "@effect-ts/core/Function";
+import * as fc from "fast-check";
 
-import * as D from "../src/Core/Doc"
+export const arbEmpty: fc.Arbitrary<Doc<number>> = fc.constant(Doc.empty);
 
-export const arbEmpty: fc.Arbitrary<D.Doc<number>> = fc.constant(D.empty)
+export const arbChar: fc.Arbitrary<Doc<number>> = fc.char().map(Doc.char);
 
-export const arbChar: fc.Arbitrary<D.Doc<number>> = fc.char().map(D.char)
+export const arbText: fc.Arbitrary<Doc<number>> = fc.string().map(Doc.text);
 
-export const arbText: fc.Arbitrary<D.Doc<number>> = fc.string().map(D.text)
+export const arbLine: fc.Arbitrary<Doc<number>> = fc.constant(Doc.hardLine);
 
-export const arbLine: fc.Arbitrary<D.Doc<number>> = fc.constant(D.hardLine)
-
-export const arbFlatAlt: fc.Arbitrary<D.Doc<number>> = fc
+export const arbFlatAlt: fc.Arbitrary<Doc<number>> = fc
   .tuple(fc.oneof(arbChar, arbText), fc.oneof(arbChar, arbText))
-  .map(([d1, d2]) => D.flatAlt_(d1, d2))
+  .map(([d1, d2]) => Doc.flatAlt(d1, d2));
 
-export const arbCat: fc.Arbitrary<D.Doc<number>> = fc
+export const arbCat: fc.Arbitrary<Doc<number>> = fc
   .tuple(fc.oneof(arbChar, arbText), fc.oneof(arbChar, arbText))
-  .map(([d1, d2]) => D.cat_(d1, d2))
+  .map(([d1, d2]) => Doc.cat(d1, d2));
 
-export const arbNest: fc.Arbitrary<D.Doc<number>> = fc
+export const arbNest: fc.Arbitrary<Doc<number>> = fc
   .tuple(fc.oneof(arbChar, arbText), fc.integer())
-  .map(([d, i]) => D.nest_(d, i))
+  .map(([d, i]) => Doc.nest(d, i));
 
-export const arbUnion: fc.Arbitrary<D.Doc<number>> = fc
+export const arbUnion: fc.Arbitrary<Doc<number>> = fc
   .tuple(fc.oneof(arbChar, arbText), fc.oneof(arbChar, arbText))
-  .map(([d1, d2]) => D.union_(d1, d2))
+  .map(([d1, d2]) => Doc.union(d1, d2));
 
-export const arbColumn: fc.Arbitrary<D.Doc<number>> = fc
+export const arbColumn: fc.Arbitrary<Doc<number>> = fc
   .oneof(arbChar, arbText)
-  .map((d) => D.column(constant(d)))
+  .map((d) => Doc.column(constant(d)));
 
-export const arbWithPageWidth: fc.Arbitrary<D.Doc<number>> = fc
+export const arbWithPageWidth: fc.Arbitrary<Doc<number>> = fc
   .oneof(arbChar, arbText)
-  .map((d) => D.withPageWidth(constant(d)))
+  .map((d) => Doc.withPageWidth(constant(d)));
 
-export const arbNesting: fc.Arbitrary<D.Doc<number>> = fc
+export const arbNesting: fc.Arbitrary<Doc<number>> = fc
   .oneof(arbChar, arbText)
-  .map((d) => D.nesting(constant(d)))
+  .map((d) => Doc.nesting(constant(d)));
 
-export const arbAnnotated: fc.Arbitrary<D.Doc<number>> = fc
+export const arbAnnotated: fc.Arbitrary<Doc<number>> = fc
   .tuple(fc.oneof(arbChar, arbText), fc.integer())
-  .map(([d, n]) => D.annotate_(d, n))
+  .map(([d, n]) => Doc.annotate(d, n));
 
-export const arbDoc: fc.Arbitrary<D.Doc<number>> = fc.oneof(
+export const arbDoc: fc.Arbitrary<Doc<number>> = fc.oneof(
   arbEmpty,
   arbChar,
   arbText,
@@ -56,4 +54,4 @@ export const arbDoc: fc.Arbitrary<D.Doc<number>> = fc.oneof(
   arbWithPageWidth,
   arbNesting,
   arbAnnotated
-)
+);

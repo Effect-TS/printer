@@ -1,8 +1,8 @@
 /**
  * Encloses the input document in brackets (`[]`).
  *
- * @tsplus fluent ets/printer/Doc brackets
+ * @tsplus fluent ets/printer/Doc bracketed
  */
-export function brackets<A>(self: Doc<A>): Doc<A> {
+export function bracketed<A>(self: Doc<A>): Doc<A> {
   return self.surround(Doc.lbracket, Doc.rbracket);
 }

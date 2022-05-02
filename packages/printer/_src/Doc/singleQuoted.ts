@@ -1,8 +1,8 @@
 /**
  * Encloses the input document in single quotes (`''`).
  *
- * @tsplus static ets/printer/Doc squotes
+ * @tsplus fluent ets/printer/Doc singleQuoted
  */
-export function squotes<A>(self: Doc<A>): Doc<A> {
+export function singleQuoted<A>(self: Doc<A>): Doc<A> {
   return self.surround(Doc.squote, Doc.squote);
 }

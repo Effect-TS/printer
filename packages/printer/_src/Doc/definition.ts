@@ -64,14 +64,14 @@ export interface DocAspects {}
 // * @tsplus unify ets/printer/Doc/WithPageWidth
 // * @tsplus unify ets/printer/Doc/Nesting
 // * @tsplus unify ets/printer/Doc/Annotated
-// /**
-//  * @tsplus unify ets/printer/Doc
-//  */
-// export function unifyDoc<X extends Doc<any>>(
-//   self: X
-// ): Doc<[X] extends [{ _A: () => infer A; }] ? A : never> {
-//   return self;
-// }
+/**
+ * @tsplus unify ets/printer/Doc
+ */
+export function unifyDoc<X extends Doc<any>>(
+  self: X
+): Doc<[X] extends [{ _A: () => infer A; }] ? A : never> {
+  return self;
+}
 
 /**
  * Represents a document that cannot be rendered. Generally occurs when
@@ -640,6 +640,7 @@ export function withPageWidth<A>(react: (pageWidth: PageWidth) => Doc<A>): Doc<A
  * **Note** This function is relevant only for custom formats with their own annotations,
  * and is not relevant for basic pretty printing.
  *
+ * @tsplus fluent ets/printer/Doc annotate
  * @tsplus static ets/printer/Doc/Ops annotate
  */
 export function annotate<A, B>(doc: Doc<B>, annotation: A): Doc<A | B> {

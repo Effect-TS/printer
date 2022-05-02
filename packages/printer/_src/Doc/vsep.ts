@@ -38,5 +38,5 @@
  * @tsplus static ets/printer/Doc/Ops vsep
  */
 export function vsep<A>(docs: Collection<Doc<A>>): Doc<A> {
-  return Doc.concatWith(docs, (a, b) => a.appendWithLine(b));
+  return Doc.concatWith(docs, Doc.appendWithLine);
 }

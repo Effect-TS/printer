@@ -13,9 +13,11 @@ export interface Optimize<A> {
  */
 export interface OptimizeOps {
   $: OptimizeAspects;
+  Depth: FusionDepthOps;
 }
 export const Optimize: OptimizeOps = {
-  $: {}
+  $: {},
+  Depth: {}
 };
 
 /**
@@ -41,8 +43,15 @@ export function unifyOptimize<X extends Optimize<any>>(
 /**
  * Represents an instruction that determines how deeply the document fusion
  * optimizer should traverse the document tree.
+ *
+ * @tsplus type ets/printer/Optimize/FusionDepth
  */
 export type FusionDepth = Shallow | Deep;
+
+/**
+ * @tsplus type ets/printer/Optimize/FusionDepth/Ops
+ */
+export interface FusionDepthOps {}
 
 /**
  * Instructs the document fusion optimizer to avoid diving deeply into nested
@@ -69,14 +78,14 @@ export interface Deep {
 }
 
 /**
- * @tsplus static ets/printer/Optimize Shallow
+ * @tsplus static ets/printer/Optimize/FusionDepth/Ops Shallow
  */
 export const Shallow: FusionDepth = {
   _tag: "Shallow"
 };
 
 /**
- * @tsplus static ets/printer/Optimize Deep
+ * @tsplus static ets/printer/Optimize/FusionDepth/Ops Deep
  */
 export const Deep: FusionDepth = {
   _tag: "Deep"

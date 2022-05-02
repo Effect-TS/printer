@@ -17,6 +17,7 @@
  * ```
  *
  * @tsplus fluent ets/printer/Doc appendWithLineBreak
+ * @tsplus static ets/printer/Doc/Ops appendWithLineBreak
  */
 export function appendWithLineBreak_<A>(self: Doc<A>, that: Doc<A>): Doc<A> {
   return Doc.cat(self, Doc.cat(Doc.lineBreak, that));

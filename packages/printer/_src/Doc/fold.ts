@@ -20,32 +20,45 @@ export function fold_<A, R>(
   }
 ): R {
   switch (self._tag) {
-    case "Fail":
+    case "Fail": {
       return patterns.Fail();
-    case "Empty":
+    }
+    case "Empty": {
       return patterns.Empty();
-    case "Char":
+    }
+    case "Char": {
       return patterns.Char(self.char);
-    case "Text":
+    }
+    case "Text": {
       return patterns.Text(self.text);
-    case "Line":
+    }
+    case "Line": {
       return patterns.Line();
-    case "FlatAlt":
+    }
+    case "FlatAlt": {
       return patterns.FlatAlt(self.left, self.right);
-    case "Cat":
+    }
+    case "Cat": {
       return patterns.Cat(self.left, self.right);
-    case "Nest":
+    }
+    case "Nest": {
       return patterns.Nest(self.indent, self.doc);
-    case "Union":
+    }
+    case "Union": {
       return patterns.Union(self.left, self.right);
-    case "Column":
+    }
+    case "Column": {
       return patterns.Column(self.react);
-    case "WithPageWidth":
+    }
+    case "WithPageWidth": {
       return patterns.WithPageWidth(self.react);
-    case "Nesting":
+    }
+    case "Nesting": {
       return patterns.Nesting(self.react);
-    case "Annotated":
+    }
+    case "Annotated": {
       return patterns.Annotated(self.annotation, self.doc);
+    }
   }
 }
 

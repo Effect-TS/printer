@@ -1,62 +1,36 @@
-import * as S from "../src/Core/DocStream"
+describe.concurrent("DocStream", () => {
+  it("isFailedStream", () => {
+    assert.isTrue(DocStream.isFailedStream(DocStream.failed));
+    assert.isFalse(DocStream.isFailedStream(DocStream.empty));
+  });
 
-describe("DocStream", () => {
-  describe("destructors", () => {
-    it("match", () => {
-      const match = S.match({
-        FailedStream: () => "FailedStream",
-        EmptyStream: () => "EmptyStream",
-        CharStream: () => "CharStream",
-        TextStream: () => "TextStream",
-        LineStream: () => "LineStream",
-        PushAnnotationStream: () => "PushAnnotationStream",
-        PopAnnotationStream: () => "PopAnnotationStream"
-      })
+  it("isEmptyStream", () => {
+    assert.isTrue(DocStream.isEmptyStream(DocStream.empty));
+    assert.isFalse(DocStream.isEmptyStream(DocStream.failed));
+  });
 
-      expect(match(S.failed)).toBe("FailedStream")
-      expect(match(S.empty)).toBe("EmptyStream")
-      expect(match(S.char_(S.empty, "a"))).toBe("CharStream")
-      expect(match(S.text_(S.empty, "foo"))).toBe("TextStream")
-      expect(match(S.line_(S.empty, 4))).toBe("LineStream")
-      expect(match(S.pushAnnotation_(S.empty, 1))).toBe("PushAnnotationStream")
-      expect(match(S.popAnnotation(S.empty))).toBe("PopAnnotationStream")
-    })
-  })
+  it("isCharStream", () => {
+    assert.isTrue(DocStream.isCharStream(DocStream.char(DocStream.empty, "a")));
+    assert.isFalse(DocStream.isCharStream(DocStream.empty));
+  });
 
-  describe("operations", () => {
-    it("isFailedStream", () => {
-      expect(S.isFailedStream(S.failed)).toBeTruthy()
-      expect(S.isFailedStream(S.empty)).toBeFalsy()
-    })
+  it("isTextStream", () => {
+    assert.isTrue(DocStream.isTextStream(DocStream.text(DocStream.empty, "foo")));
+    assert.isFalse(DocStream.isTextStream(DocStream.empty));
+  });
 
-    it("isEmptyStream", () => {
-      expect(S.isEmptyStream(S.empty)).toBeTruthy()
-      expect(S.isEmptyStream(S.failed)).toBeFalsy()
-    })
+  it("isLineStream", () => {
+    assert.isTrue(DocStream.isLineStream(DocStream.line(DocStream.empty, 4)));
+    assert.isFalse(DocStream.isLineStream(DocStream.empty));
+  });
 
-    it("isCharStream", () => {
-      expect(S.isCharStream(S.char_(S.empty, "a"))).toBeTruthy()
-      expect(S.isCharStream(S.empty)).toBeFalsy()
-    })
+  it("isPushAnnotationStream", () => {
+    assert.isTrue(DocStream.isPushAnnotationStream(DocStream.pushAnnotation(DocStream.empty, 1)));
+    assert.isFalse(DocStream.isPushAnnotationStream(DocStream.empty));
+  });
 
-    it("isTextStream", () => {
-      expect(S.isTextStream(S.text_(S.empty, "foo"))).toBeTruthy()
-      expect(S.isTextStream(S.empty)).toBeFalsy()
-    })
-
-    it("isLineStream", () => {
-      expect(S.isLineStream(S.line_(S.empty, 4))).toBeTruthy()
-      expect(S.isLineStream(S.empty)).toBeFalsy()
-    })
-
-    it("isPushAnnotationStream", () => {
-      expect(S.isPushAnnotationStream(S.pushAnnotation_(S.empty, 1))).toBeTruthy()
-      expect(S.isPushAnnotationStream(S.empty)).toBeFalsy()
-    })
-
-    it("isPopAnnotationStream", () => {
-      expect(S.isPopAnnotationStream(S.popAnnotation(S.empty))).toBeTruthy()
-      expect(S.isPopAnnotationStream(S.empty)).toBeFalsy()
-    })
-  })
-})
+  it("isPopAnnotationStream", () => {
+    assert.isTrue(DocStream.isPopAnnotationStream(DocStream.popAnnotation(DocStream.empty)));
+    assert.isFalse(DocStream.isPopAnnotationStream(DocStream.empty));
+  });
+});

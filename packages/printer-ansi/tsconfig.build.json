@@ -7,5 +7,10 @@
     "tsPlusConfig": "../../tsplus.config.json",
     "rootDir": "_src"
   },
+  "references": [
+    {
+      "path": "../printer/tsconfig.build.json"
+    }
+  ],
   "include": ["_src/**/*.ts"]
 }

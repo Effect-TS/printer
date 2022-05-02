@@ -18,6 +18,7 @@
  * ```
  *
  * @tsplus fluent ets/printer/Doc appendWithSoftLine
+ * @tsplus static ets/printer/Doc/Ops appendWithSoftLine
  */
 export function appendWithSoftLine_<A>(self: Doc<A>, that: Doc<A>): Doc<A> {
   return Doc.cat(self, Doc.cat(Doc.softLine, that));

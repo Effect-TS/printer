@@ -1,168 +1,194 @@
-import { Tagged } from "@effect-ts/core/Case"
-import * as A from "@effect-ts/core/Collections/Immutable/Array"
-import type { Endomorphism } from "@effect-ts/core/Function"
-import * as Identity from "@effect-ts/core/Identity"
-import * as IO from "@effect-ts/core/IO"
-import { matchTag_ } from "@effect-ts/system/Utils"
+import { AnnotationTree, CharTree, ConcatTree, LineTree, TextTree } from "@effect/printer/DocTree";
 
-import * as Doc from "../src/Core/Doc"
-import * as DocStream from "../src/Core/DocStream"
-import * as DocTree from "../src/Core/DocTree"
-import * as Layout from "../src/Core/Layout"
-import * as C from "../src/Terminal/Color"
-
-describe("DocTree", () => {
-  describe("constructors", () => {
+describe.concurrent("DocTree", () => {
+  describe.concurrent("constructors", () => {
     it("char", () => {
-      expect(DocTree.treeForm(DocStream.char_(DocStream.empty, "a"))).toBeInstanceOf(
-        DocTree.CharTree
-      )
-    })
+      assert.instanceOf(DocStream.char(DocStream.empty, "a").treeForm(), CharTree);
+    });
 
     it("text", () => {
-      expect(DocTree.treeForm(DocStream.text_(DocStream.empty, "foo"))).toBeInstanceOf(
-        DocTree.TextTree
-      )
-    })
+      assert.instanceOf(DocStream.text(DocStream.empty, "foo").treeForm(), TextTree);
+    });
 
     it("line", () => {
-      expect(DocTree.treeForm(DocStream.line_(DocStream.empty, 1))).toBeInstanceOf(
-        DocTree.LineTree
-      )
-    })
+      assert.instanceOf(DocStream.line(DocStream.empty, 1).treeForm(), LineTree);
+    });
 
     it("annotated", () => {
-      expect(
-        DocTree.treeForm(
-          DocStream.pushAnnotation_(
-            DocStream.char_(DocStream.popAnnotation(DocStream.empty), "a"),
-            undefined
-          )
-        )
-      ).toBeInstanceOf(DocTree.AnnotationTree)
-    })
+      assert.instanceOf(
+        DocStream.pushAnnotation(
+          DocStream.char(DocStream.popAnnotation(DocStream.empty), "a"),
+          undefined
+        ).treeForm(),
+        AnnotationTree
+      );
+    });
 
     it("concat", () => {
-      expect(
-        DocTree.treeForm(DocStream.char_(DocStream.char_(DocStream.empty, "c"), "a"))
-      ).toBeInstanceOf(DocTree.ConcatTree)
-    })
-  })
+      assert.instanceOf(
+        DocStream.char(DocStream.char(DocStream.empty, "c"), "a").treeForm(),
+        ConcatTree
+      );
+    });
+  });
 
   describe("parser", () => {
     it("should fail if parsing an empty stream", () => {
-      expect(() => {
-        DocTree.treeForm(DocStream.empty)
-      }).toThrowError("bug, failed to convert DocStream to DocTree!")
-    })
+      assert.throws(() => {
+        DocStream.empty.treeForm();
+      });
+    });
 
     it("should fail if attempting to parse a failed stream", () => {
-      expect(() => {
-        DocTree.treeForm(DocStream.failed)
-      }).toThrowError("bug, found a failed stream while parsing!")
-    })
-  })
+      assert.throws(() => {
+        DocStream.failed.treeForm();
+      });
+    });
+  });
 
   describe("render", () => {
     it("should render an annotated document in tree-form", () => {
-      type SimpleHtml = Bold | Italics | Color | Paragraph | Headline
+      type SimpleHtml = Bold | Italicized | Color | Paragraph | Header;
 
-      class Bold extends Tagged("Bold")<{}> {}
-      class Color extends Tagged("Color")<{
-        readonly color: C.Red | C.Green | C.Blue
-      }> {}
-      class Italics extends Tagged("Italics")<{}> {}
-      class Paragraph extends Tagged("Paragraph")<{}> {}
-      class Headline extends Tagged("Headline")<{}> {}
-
-      const bold: Endomorphism<Doc.Doc<SimpleHtml>> = Doc.annotate(new Bold())
-
-      const italics: Endomorphism<Doc.Doc<SimpleHtml>> = Doc.annotate(new Italics())
-
-      const paragraph: Endomorphism<Doc.Doc<SimpleHtml>> = Doc.annotate(new Paragraph())
-
-      const headline: Endomorphism<Doc.Doc<SimpleHtml>> = Doc.annotate(new Headline())
-
-      function color(
-        color: C.Red | C.Green | C.Blue
-      ): Endomorphism<Doc.Doc<SimpleHtml>> {
-        return Doc.annotate(new Color({ color }))
+      interface Bold {
+        readonly _tag: "Bold";
       }
 
-      function colorToHex(color: C.Red | C.Green | C.Blue): string {
-        return matchTag_(color, {
-          Red: () => "#f00",
-          Green: () => "#0f0",
-          Blue: () => "#00f"
-        })
+      interface Color {
+        readonly _tag: "Color";
+        readonly color: "Red" | "Green" | "Blue";
       }
 
-      function encloseInTagFor(html: SimpleHtml): Endomorphism<string> {
-        return (x) =>
-          matchTag_(html, {
-            Bold: () => `<strong>${x}</strong>`,
-            Italics: () => `<em>${x}</em>`,
-            Color: ({ color }) =>
-              `<span style="color:${colorToHex(color)}">${x}</span>`,
-            Paragraph: () => `<p>${x}</p>`,
-            Headline: () => `<h1>${x}</h1>`
-          })
+      interface Italicized {
+        readonly _tag: "Italicized";
       }
 
-      function renderTreeRec(tree: DocTree.DocTree<SimpleHtml>): IO.IO<string> {
-        return IO.gen(function* (_) {
-          switch (tree._tag) {
-            case "EmptyTree":
-              return ""
-            case "CharTree":
-              return tree.char
-            case "TextTree":
-              return tree.text
-            case "LineTree":
-              return "\n" + DocTree.textSpaces(tree.indentation)
-            case "AnnotationTree":
-              return encloseInTagFor(tree.annotation)(
-                yield* _(renderTreeRec(tree.tree))
-              )
-            case "ConcatTree":
-              return A.foldMap_(Identity.string)(tree.trees, (t) =>
-                IO.run(renderTreeRec(t))
-              )
+      interface Paragraph {
+        readonly _tag: "Paragraph";
+      }
+
+      interface Header {
+        readonly _tag: "Header";
+        readonly level: number;
+      }
+
+      function bold(doc: Doc<SimpleHtml>): Doc<SimpleHtml> {
+        return doc.annotate({ _tag: "Bold" });
+      }
+
+      function color(doc: Doc<SimpleHtml>, color: "Red" | "Green" | "Blue"): Doc<SimpleHtml> {
+        return doc.annotate({ _tag: "Color", color });
+      }
+
+      function italicized(doc: Doc<SimpleHtml>): Doc<SimpleHtml> {
+        return doc.annotate({ _tag: "Italicized" });
+      }
+
+      function paragraph(doc: Doc<SimpleHtml>): Doc<SimpleHtml> {
+        return doc.annotate({ _tag: "Paragraph" });
+      }
+
+      function header(doc: Doc<SimpleHtml>, level: number): Doc<SimpleHtml> {
+        return doc.annotate({ _tag: "Header", level });
+      }
+
+      function colorToHex(color: "Red" | "Green" | "Blue"): string {
+        switch (color) {
+          case "Red": {
+            return "#f00";
           }
-        })
+          case "Green": {
+            return "#0f0";
+          }
+          case "Blue": {
+            return "#00f";
+          }
+        }
       }
 
-      function renderTree(tree: DocTree.DocTree<SimpleHtml>): string {
-        return IO.run(renderTreeRec(tree))
+      function encloseInTag(content: string, html: SimpleHtml): string {
+        switch (html._tag) {
+          case "Bold": {
+            return `<strong>${content}</strong>`;
+          }
+          case "Color": {
+            return `<span style="color:${colorToHex(html.color)}">${content}</span>`;
+          }
+          case "Italicized": {
+            return `<em>${content}</em>`;
+          }
+          case "Paragraph": {
+            return `<p>${content}</p>`;
+          }
+          case "Header": {
+            return `<h${html.level}>${content}</h${html.level}>`;
+          }
+        }
       }
 
-      function render(stream: DocStream.DocStream<SimpleHtml>): string {
-        return renderTree(DocTree.treeForm(stream))
+      function renderTreeSafe(tree: DocTree<SimpleHtml>): Eval<string> {
+        switch (tree._tag) {
+          case "EmptyTree": {
+            return Eval.succeed("");
+          }
+          case "CharTree": {
+            return Eval.succeed(tree.char);
+          }
+          case "TextTree": {
+            return Eval.succeed(tree.text);
+          }
+          case "LineTree": {
+            return Eval.succeed("\n" + Doc.textSpaces(tree.indentation));
+          }
+          case "AnnotationTree": {
+            return Eval.suspend(renderTreeSafe(tree.tree)).map((content) => encloseInTag(content, tree.annotation));
+          }
+          case "ConcatTree": {
+            if (tree.trees.isEmpty()) {
+              return Eval.succeed("");
+            }
+            const head = tree.trees.unsafeHead();
+            const tail = tree.trees.unsafeTail();
+            return tail.reduce(
+              Eval.suspend(renderTreeSafe(head)),
+              (acc, tree) => acc.zipWith(Eval.suspend(renderTreeSafe(tree)), Associative.string.combine)
+            );
+          }
+        }
+      }
+
+      function renderTree(tree: DocTree<SimpleHtml>): string {
+        return renderTreeSafe(tree).run();
+      }
+
+      function render(stream: DocStream<SimpleHtml>): string {
+        return renderTree(stream.treeForm());
       }
 
       const document = Doc.vsep([
-        headline(Doc.text("Example document")),
+        header(Doc.text("Example document"), 1),
         paragraph(
           Doc.hsep([
             Doc.text("This is a"),
-            Doc.cat_(color(new C.Red())(Doc.text("paragraph")), Doc.comma)
+            Doc.cat(color(Doc.text("paragraph"), "Red"), Doc.comma)
           ])
         ),
         paragraph(
           Doc.hsep([
             Doc.text("and"),
-            Doc.cat_(bold(Doc.text("this text is bold!")), Doc.comma)
+            Doc.cat(bold(Doc.text("this text is bold!")), Doc.comma)
           ])
         ),
-        paragraph(Doc.hsep([Doc.text("and"), italics(Doc.text("this is italicized!"))]))
-      ])
+        paragraph(Doc.hsep([Doc.text("and"), italicized(Doc.text("this is italicized!"))]))
+      ]);
 
-      expect(render(Layout.pretty_(Layout.defaultLayoutOptions, document))).toBe(
-        `<h1>Example document</h1>
-<p>This is a <span style="color:#f00">paragraph</span>,</p>
-<p>and <strong>this text is bold!</strong>,</p>
-<p>and <em>this is italicized!</em></p>`.trim()
-      )
-    })
-  })
-})
+      assert.strictEqual(
+        render(document.layoutPretty(LayoutOptions.default)),
+        `|<h1>Example document</h1>
+         |<p>This is a <span style="color:#f00">paragraph</span>,</p>
+         |<p>and <strong>this text is bold!</strong>,</p>
+         |<p>and <em>this is italicized!</em></p>`.stripMargin()
+      );
+    });
+  });
+});
