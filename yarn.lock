@@ -624,9 +624,11 @@ __metadata:
 "@effect/printer-ansi@workspace:^, @effect/printer-ansi@workspace:packages/printer-ansi":
   version: 0.0.0-use.local
   resolution: "@effect/printer-ansi@workspace:packages/printer-ansi"
+  dependencies:
+    "@effect/printer": ^0.0.1
   peerDependencies:
     "@effect/core": ^0.0.1
-    "@effect/printer": "workspace:^"
+    "@effect/printer": ^0.0.1
     "@tsplus/stdlib": ^0.0.63
   peerDependenciesMeta:
     "@effect/core":
@@ -638,7 +640,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@effect/printer@workspace:^, @effect/printer@workspace:packages/printer":
+"@effect/printer@^0.0.1, @effect/printer@workspace:^, @effect/printer@workspace:packages/printer":
   version: 0.0.0-use.local
   resolution: "@effect/printer@workspace:packages/printer"
   peerDependencies:
