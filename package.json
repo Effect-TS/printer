@@ -9,7 +9,7 @@
     "changeset": "changeset",
     "release": "changeset publish",
     "clean": "ultra -r clean && rimraf tsconfig.tsbuildinfo",
-    "build": "ultra -r build-pack",
+    "build": "ultra -r -b build-pack",
     "build-all": "tsc -b tsconfig.json",
     "build-watch": "tsc -b tsconfig.json --watch",
     "circular": "yarn org:madge --ts-config ./tsconfig.madge.json --circular --no-color --no-spinner --warning packages/*/build/esm packages/*/build/test packages/*/build/examples",
