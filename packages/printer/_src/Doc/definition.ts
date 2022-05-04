@@ -50,22 +50,21 @@ export interface DocF extends HKT {
  */
 export interface DocAspects {}
 
-// TODO(Max): add these back to the union
-// * @tsplus unify ets/printer/Doc/Fail
-// * @tsplus unify ets/printer/Doc/Empty
-// * @tsplus unify ets/printer/Doc/Char
-// * @tsplus unify ets/printer/Doc/Text
-// * @tsplus unify ets/printer/Doc/Line
-// * @tsplus unify ets/printer/Doc/FlatAlt
-// * @tsplus unify ets/printer/Doc/Cat
-// * @tsplus unify ets/printer/Doc/Nest
-// * @tsplus unify ets/printer/Doc/Union
-// * @tsplus unify ets/printer/Doc/Column
-// * @tsplus unify ets/printer/Doc/WithPageWidth
-// * @tsplus unify ets/printer/Doc/Nesting
-// * @tsplus unify ets/printer/Doc/Annotated
 /**
  * @tsplus unify ets/printer/Doc
+ * @tsplus unify ets/printer/Doc/Fail
+ * @tsplus unify ets/printer/Doc/Empty
+ * @tsplus unify ets/printer/Doc/Char
+ * @tsplus unify ets/printer/Doc/Text
+ * @tsplus unify ets/printer/Doc/Line
+ * @tsplus unify ets/printer/Doc/FlatAlt
+ * @tsplus unify ets/printer/Doc/Cat
+ * @tsplus unify ets/printer/Doc/Nest
+ * @tsplus unify ets/printer/Doc/Union
+ * @tsplus unify ets/printer/Doc/Column
+ * @tsplus unify ets/printer/Doc/WithPageWidth
+ * @tsplus unify ets/printer/Doc/Nesting
+ * @tsplus unify ets/printer/Doc/Annotated
  */
 export function unifyDoc<X extends Doc<any>>(
   self: X
