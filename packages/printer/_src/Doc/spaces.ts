@@ -15,7 +15,7 @@
  * @tsplus static ets/printer/Doc/Ops spaces
  */
 export function spaces(n: number): Doc<never> {
-  if (n <= 0) return Doc.empty;
-  if (n === 1) return Doc.char(" ");
-  return Doc.text(Doc.textSpaces(n));
+  if (n <= 0) return Doc.empty
+  if (n === 1) return Doc.char(" ")
+  return Doc.text(Doc.textSpaces(n))
 }

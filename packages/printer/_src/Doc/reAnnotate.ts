@@ -10,7 +10,7 @@
  * @tsplus fluent ets/printer/Doc reAnnotate
  */
 export function reAnnotate_<A, B>(self: Doc<A>, f: (a: A) => B): Doc<B> {
-  return self.alterAnnotations((annotation) => [f(annotation)]);
+  return self.alterAnnotations((annotation) => [f(annotation)])
 }
 
 /**
@@ -24,4 +24,4 @@ export function reAnnotate_<A, B>(self: Doc<A>, f: (a: A) => B): Doc<B> {
  * @tsplus static ets/printer/Doc/Aspects map
  * @tsplus static ets/printer/Doc/Aspects reAnnotate
  */
-export const reAnnotate = Pipeable(reAnnotate_);
+export const reAnnotate = Pipeable(reAnnotate_)

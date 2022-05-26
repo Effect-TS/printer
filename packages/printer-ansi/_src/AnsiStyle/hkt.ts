@@ -12,10 +12,10 @@ export const getShow = Show<AnsiStyle>((style) =>
       style.underlined
     ).compact()
   )
-);
+)
 
 function getFirstAssociativeOption<A>(): Associative<Option<A>> {
-  return Associative((x, y) => (x.isNone() ? y : x));
+  return Associative((x, y) => (x.isNone() ? y : x))
 }
 
 /**
@@ -27,10 +27,10 @@ export const AnsiStyleAssociative = Associative.struct<AnsiStyle>({
   bold: getFirstAssociativeOption(),
   italicized: getFirstAssociativeOption(),
   underlined: getFirstAssociativeOption()
-});
+})
 
 function getFirstAssociativeIdentityOption<A>(): AssociativeIdentity<Option<A>> {
-  return AssociativeIdentity(Option.none, getFirstAssociativeOption<A>().combine);
+  return AssociativeIdentity(Option.none, getFirstAssociativeOption<A>().combine)
 }
 
 /**
@@ -42,4 +42,4 @@ export const AnsiStyleAssociativeIdentity = AssociativeIdentity.struct<AnsiStyle
   bold: getFirstAssociativeIdentityOption(),
   italicized: getFirstAssociativeIdentityOption(),
   underlined: getFirstAssociativeIdentityOption()
-});
+})

@@ -23,5 +23,5 @@ export function list<A>(docs: Collection<Doc<A>>): Doc<A> {
     Doc.flatAlt(Doc.text("[ "), Doc.lbracket),
     Doc.flatAlt(Doc.text(" ]"), Doc.rbracket),
     Doc.text(", ")
-  ).group();
+  ).group()
 }

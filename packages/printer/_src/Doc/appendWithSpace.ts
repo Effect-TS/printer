@@ -16,7 +16,7 @@
  * @tsplus static ets/printer/Doc/Ops appendWithSpace
  */
 export function appendWithSpace_<A>(self: Doc<A>, that: Doc<A>): Doc<A> {
-  return Doc.cat(self, Doc.cat(Doc.space, that));
+  return Doc.cat(self, Doc.cat(Doc.space, that))
 }
 
 /**
@@ -35,4 +35,4 @@ export function appendWithSpace_<A>(self: Doc<A>, that: Doc<A>): Doc<A> {
  *
  * @tsplus static ets/printer/Doc/Aspects appendWithSpace
  */
-export const appendWithSpace = Pipeable(appendWithSpace_);
+export const appendWithSpace = Pipeable(appendWithSpace_)

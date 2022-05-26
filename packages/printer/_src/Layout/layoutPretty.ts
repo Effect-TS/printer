@@ -13,7 +13,7 @@
  * @tsplus fluent ets/printer/Doc layoutPretty
  */
 export function layoutPretty_<A>(self: Doc<A>, options: LayoutOptions): DocStream<A> {
-  const pageWidth = options.pageWidth;
+  const pageWidth = options.pageWidth
   switch (pageWidth._tag) {
     case "AvailablePerLine": {
       return self.layoutWadlerLeijen(
@@ -24,14 +24,14 @@ export function layoutPretty_<A>(self: Doc<A>, options: LayoutOptions): DocStrea
               pageWidth.ribbonFraction,
               lineIndent,
               currentColumn
-            );
-            return fitsPretty(stream, remainingWidth);
+            )
+            return fitsPretty(stream, remainingWidth)
           },
         options
-      );
+      )
     }
     case "Unbounded": {
-      return self.layoutUnbounded();
+      return self.layoutUnbounded()
     }
   }
 }
@@ -39,36 +39,36 @@ export function layoutPretty_<A>(self: Doc<A>, options: LayoutOptions): DocStrea
 /**
  * @tsplus static ets/printer/Doc/Aspects layoutPretty
  */
-export const layoutPretty = Pipeable(layoutPretty_);
+export const layoutPretty = Pipeable(layoutPretty_)
 
 /**
  * @tsplus tailRec
  */
 function fitsPretty<A>(self: DocStream<A>, w: number): boolean {
   if (w < 0) {
-    return false;
+    return false
   }
   switch (self._tag) {
     case "FailedStream": {
-      return false;
+      return false
     }
     case "EmptyStream": {
-      return true;
+      return true
     }
     case "CharStream": {
-      return fitsPretty(self.stream, w - 1);
+      return fitsPretty(self.stream, w - 1)
     }
     case "TextStream": {
-      return fitsPretty(self.stream, w - self.text.length);
+      return fitsPretty(self.stream, w - self.text.length)
     }
     case "LineStream": {
-      return true;
+      return true
     }
     case "PushAnnotationStream": {
-      return fitsPretty(self.stream, w);
+      return fitsPretty(self.stream, w)
     }
     case "PopAnnotationStream": {
-      return fitsPretty(self.stream, w);
+      return fitsPretty(self.stream, w)
     }
   }
 }

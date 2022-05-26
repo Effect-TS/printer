@@ -23,5 +23,5 @@
  * @tsplus static ets/printer/Doc/Ops hsep
  */
 export function hsep<A>(docs: Collection<Doc<A>>): Doc<A> {
-  return Doc.concatWith(docs, Doc.appendWithSpace);
+  return Doc.concatWith(docs, Doc.appendWithSpace)
 }

@@ -29,6 +29,6 @@ export function punctuate_<A, B>(
   docs: Collection<Doc<B>>,
   punctuator: Doc<A>
 ): Chunk<Doc<A | B>> {
-  const docs0 = Chunk.from(docs);
-  return docs0.mapWithIndex((i, x) => docs0.length - 1 === i ? x : Doc.cat(x, punctuator));
+  const docs0 = Chunk.from(docs)
+  return docs0.mapWithIndex((i, x) => docs0.length - 1 === i ? x : Doc.cat(x, punctuator))
 }

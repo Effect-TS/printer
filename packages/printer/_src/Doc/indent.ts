@@ -22,7 +22,7 @@
  * @tsplus fluent ets/printer/Doc indent
  */
 export function indent_<A>(self: Doc<A>, indent: number): Doc<A> {
-  return Doc.cat(Doc.spaces(indent), self).hang(indent);
+  return Doc.cat(Doc.spaces(indent), self).hang(indent)
 }
 
 /**
@@ -48,4 +48,4 @@ export function indent_<A>(self: Doc<A>, indent: number): Doc<A> {
  *
  * @tsplus static ets/printer/Doc/Aspects indent
  */
-export const indent = Pipeable(indent_);
+export const indent = Pipeable(indent_)

@@ -45,12 +45,12 @@ export function encloseSep<A, B, C, D>(
   right: Doc<B>,
   sep: Doc<C>
 ): Doc<A | B | C | D> {
-  const docs0 = Chunk.from(docs);
-  if (docs0.length === 0) return Doc.cat(left, right);
-  if (docs0.length === 1) return Doc.cat(left, Doc.cat(docs0.unsafeGet(0)!, right));
+  const docs0 = Chunk.from(docs)
+  if (docs0.length === 0) return Doc.cat(left, right)
+  if (docs0.length === 1) return Doc.cat(left, Doc.cat(docs0.unsafeGet(0)!, right))
   const xs = Chunk.fill(docs0.length - 1, () => sep).prepend(left).zipWith(
     docs0,
     Doc.cat
-  );
-  return Doc.cat(Doc.cats(xs), right);
+  )
+  return Doc.cat(Doc.cats(xs), right)
 }

@@ -7,20 +7,20 @@
  *
  * @tsplus type ets/printer/Flatten
  */
-export type Flatten<A> = Flattened<A> | AlreadyFlat | NeverFlat;
+export type Flatten<A> = Flattened<A> | AlreadyFlat | NeverFlat
 
 /**
  * @tsplus type ets/printer/Flatten/Ops
  */
 export interface FlattenOps {
-  $: FlattenAspects;
+  $: FlattenAspects
 }
 export const Flatten: FlattenOps = {
   $: {}
-};
+}
 
 export interface FlattenF extends HKT {
-  readonly type: Flatten<this["A"]>;
+  readonly type: Flatten<this["A"]>
 }
 
 /**
@@ -37,7 +37,7 @@ export interface FlattenAspects {}
 export function unifyFlatten<X extends Flatten<any>>(
   self: X
 ): Flatten<[X] extends [Flatten<infer AX>] ? AX : never> {
-  return self;
+  return self
 }
 
 /**
@@ -46,8 +46,8 @@ export function unifyFlatten<X extends Flatten<any>>(
  * @tsplus type ets/printer/Flatten/Flattened
  */
 export interface Flattened<A> {
-  readonly _tag: "Flattened";
-  readonly value: A;
+  readonly _tag: "Flattened"
+  readonly value: A
 }
 
 /**
@@ -56,7 +56,7 @@ export interface Flattened<A> {
  * @tsplus type ets/printer/Flatten/AlreadyFlat
  */
 export interface AlreadyFlat {
-  readonly _tag: "AlreadyFlat";
+  readonly _tag: "AlreadyFlat"
 }
 
 /**
@@ -65,7 +65,7 @@ export interface AlreadyFlat {
  * @tsplus type ets/printer/Flatten/NeverFlat
  */
 export interface NeverFlat {
-  readonly _tag: "NeverFlat";
+  readonly _tag: "NeverFlat"
 }
 
 /**
@@ -75,7 +75,7 @@ export function flattened<A>(value: A): Flattened<A> {
   return {
     _tag: "Flattened",
     value
-  };
+  }
 }
 
 /**
@@ -83,32 +83,32 @@ export function flattened<A>(value: A): Flattened<A> {
  */
 export const alreadyFlat: Flatten<never> = {
   _tag: "AlreadyFlat"
-};
+}
 
 /**
  * @tsplus static ets/printer/Flatten/Ops NeverFlat
  */
 export const neverFlat: Flatten<never> = {
   _tag: "NeverFlat"
-};
+}
 
 /**
  * @tsplus static ets/printer/Flatten/Ops isFlattened
  */
 export function isFlattened<A>(a: Flatten<A>): a is Flattened<A> {
-  return a._tag === "Flattened";
+  return a._tag === "Flattened"
 }
 
 /**
  * @tsplus static ets/printer/Flatten/Ops isAlreadyFlat
  */
 export function isAlreadyFlat<A>(a: Flatten<A>): a is AlreadyFlat {
-  return a._tag === "AlreadyFlat";
+  return a._tag === "AlreadyFlat"
 }
 
 /**
  * @tsplus static ets/printer/Flatten/Ops isNeverFlat
  */
 export function isNeverFlat<A>(a: Flatten<A>): a is NeverFlat {
-  return a._tag === "NeverFlat";
+  return a._tag === "NeverFlat"
 }

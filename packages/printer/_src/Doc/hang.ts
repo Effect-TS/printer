@@ -26,7 +26,7 @@
  * @tsplus fluent ets/printer/Doc hang
  */
 export function hang_<A>(self: Doc<A>, indent: number): Doc<A> {
-  return Doc.nest(self, indent).align();
+  return Doc.nest(self, indent).align()
 }
 
 /**
@@ -56,4 +56,4 @@ export function hang_<A>(self: Doc<A>, indent: number): Doc<A> {
  *
  * @tsplus static ets/printer/Doc/Aspects hang
  */
-export const hang = Pipeable(hang_);
+export const hang = Pipeable(hang_)

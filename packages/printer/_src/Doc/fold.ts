@@ -4,60 +4,60 @@
 export function fold_<A, R>(
   self: Doc<A>,
   patterns: {
-    readonly Fail: () => R;
-    readonly Empty: () => R;
-    readonly Char: (char: string) => R;
-    readonly Text: (text: string) => R;
-    readonly Line: () => R;
-    readonly FlatAlt: (x: Doc<A>, y: Doc<A>) => R;
-    readonly Cat: (x: Doc<A>, y: Doc<A>) => R;
-    readonly Nest: (indent: number, doc: Doc<A>) => R;
-    readonly Union: (x: Doc<A>, y: Doc<A>) => R;
-    readonly Column: (react: (position: number) => Doc<A>) => R;
-    readonly WithPageWidth: (react: (pageWidth: PageWidth) => Doc<A>) => R;
-    readonly Nesting: (react: (level: number) => Doc<A>) => R;
-    readonly Annotated: (annotation: A, doc: Doc<A>) => R;
+    readonly Fail: () => R
+    readonly Empty: () => R
+    readonly Char: (char: string) => R
+    readonly Text: (text: string) => R
+    readonly Line: () => R
+    readonly FlatAlt: (x: Doc<A>, y: Doc<A>) => R
+    readonly Cat: (x: Doc<A>, y: Doc<A>) => R
+    readonly Nest: (indent: number, doc: Doc<A>) => R
+    readonly Union: (x: Doc<A>, y: Doc<A>) => R
+    readonly Column: (react: (position: number) => Doc<A>) => R
+    readonly WithPageWidth: (react: (pageWidth: PageWidth) => Doc<A>) => R
+    readonly Nesting: (react: (level: number) => Doc<A>) => R
+    readonly Annotated: (annotation: A, doc: Doc<A>) => R
   }
 ): R {
   switch (self._tag) {
     case "Fail": {
-      return patterns.Fail();
+      return patterns.Fail()
     }
     case "Empty": {
-      return patterns.Empty();
+      return patterns.Empty()
     }
     case "Char": {
-      return patterns.Char(self.char);
+      return patterns.Char(self.char)
     }
     case "Text": {
-      return patterns.Text(self.text);
+      return patterns.Text(self.text)
     }
     case "Line": {
-      return patterns.Line();
+      return patterns.Line()
     }
     case "FlatAlt": {
-      return patterns.FlatAlt(self.left, self.right);
+      return patterns.FlatAlt(self.left, self.right)
     }
     case "Cat": {
-      return patterns.Cat(self.left, self.right);
+      return patterns.Cat(self.left, self.right)
     }
     case "Nest": {
-      return patterns.Nest(self.indent, self.doc);
+      return patterns.Nest(self.indent, self.doc)
     }
     case "Union": {
-      return patterns.Union(self.left, self.right);
+      return patterns.Union(self.left, self.right)
     }
     case "Column": {
-      return patterns.Column(self.react);
+      return patterns.Column(self.react)
     }
     case "WithPageWidth": {
-      return patterns.WithPageWidth(self.react);
+      return patterns.WithPageWidth(self.react)
     }
     case "Nesting": {
-      return patterns.Nesting(self.react);
+      return patterns.Nesting(self.react)
     }
     case "Annotated": {
-      return patterns.Annotated(self.annotation, self.doc);
+      return patterns.Annotated(self.annotation, self.doc)
     }
   }
 }
@@ -65,4 +65,4 @@ export function fold_<A, R>(
 /**
  * @tsplus static ets/printer/Doc/Aspects fold
  */
-export const fold = Pipeable(fold_);
+export const fold = Pipeable(fold_)

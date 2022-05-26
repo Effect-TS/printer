@@ -23,5 +23,5 @@ export function tupled<A>(docs: Collection<Doc<A>>): Doc<A> {
     Doc.flatAlt(Doc.text("( "), Doc.lparen),
     Doc.flatAlt(Doc.text(" )"), Doc.rparen),
     Doc.text(", ")
-  ).group();
+  ).group()
 }

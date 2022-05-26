@@ -29,20 +29,20 @@ export type Doc<A> =
   | Column<A>
   | WithPageWidth<A>
   | Nesting<A>
-  | Annotated<A>;
+  | Annotated<A>
 
 /**
  * @tsplus type ets/printer/Doc/Ops
  */
 export interface DocOps {
-  $: DocAspects;
+  $: DocAspects
 }
 export const Doc: DocOps = {
   $: {}
-};
+}
 
 export interface DocF extends HKT {
-  readonly type: Doc<this["A"]>;
+  readonly type: Doc<this["A"]>
 }
 
 /**
@@ -68,8 +68,8 @@ export interface DocAspects {}
  */
 export function unifyDoc<X extends Doc<any>>(
   self: X
-): Doc<[X] extends [{ _A: () => infer A; }] ? A : never> {
-  return self;
+): Doc<[X] extends [{ _A: () => infer A }] ? A : never> {
+  return self
 }
 
 /**
@@ -80,8 +80,8 @@ export function unifyDoc<X extends Doc<any>>(
  * @tsplus type ets/printer/Doc/Fail
  */
 export class Fail<A> {
-  readonly _tag = "Fail";
-  readonly _A!: () => A;
+  readonly _tag = "Fail"
+  readonly _A!: () => A
   constructor(readonly id: (_: never) => A) {}
 }
 
@@ -91,8 +91,8 @@ export class Fail<A> {
  * @tsplus type ets/printer/Doc/Empty
  */
 export class Empty<A> {
-  readonly _tag = "Empty";
-  readonly _A!: () => A;
+  readonly _tag = "Empty"
+  readonly _A!: () => A
   constructor(readonly id: (_: never) => A) {}
 }
 
@@ -105,8 +105,8 @@ export class Empty<A> {
  * @tsplus type ets/printer/Doc/Char
  */
 export class Char<A> {
-  readonly _tag = "Char";
-  readonly _A!: () => A;
+  readonly _tag = "Char"
+  readonly _A!: () => A
   constructor(readonly char: string, readonly id: (_: never) => A) {}
 }
 
@@ -120,8 +120,8 @@ export class Char<A> {
  * @tsplus type ets/printer/Doc/Text
  */
 export class Text<A> {
-  readonly _tag = "Text";
-  readonly _A!: () => A;
+  readonly _tag = "Text"
+  readonly _A!: () => A
   constructor(readonly text: string, readonly id: (_: never) => A) {}
 }
 
@@ -131,8 +131,8 @@ export class Text<A> {
  * @tsplus type ets/printer/Doc/Line
  */
 export class Line<A> {
-  readonly _tag = "Line";
-  readonly _A!: () => A;
+  readonly _tag = "Line"
+  readonly _A!: () => A
   constructor(readonly id: (_: never) => A) {}
 }
 
@@ -147,8 +147,8 @@ export class Line<A> {
  * @tsplus type ets/printer/Doc/FlatAlt
  */
 export class FlatAlt<A> {
-  readonly _tag = "FlatAlt";
-  readonly _A!: () => A;
+  readonly _tag = "FlatAlt"
+  readonly _A!: () => A
   constructor(readonly left: Doc<A>, readonly right: Doc<A>) {}
 }
 
@@ -158,8 +158,8 @@ export class FlatAlt<A> {
  * @tsplus type ets/printer/Doc/Cat
  */
 export class Cat<A> {
-  readonly _tag = "Cat";
-  readonly _A!: () => A;
+  readonly _tag = "Cat"
+  readonly _A!: () => A
   constructor(readonly left: Doc<A>, readonly right: Doc<A>) {}
 }
 
@@ -170,8 +170,8 @@ export class Cat<A> {
  * @tsplus type ets/printer/Doc/Nest
  */
 export class Nest<A> {
-  readonly _tag = "Nest";
-  readonly _A!: () => A;
+  readonly _tag = "Nest"
+  readonly _A!: () => A
   constructor(readonly indent: number, readonly doc: Doc<A>) {}
 }
 
@@ -187,8 +187,8 @@ export class Nest<A> {
  * @tsplus type ets/printer/Doc/Union
  */
 export class Union<A> {
-  readonly _tag = "Union";
-  readonly _A!: () => A;
+  readonly _tag = "Union"
+  readonly _A!: () => A
   constructor(readonly left: Doc<A>, readonly right: Doc<A>) {}
 }
 
@@ -198,8 +198,8 @@ export class Union<A> {
  * @tsplus type ets/printer/Doc/Column
  */
 export class Column<A> {
-  readonly _tag = "Column";
-  readonly _A!: () => A;
+  readonly _tag = "Column"
+  readonly _A!: () => A
   constructor(readonly react: (position: number) => Doc<A>) {}
 }
 
@@ -209,8 +209,8 @@ export class Column<A> {
  * @tsplus type ets/printer/Doc/WithPageWidth
  */
 export class WithPageWidth<A> {
-  readonly _tag = "WithPageWidth";
-  readonly _A!: () => A;
+  readonly _tag = "WithPageWidth"
+  readonly _A!: () => A
   constructor(readonly react: (pageWidth: PageWidth) => Doc<A>) {}
 }
 
@@ -220,8 +220,8 @@ export class WithPageWidth<A> {
  * @tsplus type ets/printer/Doc/Nesting
  */
 export class Nesting<A> {
-  readonly _tag = "Nesting";
-  readonly _A!: () => A;
+  readonly _tag = "Nesting"
+  readonly _A!: () => A
   constructor(readonly react: (level: number) => Doc<A>) {}
 }
 
@@ -231,12 +231,12 @@ export class Nesting<A> {
  * @tsplus type ets/printer/Doc/Annotated
  */
 export class Annotated<A> {
-  readonly _tag = "Annotated";
-  readonly _A!: () => A;
+  readonly _tag = "Annotated"
+  readonly _A!: () => A
   constructor(readonly annotation: A, readonly doc: Doc<A>) {}
 }
 
-const line_: Doc<never> = new Line(identity);
+const line_: Doc<never> = new Line(identity)
 
 /**
  * The `empty` document behaves like a document containing the empty string
@@ -264,7 +264,7 @@ const line_: Doc<never> = new Line(identity);
  *
  * @tsplus static ets/printer/Doc/Ops empty
  */
-export const empty: Doc<never> = new Empty(identity);
+export const empty: Doc<never> = new Empty(identity)
 
 /**
  * The `fail` document is a document that cannot be rendered.
@@ -274,7 +274,7 @@ export const empty: Doc<never> = new Empty(identity);
  *
  * @tsplus static ets/printer/Doc/Ops fail
  */
-export const fail: Doc<never> = new Fail(identity);
+export const fail: Doc<never> = new Fail(identity)
 
 /**
  * A document containing a single character.
@@ -285,7 +285,7 @@ export const fail: Doc<never> = new Fail(identity);
  * @tsplus static ets/printer/Doc/Ops char
  */
 export function char(char: string): Doc<never> {
-  return new Char(char, identity);
+  return new Char(char, identity)
 }
 
 /**
@@ -298,7 +298,7 @@ export function char(char: string): Doc<never> {
  * @tsplus static ets/printer/Doc/Ops text
  */
 export function text(text: string): Doc<never> {
-  return new Text(text, identity);
+  return new Text(text, identity)
 }
 
 /**
@@ -345,21 +345,21 @@ export function text(text: string): Doc<never> {
  * @tsplus static ets/printer/Doc/Ops flatAlt
  */
 export function flatAlt<A, B>(left: Doc<A>, right: Doc<B>): Doc<A | B> {
-  return new FlatAlt<A | B>(left, right);
+  return new FlatAlt<A | B>(left, right)
 }
 
 /**
  * @tsplus static ets/printer/Doc/Ops union
  */
 export function union<A, B>(left: Doc<A>, right: Doc<B>): Doc<A | B> {
-  return new Union<A | B>(left, right);
+  return new Union<A | B>(left, right)
 }
 
 /**
  * @tsplus static ets/printer/Doc/Ops cat
  */
 export function cat<A, B>(left: Doc<A>, right: Doc<B>): Doc<A | B> {
-  return new Cat<A | B>(left, right);
+  return new Cat<A | B>(left, right)
 }
 
 /**
@@ -387,7 +387,7 @@ export function cat<A, B>(left: Doc<A>, right: Doc<B>): Doc<A | B> {
  *
  * @tsplus static ets/printer/Doc/Ops line
  */
-export const line: Doc<never> = flatAlt(line_, char(" "));
+export const line: Doc<never> = flatAlt(line_, char(" "))
 
 /**
  * The `lineBreak` document is like `line` but behaves like `empty` if the line
@@ -413,7 +413,7 @@ export const line: Doc<never> = flatAlt(line_, char(" "));
  *
  * @tsplus static ets/printer/Doc/Ops lineBreak
  */
-export const lineBreak: Doc<never> = flatAlt(line_, empty);
+export const lineBreak: Doc<never> = flatAlt(line_, empty)
 
 /**
  * The `softLine` document behaves like `space` if the resulting output fits
@@ -443,7 +443,7 @@ export const lineBreak: Doc<never> = flatAlt(line_, empty);
  *
  * @tsplus static ets/printer/Doc/Ops softLine
  */
-export const softLine: Doc<never> = union(char(" "), line_);
+export const softLine: Doc<never> = union(char(" "), line_)
 
 /**
  * The `softLineBreak` document is similar to `softLine`, but behaves like
@@ -474,7 +474,7 @@ export const softLine: Doc<never> = union(char(" "), line_);
  *
  * @tsplus static ets/printer/Doc/Ops softLineBreak
  */
-export const softLineBreak: Doc<never> = union(empty, line_);
+export const softLineBreak: Doc<never> = union(empty, line_)
 
 /**
  * The `hardLine` document is always laid out as a line break, regardless of
@@ -498,7 +498,7 @@ export const softLineBreak: Doc<never> = union(empty, line_);
  *
  * @tsplus static ets/printer/Doc/Ops hardLine
  */
-export const hardLine: Doc<never> = line_;
+export const hardLine: Doc<never> = line_
 
 /**
  * Lays out a document with the current nesting level (indentation
@@ -536,7 +536,7 @@ export const hardLine: Doc<never> = line_;
  * @tsplus static ets/printer/Doc/Ops nest
  */
 export function nest<A>(doc: Doc<A>, indent: number): Doc<A> {
-  return indent === 0 ? doc : new Nest(indent, doc);
+  return indent === 0 ? doc : new Nest(indent, doc)
 }
 
 /**
@@ -570,7 +570,7 @@ export function nest<A>(doc: Doc<A>, indent: number): Doc<A> {
  * @tsplus static ets/printer/Doc/Ops column
  */
 export function column<A>(react: (position: number) => Doc<A>): Doc<A> {
-  return new Column(react);
+  return new Column(react)
 }
 
 /**
@@ -595,7 +595,7 @@ export function column<A>(react: (position: number) => Doc<A>): Doc<A> {
  * @tsplus static ets/printer/Doc/Ops nesting
  */
 export function nesting<A>(react: (level: number) => Doc<A>): Doc<A> {
-  return new Nesting(react);
+  return new Nesting(react)
 }
 
 /**
@@ -629,7 +629,7 @@ export function nesting<A>(react: (level: number) => Doc<A>): Doc<A> {
  * @tsplus static ets/printer/Doc/Ops withPageWidth
  */
 export function withPageWidth<A>(react: (pageWidth: PageWidth) => Doc<A>): Doc<A> {
-  return new WithPageWidth(react);
+  return new WithPageWidth(react)
 }
 
 /**
@@ -643,96 +643,96 @@ export function withPageWidth<A>(react: (pageWidth: PageWidth) => Doc<A>): Doc<A
  * @tsplus static ets/printer/Doc/Ops annotate
  */
 export function annotate<A, B>(doc: Doc<B>, annotation: A): Doc<A | B> {
-  return new Annotated<A | B>(annotation, doc);
+  return new Annotated<A | B>(annotation, doc)
 }
 
 /**
  * @tsplus static ets/printer/Doc/Ops isFail
  */
 export function isFail<A>(doc: Doc<A>): doc is Fail<A> {
-  return doc._tag === "Fail";
+  return doc._tag === "Fail"
 }
 
 /**
  * @tsplus static ets/printer/Doc/Ops isEmpty
  */
 export function isEmpty<A>(doc: Doc<A>): doc is Empty<A> {
-  return doc._tag === "Empty";
+  return doc._tag === "Empty"
 }
 
 /**
  * @tsplus static ets/printer/Doc/Ops isChar
  */
 export function isChar<A>(doc: Doc<A>): doc is Char<A> {
-  return doc._tag === "Char";
+  return doc._tag === "Char"
 }
 
 /**
  * @tsplus static ets/printer/Doc/Ops isText
  */
 export function isText<A>(doc: Doc<A>): doc is Text<A> {
-  return doc._tag === "Text";
+  return doc._tag === "Text"
 }
 
 /**
  * @tsplus static ets/printer/Doc/Ops isLine
  */
 export function isLine<A>(doc: Doc<A>): doc is Line<A> {
-  return doc._tag === "Line";
+  return doc._tag === "Line"
 }
 
 /**
  * @tsplus static ets/printer/Doc/Ops isFlatAlt
  */
 export function isFlatAlt<A>(doc: Doc<A>): doc is FlatAlt<A> {
-  return doc._tag === "FlatAlt";
+  return doc._tag === "FlatAlt"
 }
 
 /**
  * @tsplus static ets/printer/Doc/Ops isCat
  */
 export function isCat<A>(doc: Doc<A>): doc is Cat<A> {
-  return doc._tag === "Cat";
+  return doc._tag === "Cat"
 }
 
 /**
  * @tsplus static ets/printer/Doc/Ops isNest
  */
 export function isNest<A>(doc: Doc<A>): doc is Nest<A> {
-  return doc._tag === "Nest";
+  return doc._tag === "Nest"
 }
 
 /**
  * @tsplus static ets/printer/Doc/Ops isUnion
  */
 export function isUnion<A>(doc: Doc<A>): doc is Union<A> {
-  return doc._tag === "Union";
+  return doc._tag === "Union"
 }
 
 /**
  * @tsplus static ets/printer/Doc/Ops isColumn
  */
 export function isColumn<A>(doc: Doc<A>): doc is Column<A> {
-  return doc._tag === "Column";
+  return doc._tag === "Column"
 }
 
 /**
  * @tsplus static ets/printer/Doc/Ops isWithPageWidth
  */
 export function isWithPageWidth<A>(doc: Doc<A>): doc is WithPageWidth<A> {
-  return doc._tag === "WithPageWidth";
+  return doc._tag === "WithPageWidth"
 }
 
 /**
  * @tsplus static ets/printer/Doc/Ops isNesting
  */
 export function isNesting<A>(doc: Doc<A>): doc is Nesting<A> {
-  return doc._tag === "Nesting";
+  return doc._tag === "Nesting"
 }
 
 /**
  * @tsplus static ets/printer/Doc/Ops isAnnotated
  */
 export function isAnnotated<A>(doc: Doc<A>): doc is Annotated<A> {
-  return doc._tag === "Annotated";
+  return doc._tag === "Annotated"
 }

@@ -8,5 +8,5 @@
  * @tsplus fluent ets/printer/Doc unAnnotate
  */
 export function unAnnotate<A>(self: Doc<A>): Doc<never> {
-  return self.alterAnnotations(() => []);
+  return self.alterAnnotations(() => [])
 }

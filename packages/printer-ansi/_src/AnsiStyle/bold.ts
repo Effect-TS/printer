@@ -4,4 +4,4 @@
 export const bold: AnsiStyle = {
   ...AnsiStyle.AssociativeIdentity.identity,
   bold: Option.some(SGR.SetBold(true))
-};
+}

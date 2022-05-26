@@ -16,5 +16,5 @@ export function string(str: string): Doc<never> {
           ? Doc.char(s)
           : Doc.text(s)
       )
-  );
+  )
 }

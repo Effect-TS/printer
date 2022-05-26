@@ -37,7 +37,7 @@ export function renderSimplyDecorated_<A, O>(
   renderText: (text: string) => O,
   renderAnnotation: (annotation: A, out: O) => O
 ): O {
-  return renderSimplyDecoratedSafe(self, I, renderText, renderAnnotation).run();
+  return renderSimplyDecoratedSafe(self, I, renderText, renderAnnotation).run()
 }
 
 /**
@@ -73,7 +73,7 @@ export function renderSimplyDecorated_<A, O>(
  *
  * @tsplus static ets/printer/DocTree/Aspects renderSimplyDecorated
  */
-export const renderSimplyDecorated = Pipeable(renderSimplyDecorated_);
+export const renderSimplyDecorated = Pipeable(renderSimplyDecorated_)
 
 function renderSimplyDecoratedSafe<A, O>(
   self: DocTree<A>,
@@ -83,28 +83,28 @@ function renderSimplyDecoratedSafe<A, O>(
 ): Eval<O> {
   switch (self._tag) {
     case "EmptyTree": {
-      return Eval.succeed(I.identity);
+      return Eval.succeed(I.identity)
     }
     case "CharTree": {
-      return Eval.succeed(renderText(self.char));
+      return Eval.succeed(renderText(self.char))
     }
     case "TextTree": {
-      return Eval.succeed(renderText(self.text));
+      return Eval.succeed(renderText(self.text))
     }
     case "LineTree": {
-      return Eval.succeed(I.combine(renderText("\n"), renderText(Doc.textSpaces(self.indentation))));
+      return Eval.succeed(I.combine(renderText("\n"), renderText(Doc.textSpaces(self.indentation))))
     }
     case "AnnotationTree": {
       return Eval.suspend(renderSimplyDecoratedSafe(self.tree, I, renderText, renderAnnotation)).map((out) =>
         renderAnnotation(self.annotation, out)
-      );
+      )
     }
     case "ConcatTree": {
       if (self.trees.isEmpty()) {
-        return Eval.succeed(I.identity);
+        return Eval.succeed(I.identity)
       }
-      const head = self.trees.unsafeHead();
-      const tail = self.trees.unsafeTail();
+      const head = self.trees.unsafeHead()
+      const tail = self.trees.unsafeTail()
       return tail.reduce(
         Eval.suspend(renderSimplyDecoratedSafe(head, I, renderText, renderAnnotation)),
         (acc, tree) =>
@@ -112,7 +112,7 @@ function renderSimplyDecoratedSafe<A, O>(
             Eval.suspend(renderSimplyDecoratedSafe(tree, I, renderText, renderAnnotation)),
             I.combine
           )
-      );
+      )
     }
   }
 }

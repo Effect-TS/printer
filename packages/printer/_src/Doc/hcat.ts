@@ -15,5 +15,5 @@
  * @tsplus static ets/printer/Doc/Ops hcat
  */
 export function hcat<A>(docs: Collection<Doc<A>>): Doc<A> {
-  return Doc.concatWith(docs, Doc.cat);
+  return Doc.concatWith(docs, Doc.cat)
 }

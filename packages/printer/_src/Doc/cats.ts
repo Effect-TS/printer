@@ -28,5 +28,5 @@
  * @tsplus static ets/printer/Doc/Ops cats
  */
 export function cats<A>(docs: Collection<Doc<A>>): Doc<A> {
-  return Doc.vcat(docs).group();
+  return Doc.vcat(docs).group()
 }

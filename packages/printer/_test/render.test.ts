@@ -2,18 +2,18 @@ function fun<A>(doc: Doc<A>): Doc<A> {
   return Doc.cat(
     Doc.hcat([Doc.text("fun("), Doc.softLineBreak, doc]).hang(2),
     Doc.text(")")
-  );
+  )
 }
 
 function funs<A>(doc: Doc<A>): Doc<A> {
-  return fun(fun(fun(fun(fun(doc)))));
+  return fun(fun(fun(fun(fun(doc)))))
 }
 
-const dashes = Doc.text(Chunk.fill(26 - 2, () => "-").join(""));
+const dashes = Doc.text(Chunk.fill(26 - 2, () => "-").join(""))
 
-const hr = Doc.hcat([Doc.vbar, dashes, Doc.vbar]);
+const hr = Doc.hcat([Doc.vbar, dashes, Doc.vbar])
 
-const doc = Doc.vsep([hr, funs(Doc.list(Doc.words("abcdef ghijklm")).align()), hr]);
+const doc = Doc.vsep([hr, funs(Doc.list(Doc.words("abcdef ghijklm")).align()), hr])
 
 describe.concurrent("Render", () => {
   it("renderPretty", () => {
@@ -26,8 +26,8 @@ describe.concurrent("Render", () => {
        |              [ abcdef
        |              , ghijklm ])))))
        ||------------------------|`.stripMargin()
-    );
-  });
+    )
+  })
 
   it("renderPrettyDefault", () => {
     assert.strictEqual(
@@ -35,8 +35,8 @@ describe.concurrent("Render", () => {
       `||------------------------|
        |fun(fun(fun(fun(fun([abcdef, ghijklm])))))
        ||------------------------|`.stripMargin()
-    );
-  });
+    )
+  })
 
   it("renderPrettyUnbounded", () => {
     assert.strictEqual(
@@ -44,8 +44,8 @@ describe.concurrent("Render", () => {
       `||------------------------|
        |fun(fun(fun(fun(fun([abcdef, ghijklm])))))
        ||------------------------|`.stripMargin()
-    );
-  });
+    )
+  })
 
   it("renderSmart", () => {
     assert.strictEqual(
@@ -59,8 +59,8 @@ describe.concurrent("Render", () => {
        |          [ abcdef
        |          , ghijklm ])))))
        ||------------------------|`.stripMargin()
-    );
-  });
+    )
+  })
 
   it("renderSmartDefault", () => {
     assert.strictEqual(
@@ -68,8 +68,8 @@ describe.concurrent("Render", () => {
       `||------------------------|
        |fun(fun(fun(fun(fun([abcdef, ghijklm])))))
        ||------------------------|`.stripMargin()
-    );
-  });
+    )
+  })
 
   it("renderSmartUnbounded", () => {
     assert.strictEqual(
@@ -77,8 +77,8 @@ describe.concurrent("Render", () => {
       `||------------------------|
        |fun(fun(fun(fun(fun([abcdef, ghijklm])))))
        ||------------------------|`.stripMargin()
-    );
-  });
+    )
+  })
 
   it("renderCompact", () => {
     assert.strictEqual(
@@ -92,6 +92,6 @@ describe.concurrent("Render", () => {
        |[ abcdef
        |, ghijklm ])))))
        ||------------------------|`.stripMargin()
-    );
-  });
-});
+    )
+  })
+})

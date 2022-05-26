@@ -11,36 +11,36 @@
 export function group<A>(self: Doc<A>): Doc<A> {
   switch (self._tag) {
     case "FlatAlt": {
-      const flattened = self.right.changesUponFlattening();
+      const flattened = self.right.changesUponFlattening()
       switch (flattened._tag) {
         case "Flattened": {
-          return Doc.union(flattened.value, self.left);
+          return Doc.union(flattened.value, self.left)
         }
         case "AlreadyFlat": {
-          return Doc.union(self.right, self.left);
+          return Doc.union(self.right, self.left)
         }
         case "NeverFlat": {
-          return self.left;
+          return self.left
         }
       }
     }
     case "Union": {
-      return self;
+      return self
     }
     default: {
-      return groupInternal(self);
+      return groupInternal(self)
     }
   }
 }
 
 function groupInternal<A>(self: Doc<A>): Doc<A> {
-  const flattened = self.changesUponFlattening();
+  const flattened = self.changesUponFlattening()
   switch (flattened._tag) {
     case "Flattened": {
-      return Doc.union(flattened.value, self);
+      return Doc.union(flattened.value, self)
     }
     default: {
-      return self;
+      return self
     }
   }
 }

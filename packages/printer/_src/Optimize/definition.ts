@@ -5,20 +5,20 @@
  * @tsplus type ets/printer/Optimize
  */
 export interface Optimize<A> {
-  (depth: FusionDepth): Doc<A>;
+  (depth: FusionDepth): Doc<A>
 }
 
 /**
  * @tsplus type ets/printer/Optimize/Ops
  */
 export interface OptimizeOps {
-  $: OptimizeAspects;
-  Depth: FusionDepthOps;
+  $: OptimizeAspects
+  Depth: FusionDepthOps
 }
 export const Optimize: OptimizeOps = {
   $: {},
   Depth: {}
-};
+}
 
 /**
  * @tsplus type ets/printer/Optimize/Aspects
@@ -26,7 +26,7 @@ export const Optimize: OptimizeOps = {
 export interface OptimizeAspects {}
 
 export declare namespace Optimize {
-  export type Depth = FusionDepth;
+  export type Depth = FusionDepth
 }
 
 /**
@@ -37,7 +37,7 @@ export function unifyOptimize<X extends Optimize<any>>(
 ): Optimize<
   [X] extends [Optimize<infer AX>] ? AX : never
 > {
-  return self;
+  return self
 }
 
 /**
@@ -46,7 +46,7 @@ export function unifyOptimize<X extends Optimize<any>>(
  *
  * @tsplus type ets/printer/Optimize/FusionDepth
  */
-export type FusionDepth = Shallow | Deep;
+export type FusionDepth = Shallow | Deep
 
 /**
  * @tsplus type ets/printer/Optimize/FusionDepth/Ops
@@ -58,7 +58,7 @@ export interface FusionDepthOps {}
  * documents, fusing mostly concatenations of text nodes together.
  */
 export interface Shallow {
-  readonly _tag: "Shallow";
+  readonly _tag: "Shallow"
 }
 
 /**
@@ -74,7 +74,7 @@ export interface Shallow {
  * **significantly** faster than using `Shallow`.
  */
 export interface Deep {
-  readonly _tag: "Deep";
+  readonly _tag: "Deep"
 }
 
 /**
@@ -82,11 +82,11 @@ export interface Deep {
  */
 export const Shallow: FusionDepth = {
   _tag: "Shallow"
-};
+}
 
 /**
  * @tsplus static ets/printer/Optimize/FusionDepth/Ops Deep
  */
 export const Deep: FusionDepth = {
   _tag: "Deep"
-};
+}

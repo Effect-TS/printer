@@ -5,5 +5,5 @@ export function backgroundColor(color: Color): AnsiStyle {
   return {
     ...AnsiStyle.AssociativeIdentity.identity,
     background: Option.some(SGR.SetColor(color, true, Layer.Background))
-  };
+  }
 }

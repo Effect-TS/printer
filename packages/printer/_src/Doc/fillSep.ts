@@ -11,5 +11,5 @@
  * @tsplus static ets/printer/Doc/Ops fillSep
  */
 export function fillSep<A>(docs: Collection<Doc<A>>): Doc<A> {
-  return Doc.concatWith(docs, Doc.appendWithSoftLine);
+  return Doc.concatWith(docs, Doc.appendWithSoftLine)
 }

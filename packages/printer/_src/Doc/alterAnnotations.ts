@@ -19,7 +19,7 @@
  * @tsplus fluent ets/printer/Doc alterAnnotations
  */
 export function alterAnnotations_<A, B>(self: Doc<A>, f: (a: A) => Collection<B>): Doc<B> {
-  return alterAnnotationsSafe(self, f).run();
+  return alterAnnotationsSafe(self, f).run()
 }
 
 /**
@@ -42,38 +42,38 @@ export function alterAnnotations_<A, B>(self: Doc<A>, f: (a: A) => Collection<B>
  *
  * @tsplus static ets/printer/Doc/Aspects alterAnnotations
  */
-export const alterAnnotations = Pipeable(alterAnnotations_);
+export const alterAnnotations = Pipeable(alterAnnotations_)
 
 function alterAnnotationsSafe<A, B>(self: Doc<A>, f: (a: A) => Collection<B>): Eval<Doc<B>> {
   switch (self._tag) {
     case "Cat": {
-      return Eval.suspend(alterAnnotationsSafe(self.left, f)).zipWith(alterAnnotationsSafe(self.right, f), Doc.cat);
+      return Eval.suspend(alterAnnotationsSafe(self.left, f)).zipWith(alterAnnotationsSafe(self.right, f), Doc.cat)
     }
     case "FlatAlt": {
-      return Eval.suspend(alterAnnotationsSafe(self.left, f)).zipWith(alterAnnotationsSafe(self.right, f), Doc.flatAlt);
+      return Eval.suspend(alterAnnotationsSafe(self.left, f)).zipWith(alterAnnotationsSafe(self.right, f), Doc.flatAlt)
     }
     case "Union": {
-      return Eval.suspend(alterAnnotationsSafe(self.left, f)).zipWith(alterAnnotationsSafe(self.right, f), Doc.union);
+      return Eval.suspend(alterAnnotationsSafe(self.left, f)).zipWith(alterAnnotationsSafe(self.right, f), Doc.union)
     }
     case "Nest": {
-      return Eval.suspend(alterAnnotationsSafe(self.doc, f)).map((doc) => Doc.nest(doc, self.indent));
+      return Eval.suspend(alterAnnotationsSafe(self.doc, f)).map((doc) => Doc.nest(doc, self.indent))
     }
     case "Column": {
-      return Eval.succeed(Doc.column((position) => alterAnnotationsSafe(self.react(position), f).run()));
+      return Eval.succeed(Doc.column((position) => alterAnnotationsSafe(self.react(position), f).run()))
     }
     case "WithPageWidth": {
-      return Eval.succeed(Doc.withPageWidth((pageWidth) => alterAnnotationsSafe(self.react(pageWidth), f).run()));
+      return Eval.succeed(Doc.withPageWidth((pageWidth) => alterAnnotationsSafe(self.react(pageWidth), f).run()))
     }
     case "Nesting": {
-      return Eval.succeed(Doc.nesting((level) => alterAnnotationsSafe(self.react(level), f).run()));
+      return Eval.succeed(Doc.nesting((level) => alterAnnotationsSafe(self.react(level), f).run()))
     }
     case "Annotated": {
       return alterAnnotationsSafe(self.doc, f).map((doc) =>
         Chunk.from(f(self.annotation)).reduceRight(doc, (b, doc) => Doc.annotate(doc, b))
-      );
+      )
     }
     default: {
-      return Eval.succeed(self as unknown as Doc<B>);
+      return Eval.succeed(self as unknown as Doc<B>)
     }
   }
 }

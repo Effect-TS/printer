@@ -2,17 +2,17 @@
  * @tsplus type ets/printer/DocTree/Parser
  */
 export interface Parser<S, A> {
-  (stream: S): Option<Tuple<[A, S]>>;
+  (stream: S): Option<Tuple<[A, S]>>
 }
 
 /**
  * @tsplus type ets/printer/DocTree/Parser/Ops
  */
 export interface ParserOps {}
-export const Parser: ParserOps = {};
+export const Parser: ParserOps = {}
 
 export interface ParserF<S> extends HKT {
-  readonly type: Parser<S, this["A"]>;
+  readonly type: Parser<S, this["A"]>
 }
 
 /**
@@ -29,7 +29,7 @@ export function getAssociativeEither<S>() {
               (result) => Option.some(result.update(0, Either.right))
             ) as Option<Tuple<[Either<any, any>, S]>>
           )
-  });
+  })
 }
 
 /**
@@ -40,7 +40,7 @@ export function getMonad<S>() {
     any: () => (s) => Option.some(Tuple({}, s)),
     flatten: (ffa) => (s1) => ffa(s1).flatMap(({ tuple: [fa, s2] }) => fa(s2)),
     map: (f) => (parser) => (stream) => parser(stream).map((result) => result.update(0, f))
-  });
+  })
 }
 
 /**
@@ -52,18 +52,18 @@ export function getChainRec<S>() {
       (a) =>
         (start) => {
           return ChainRec.tailRec({ value: a, stream: start }, (state) => {
-            const result = f(state.value)(state.stream);
+            const result = f(state.value)(state.stream)
 
             if (result.isNone()) {
-              return Either.right(Option.none);
+              return Either.right(Option.none)
             }
 
-            const { tuple: [cont, stream] } = result.value;
+            const { tuple: [cont, stream] } = result.value
 
             return cont.isLeft()
               ? Either.left({ value: cont.left, stream })
-              : Either.right(Option.some(Tuple(cont.right, stream)));
-          });
+              : Either.right(Option.some(Tuple(cont.right, stream)))
+          })
         }
-  });
+  })
 }

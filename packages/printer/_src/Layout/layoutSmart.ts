@@ -78,13 +78,13 @@
  * @tsplus fluent ets/printer/Doc layoutSmart
  */
 export function layoutSmart_<A>(self: Doc<A>, options: LayoutOptions): DocStream<A> {
-  const pageWidth = options.pageWidth;
+  const pageWidth = options.pageWidth
   switch (pageWidth._tag) {
     case "AvailablePerLine": {
-      return self.layoutWadlerLeijen(fitsSmart(pageWidth.lineWidth, pageWidth.ribbonFraction), options);
+      return self.layoutWadlerLeijen(fitsSmart(pageWidth.lineWidth, pageWidth.ribbonFraction), options)
     }
     case "Unbounded": {
-      return self.layoutUnbounded();
+      return self.layoutUnbounded()
     }
   }
 }
@@ -168,7 +168,7 @@ export function layoutSmart_<A>(self: Doc<A>, options: LayoutOptions): DocStream
  *
  * @tsplus static ets/printer/Doc/Aspects layoutSmart
  */
-export const layoutSmart = Pipeable(layoutSmart_);
+export const layoutSmart = Pipeable(layoutSmart_)
 
 function fitsSmart(lineWidth: number, ribbonFraction: number) {
   return (lineIndent: number, currentColumn: number, initialIndentY: Option<number>) =>
@@ -178,7 +178,7 @@ function fitsSmart(lineWidth: number, ribbonFraction: number) {
         ribbonFraction,
         lineIndent,
         currentColumn
-      );
+      )
 
       const minNestingLevel = initialIndentY.fold(
         // If `y` is `None`, then it is definitely not a hanging layout,
@@ -189,10 +189,10 @@ function fitsSmart(lineWidth: number, ribbonFraction: number) {
         // so we need to check `x` a bit more thoroughly to make sure we
         // do not miss a potentially better fitting `y`
         (i) => Math.min(i, currentColumn)
-      );
+      )
 
-      return fitsSmartLoop(stream, availableWidth, minNestingLevel, lineWidth);
-    };
+      return fitsSmartLoop(stream, availableWidth, minNestingLevel, lineWidth)
+    }
 }
 
 /**
@@ -205,31 +205,31 @@ function fitsSmartLoop<A>(
   lineWidth: number
 ): boolean {
   if (w < 0) {
-    return false;
+    return false
   }
   switch (self._tag) {
     case "FailedStream": {
-      return false;
+      return false
     }
     case "EmptyStream": {
-      return true;
+      return true
     }
     case "CharStream": {
-      return fitsSmartLoop(self.stream, w - 1, minNestingLevel, lineWidth);
+      return fitsSmartLoop(self.stream, w - 1, minNestingLevel, lineWidth)
     }
     case "TextStream": {
-      return fitsSmartLoop(self.stream, w - self.text.length, minNestingLevel, lineWidth);
+      return fitsSmartLoop(self.stream, w - self.text.length, minNestingLevel, lineWidth)
     }
     case "LineStream": {
       if (minNestingLevel >= self.indentation) {
-        return true;
+        return true
       }
-      return fitsSmartLoop(self.stream, lineWidth - self.indentation, minNestingLevel, lineWidth);
+      return fitsSmartLoop(self.stream, lineWidth - self.indentation, minNestingLevel, lineWidth)
     }
     case "PushAnnotationStream": {
-      return fitsSmartLoop(self.stream, w, minNestingLevel, lineWidth);
+      return fitsSmartLoop(self.stream, w, minNestingLevel, lineWidth)
     }
     case "PopAnnotationStream":
-      return fitsSmartLoop(self.stream, w, minNestingLevel, lineWidth);
+      return fitsSmartLoop(self.stream, w, minNestingLevel, lineWidth)
   }
 }

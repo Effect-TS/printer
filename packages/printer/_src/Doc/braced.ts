@@ -4,5 +4,5 @@
  * @tsplus fluent ets/printer/Doc braced
  */
 export function braced<A>(self: Doc<A>): Doc<A> {
-  return self.surround(Doc.lbrace, Doc.rbrace);
+  return self.surround(Doc.lbrace, Doc.rbrace)
 }

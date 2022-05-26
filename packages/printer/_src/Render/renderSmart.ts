@@ -6,12 +6,12 @@ export function renderSmart_<A>(
   lineWidth: number,
   ribbonFraction = 1
 ): string {
-  const pageWidth = PageWidth.AvailablePerLine(lineWidth, ribbonFraction);
-  const options = LayoutOptions(pageWidth);
-  return self.layoutSmart(options).render();
+  const pageWidth = PageWidth.AvailablePerLine(lineWidth, ribbonFraction)
+  const options = LayoutOptions(pageWidth)
+  return self.layoutSmart(options).render()
 }
 
 /**
  * @tsplus static ets/printer/Doc/Aspects renderSmart
  */
-export const renderSmart = Pipeable(renderSmart_);
+export const renderSmart = Pipeable(renderSmart_)

@@ -28,5 +28,5 @@
  * @tsplus static ets/printer/Doc/Ops seps
  */
 export function seps<A>(docs: Collection<Doc<A>>): Doc<A> {
-  return Doc.vsep(docs).group();
+  return Doc.vsep(docs).group()
 }

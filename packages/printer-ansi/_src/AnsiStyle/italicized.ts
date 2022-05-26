@@ -4,4 +4,4 @@
 export const italicized: AnsiStyle = {
   ...AnsiStyle.AssociativeIdentity.identity,
   italicized: Option.some(SGR.SetItalicized(true))
-};
+}

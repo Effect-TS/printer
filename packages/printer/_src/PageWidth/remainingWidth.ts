@@ -9,11 +9,11 @@ export function remainingWidth(
   lineIndent: number,
   currentColumn: number
 ): number {
-  const columnsLeftInLine = lineLength - currentColumn;
+  const columnsLeftInLine = lineLength - currentColumn
   const ribbonWidth = Math.max(
     0,
     Math.min(lineLength, Math.floor(lineLength * ribbonFraction))
-  );
-  const columnsLeftInRibbon = lineIndent + ribbonWidth - currentColumn;
-  return Math.min(columnsLeftInLine, columnsLeftInRibbon);
+  )
+  const columnsLeftInRibbon = lineIndent + ribbonWidth - currentColumn
+  return Math.min(columnsLeftInLine, columnsLeftInRibbon)
 }

@@ -21,7 +21,7 @@
  * @tsplus static ets/printer/Doc/Ops appendWithSoftLineBreak
  */
 export function appendWithSoftLineBreak_<A>(self: Doc<A>, that: Doc<A>): Doc<A> {
-  return Doc.cat(self, Doc.cat(Doc.softLineBreak, that));
+  return Doc.cat(self, Doc.cat(Doc.softLineBreak, that))
 }
 
 /**
@@ -45,4 +45,4 @@ export function appendWithSoftLineBreak_<A>(self: Doc<A>, that: Doc<A>): Doc<A> 
  *
  * @tsplus static ets/printer/Doc/Aspects appendWithSoftLineBreak
  */
-export const appendWithSoftLineBreak = Pipeable(appendWithSoftLineBreak_);
+export const appendWithSoftLineBreak = Pipeable(appendWithSoftLineBreak_)

@@ -36,7 +36,7 @@
  * @tsplus fluent ets/printer/Doc fill
  */
 export function fill_<A>(self: Doc<A>, width: number): Doc<A> {
-  return self.width((w) => Doc.spaces(width - w));
+  return self.width((w) => Doc.spaces(width - w))
 }
 
 /**
@@ -76,4 +76,4 @@ export function fill_<A>(self: Doc<A>, width: number): Doc<A> {
  *
  * @tsplus static ets/printer/Doc/Aspects fill
  */
-export const fill = Pipeable(fill_);
+export const fill = Pipeable(fill_)

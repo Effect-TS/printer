@@ -42,7 +42,7 @@ export function width_<A, B>(
       self,
       Doc.column((colEnd) => react(colEnd - colStart))
     )
-  );
+  )
 }
 
 /**
@@ -80,4 +80,4 @@ export function width_<A, B>(
  *
  * @tsplus static ets/printer/Doc/Aspects width
  */
-export const width = Pipeable(width_);
+export const width = Pipeable(width_)

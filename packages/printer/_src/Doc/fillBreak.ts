@@ -38,7 +38,7 @@
  * @tsplus fluent ets/printer/Doc fillBreak
  */
 export function fillBreak_<A>(self: Doc<A>, width: number): Doc<A> {
-  return self.width((w) => (w > width ? Doc.nest(Doc.lineBreak, width) : Doc.spaces(width - w)));
+  return self.width((w) => (w > width ? Doc.nest(Doc.lineBreak, width) : Doc.spaces(width - w)))
 }
 
 /**
@@ -80,4 +80,4 @@ export function fillBreak_<A>(self: Doc<A>, width: number): Doc<A> {
  *
  * @tsplus static ets/printer/Doc/Aspects fillBreak
  */
-export const fillBreak = Pipeable(fillBreak_);
+export const fillBreak = Pipeable(fillBreak_)

@@ -15,5 +15,5 @@
  * @tsplus static ets/printer/Doc/Ops words
  */
 export function words(s: string, char = " "): Chunk<Doc<never>> {
-  return Chunk.from(s.split(char)).map(Doc.string);
+  return Chunk.from(s.split(char)).map(Doc.string)
 }

@@ -20,7 +20,7 @@ export function surround_<A, B, C>(
   left: Doc<B>,
   right: Doc<C>
 ): Doc<A | B | C> {
-  return Doc.cat(left, Doc.cat(self, right));
+  return Doc.cat(left, Doc.cat(self, right))
 }
 
 /**
@@ -40,4 +40,4 @@ export function surround_<A, B, C>(
  *
  * @tsplus static ets/printer/Doc/Aspects surround
  */
-export const surround = Pipeable(surround_);
+export const surround = Pipeable(surround_)

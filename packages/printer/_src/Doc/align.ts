@@ -34,5 +34,5 @@
  * @tsplus fluent ets/printer/Doc align
  */
 export function align<A>(self: Doc<A>): Doc<A> {
-  return Doc.column((position) => Doc.nesting((level) => Doc.nest(self, position - level)));
+  return Doc.column((position) => Doc.nesting((level) => Doc.nest(self, position - level)))
 }

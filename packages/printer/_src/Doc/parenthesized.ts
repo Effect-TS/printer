@@ -4,5 +4,5 @@
  * @tsplus fluent ets/printer/Doc parenthesized
  */
 export function parenthesized<A>(self: Doc<A>): Doc<A> {
-  return self.surround(Doc.lparen, Doc.rparen);
+  return self.surround(Doc.lparen, Doc.rparen)
 }

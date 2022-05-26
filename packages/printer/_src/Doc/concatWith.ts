@@ -22,11 +22,11 @@ export function concatWith<A>(
   docs: Collection<Doc<A>>,
   f: (x: Doc<A>, y: Doc<A>) => Doc<A>
 ): Doc<A> {
-  const docs0 = Array.from(docs);
+  const docs0 = Array.from(docs)
   if (docs0.length === 0) {
-    return Doc.empty;
+    return Doc.empty
   }
-  const head = docs0[0]!;
-  const tail = docs0.slice(1);
-  return tail.reduce((acc, curr) => f(acc, curr), head);
+  const head = docs0[0]!
+  const tail = docs0.slice(1)
+  return tail.reduce((acc, curr) => f(acc, curr), head)
 }

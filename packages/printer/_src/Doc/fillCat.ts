@@ -11,5 +11,5 @@
  * @tsplus static ets/printer/Doc/Ops fillCat
  */
 export function fillCat<A>(docs: Collection<Doc<A>>): Doc<A> {
-  return Doc.concatWith(docs, Doc.appendWithSoftLineBreak);
+  return Doc.concatWith(docs, Doc.appendWithSoftLineBreak)
 }

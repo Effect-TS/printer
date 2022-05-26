@@ -17,5 +17,5 @@
  * @tsplus static ets/printer/Doc/Ops vcat
  */
 export function vcat<A>(docs: Collection<Doc<A>>): Doc<A> {
-  return Doc.concatWith(docs, Doc.appendWithLineBreak);
+  return Doc.concatWith(docs, Doc.appendWithLineBreak)
 }

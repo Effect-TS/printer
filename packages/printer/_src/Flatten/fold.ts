@@ -4,22 +4,22 @@
 export function fold_<A, R>(
   flatten: Flatten<A>,
   patterns: {
-    readonly Flattened: (value: A) => R;
-    readonly AlreadyFlat: () => R;
-    readonly NeverFlat: () => R;
+    readonly Flattened: (value: A) => R
+    readonly AlreadyFlat: () => R
+    readonly NeverFlat: () => R
   }
 ): R {
   switch (flatten._tag) {
     case "Flattened":
-      return patterns.Flattened(flatten.value);
+      return patterns.Flattened(flatten.value)
     case "AlreadyFlat":
-      return patterns.AlreadyFlat();
+      return patterns.AlreadyFlat()
     case "NeverFlat":
-      return patterns.NeverFlat();
+      return patterns.NeverFlat()
   }
 }
 
 /**
  * @tsplus static ets/printer/Flatten/Aspects fold
  */
-export const fold = Pipeable(fold_);
+export const fold = Pipeable(fold_)

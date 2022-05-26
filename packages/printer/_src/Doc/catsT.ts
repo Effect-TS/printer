@@ -1,4 +1,4 @@
-type NonEmptyArrayDoc = Array<Doc<any>> & { readonly 0: Doc<any>; };
+type NonEmptyArrayDoc = Array<Doc<any>> & { readonly 0: Doc<any> }
 
 /**
  * Tupled variant of `cats`.
@@ -8,7 +8,7 @@ type NonEmptyArrayDoc = Array<Doc<any>> & { readonly 0: Doc<any>; };
 export function catsT<Docs extends NonEmptyArrayDoc>(
   ...docs: Docs
 ): Doc<
-  [Docs[number]] extends [{ _A: () => infer A; }] ? A : never
+  [Docs[number]] extends [{ _A: () => infer A }] ? A : never
 > {
-  return Doc.cats(docs);
+  return Doc.cats(docs)
 }

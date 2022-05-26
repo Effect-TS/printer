@@ -6,26 +6,26 @@ function fun<A>(doc: Doc<A>): Doc<A> {
       doc
     ).hang(2),
     Doc.text(")")
-  );
+  )
 }
 
 function funs<A>(doc: Doc<A>): Doc<A> {
-  return fun(fun(fun(fun(fun(doc)))));
+  return fun(fun(fun(fun(fun(doc)))))
 }
 
-const dashes = Doc.text(Chunk.fill(26 - 2, () => "-").join(""));
+const dashes = Doc.text(Chunk.fill(26 - 2, () => "-").join(""))
 
-const hr = Doc.hcat([Doc.vbar, dashes, Doc.vbar]);
+const hr = Doc.hcat([Doc.vbar, dashes, Doc.vbar])
 
 const doc = Doc.vsep([
   hr,
   funs(Doc.list(Doc.words("abcdef ghijklm")).align()),
   hr
-]);
+])
 
-const pageWidth: PageWidth = PageWidth.AvailablePerLine(26, 1);
+const pageWidth: PageWidth = PageWidth.AvailablePerLine(26, 1)
 
-const layoutOptions: LayoutOptions = LayoutOptions(pageWidth);
+const layoutOptions: LayoutOptions = LayoutOptions(pageWidth)
 
 describe.concurrent("Layout", () => {
   it("unbounded", () => {
@@ -34,8 +34,8 @@ describe.concurrent("Layout", () => {
       `||------------------------|
        |fun(fun(fun(fun(fun([abcdef, ghijklm])))))
        ||------------------------|`.stripMargin()
-    );
-  });
+    )
+  })
 
   it("pretty", () => {
     assert.strictEqual(
@@ -45,8 +45,8 @@ describe.concurrent("Layout", () => {
        |                  [ abcdef
        |                  , ghijklm ])))))
        ||------------------------|`.stripMargin()
-    );
-  });
+    )
+  })
 
   it("smart", () => {
     assert.strictEqual(
@@ -60,8 +60,8 @@ describe.concurrent("Layout", () => {
        |          [ abcdef
        |          , ghijklm ])))))
        ||------------------------|`.stripMargin()
-    );
-  });
+    )
+  })
 
   it("compact", () => {
     assert.strictEqual(
@@ -75,6 +75,6 @@ describe.concurrent("Layout", () => {
        |[ abcdef
        |, ghijklm ])))))
        ||------------------------|`.stripMargin()
-    );
-  });
-});
+    )
+  })
+})

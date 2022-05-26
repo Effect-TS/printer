@@ -4,4 +4,4 @@
 export const underlined: AnsiStyle = {
   ...AnsiStyle.AssociativeIdentity.identity,
   underlined: Option.some(SGR.SetUnderlined(true))
-};
+}

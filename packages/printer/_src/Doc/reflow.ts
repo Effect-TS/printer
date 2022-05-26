@@ -26,5 +26,5 @@
  * @tsplus static ets/printer/Doc/Ops reflow
  */
 export function reflow(s: string, char = " "): Doc<never> {
-  return Doc.fillSep(Doc.words(s, char));
+  return Doc.fillSep(Doc.words(s, char))
 }

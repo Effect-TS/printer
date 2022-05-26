@@ -12,5 +12,6 @@
     {
       "path": "./tsconfig.build.json"
     }
-  ]
+  ],
+  "files": ["./tsplus.prelude.d.ts", "../printer/tsplus.prelude.d.ts"]
 }
