@@ -35,7 +35,6 @@
     "@changesets/cli": "^2.22.0",
     "@effect-ts/build-utils": "0.40.2",
     "@effect-ts/core": "^0.60.1",
-    "@effect/core": "0.0.2",
     "@effect/printer": "workspace:^",
     "@effect/printer-ansi": "workspace:^",
     "@repo-tooling/eslint-plugin-dprint": "^0.0.3",

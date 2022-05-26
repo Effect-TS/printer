@@ -621,30 +621,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@effect/core@npm:0.0.2":
-  version: 0.0.2
-  resolution: "@effect/core@npm:0.0.2"
-  peerDependencies:
-    "@tsplus/stdlib": ^0.0.50
-  peerDependenciesMeta:
-    "@tsplus/stdlib":
-      optional: true
-  checksum: f56138d2ff1b81b9ac7cc9686de5e41e1d6ab7178c58d3219eb940fbfa036994631dc92844f6076685031d90dfedbc183db6333e7278ef4dc6e1e5ec3c61208a
-  languageName: node
-  linkType: hard
-
 "@effect/printer-ansi@workspace:^, @effect/printer-ansi@workspace:packages/printer-ansi":
   version: 0.0.0-use.local
   resolution: "@effect/printer-ansi@workspace:packages/printer-ansi"
-  dependencies:
-    "@effect/printer": ^0.0.1
   peerDependencies:
-    "@effect/core": ^0.0.1
     "@effect/printer": ^0.0.1
-    "@tsplus/stdlib": ^0.0.63
+    "@tsplus/stdlib": 0.0.71
   peerDependenciesMeta:
-    "@effect/core":
-      optional: true
     "@effect/printer":
       optional: true
     "@tsplus/stdlib":
@@ -652,15 +635,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@effect/printer@^0.0.1, @effect/printer@workspace:^, @effect/printer@workspace:packages/printer":
+"@effect/printer@workspace:^, @effect/printer@workspace:packages/printer":
   version: 0.0.0-use.local
   resolution: "@effect/printer@workspace:packages/printer"
   peerDependencies:
-    "@effect/core": ^0.0.1
-    "@tsplus/stdlib": ^0.0.50
+    "@tsplus/stdlib": 0.0.71
   peerDependenciesMeta:
-    "@effect/core":
-      optional: true
     "@tsplus/stdlib":
       optional: true
   languageName: unknown
@@ -2626,7 +2606,6 @@ __metadata:
     "@changesets/cli": ^2.22.0
     "@effect-ts/build-utils": 0.40.2
     "@effect-ts/core": ^0.60.1
-    "@effect/core": 0.0.2
     "@effect/printer": "workspace:^"
     "@effect/printer-ansi": "workspace:^"
     "@repo-tooling/eslint-plugin-dprint": ^0.0.3
