@@ -624,25 +624,17 @@ __metadata:
 "@effect/printer-ansi@workspace:^, @effect/printer-ansi@workspace:packages/printer-ansi":
   version: 0.0.0-use.local
   resolution: "@effect/printer-ansi@workspace:packages/printer-ansi"
-  peerDependencies:
-    "@effect/printer": ^0.0.1
-    "@tsplus/stdlib": 0.0.71
-  peerDependenciesMeta:
-    "@effect/printer":
-      optional: true
-    "@tsplus/stdlib":
-      optional: true
+  dependencies:
+    "@effect/printer": "*"
+    "@tsplus/stdlib": "*"
   languageName: unknown
   linkType: soft
 
-"@effect/printer@workspace:^, @effect/printer@workspace:packages/printer":
+"@effect/printer@*, @effect/printer@workspace:^, @effect/printer@workspace:packages/printer":
   version: 0.0.0-use.local
   resolution: "@effect/printer@workspace:packages/printer"
-  peerDependencies:
-    "@tsplus/stdlib": 0.0.71
-  peerDependenciesMeta:
-    "@tsplus/stdlib":
-      optional: true
+  dependencies:
+    "@tsplus/stdlib": "*"
   languageName: unknown
   linkType: soft
 
@@ -915,7 +907,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tsplus/stdlib@npm:0.0.71":
+"@tsplus/stdlib@npm:*, @tsplus/stdlib@npm:0.0.71":
   version: 0.0.71
   resolution: "@tsplus/stdlib@npm:0.0.71"
   checksum: bdc072cb50d114b9d3a0f69d182444bf635d3e528566baa53ae6491b3f2da9a0e1e83b6382db82dbb224fe21263f4c64145559f154d7aafc360137336a655850
