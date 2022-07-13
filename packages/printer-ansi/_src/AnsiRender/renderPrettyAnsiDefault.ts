@@ -1,6 +1,7 @@
 /**
- * @tsplus fluent ets/printer-ansi/AnsiDoc renderPrettyAnsiDefault
+ * @tsplus static effect/printer-ansi/AnsiDoc.Ops renderPrettyAnsiDefault
+ * @tsplus getter effect/printer-ansi/AnsiDoc renderPrettyAnsiDefault
  */
 export function renderPrettyAnsiDefault(self: AnsiDoc): string {
-  return self.layoutPretty(LayoutOptions.default).renderAnsi()
+  return self.layoutPretty(LayoutOptions.default).renderAnsi
 }

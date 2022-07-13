@@ -8,7 +8,7 @@
  * contained in a `Doc` resolved, making it very easy to convert to other
  * formats, such as plaintext or terminal output.
  *
- * @tsplus type ets/printer/DocStream
+ * @tsplus type effect/printer/DocStream
  */
 export type DocStream<A> =
   | FailedStream<A>
@@ -20,7 +20,7 @@ export type DocStream<A> =
   | PopAnnotationStream<A>
 
 /**
- * @tsplus type ets/printer/DocStream/Ops
+ * @tsplus type effect/printer/DocStream.Ops
  */
 export interface DocStreamOps {
   $: DocStreamAspects
@@ -34,19 +34,19 @@ export interface DocStreamF extends HKT {
 }
 
 /**
- * @tsplus type ets/printer/DocStream/Aspects
+ * @tsplus type effect/printer/DocStream.Aspects
  */
 export interface DocStreamAspects {}
 
 /**
- * @tsplus unify ets/printer/DocStream
- * @tsplus unify ets/printer/DocStream/FailedStream
- * @tsplus unify ets/printer/DocStream/EmptyStream
- * @tsplus unify ets/printer/DocStream/CharStream
- * @tsplus unify ets/printer/DocStream/TextStream
- * @tsplus unify ets/printer/DocStream/LineStream
- * @tsplus unify ets/printer/DocStream/PushAnnotationStream
- * @tsplus unify ets/printer/DocStream/PopAnnotationStream
+ * @tsplus unify effect/printer/DocStream
+ * @tsplus unify effect/printer/DocStream/FailedStream
+ * @tsplus unify effect/printer/DocStream/EmptyStream
+ * @tsplus unify effect/printer/DocStream/CharStream
+ * @tsplus unify effect/printer/DocStream/TextStream
+ * @tsplus unify effect/printer/DocStream/LineStream
+ * @tsplus unify effect/printer/DocStream/PushAnnotationStream
+ * @tsplus unify effect/printer/DocStream/PopAnnotationStream
  */
 export function unifyDocStream<X extends DocStream<any>>(
   self: X
@@ -59,7 +59,7 @@ export function unifyDocStream<X extends DocStream<any>>(
 /**
  * Represents a `Doc` that failed to be laid out.
  *
- * @tsplus type ets/printer/DocStream/FailedStream
+ * @tsplus type effect/printer/DocStream/FailedStream
  */
 export class FailedStream<A> {
   readonly _tag = "FailedStream"
@@ -70,7 +70,7 @@ export class FailedStream<A> {
 /**
  * Represents the an empty `Doc`.
  *
- * @tsplus type ets/printer/DocStream/EmptyStream
+ * @tsplus type effect/printer/DocStream/EmptyStream
  */
 export class EmptyStream<A> {
   readonly _tag = "EmptyStream"
@@ -81,7 +81,7 @@ export class EmptyStream<A> {
 /**
  * Represents a `Doc` containing a single character.
  *
- * @tsplus type ets/printer/DocStream/CharStream
+ * @tsplus type effect/printer/DocStream/CharStream
  */
 export class CharStream<A> {
   readonly _tag = "CharStream"
@@ -92,7 +92,7 @@ export class CharStream<A> {
 /**
  * Represents a `Doc` containing a string of text.
  *
- * @tsplus type ets/printer/DocStream/TextStream
+ * @tsplus type effect/printer/DocStream/TextStream
  */
 export class TextStream<A> {
   readonly _tag = "TextStream"
@@ -105,7 +105,7 @@ export class TextStream<A> {
  * represents the indentation level for the subsequent line in the
  * `Doc`.
  *
- * @tsplus type ets/printer/DocStream/LineStream
+ * @tsplus type effect/printer/DocStream/LineStream
  */
 export class LineStream<A> {
   readonly _tag = "LineStream"
@@ -116,7 +116,7 @@ export class LineStream<A> {
 /**
  * Represents the addition of an annotation of type `A` to a `Doc`.
  *
- * @tsplus type ets/printer/DocStream/PushAnnotationStream
+ * @tsplus type effect/printer/DocStream/PushAnnotationStream
  */
 export class PushAnnotationStream<A> {
   readonly _tag = "PushAnnotationStream"
@@ -127,7 +127,7 @@ export class PushAnnotationStream<A> {
 /**
  * Represents the removal of a previously pushed annotation from a `Doc`.
  *
- * @tsplus type ets/printer/DocStream/PopAnnotationStream
+ * @tsplus type effect/printer/DocStream/PopAnnotationStream
  */
 export class PopAnnotationStream<A> {
   readonly _tag = "PopAnnotationStream"
@@ -136,38 +136,38 @@ export class PopAnnotationStream<A> {
 }
 
 /**
- * @tsplus static ets/printer/DocStream/Ops failed
+ * @tsplus static effect/printer/DocStream.Ops failed
  */
 export const failed: DocStream<never> = new FailedStream(identity)
 
 /**
- * @tsplus static ets/printer/DocStream/Ops empty
+ * @tsplus static effect/printer/DocStream.Ops empty
  */
 export const empty: DocStream<never> = new EmptyStream(identity)
 
 /**
- * @tsplus static ets/printer/DocStream/Ops char
+ * @tsplus static effect/printer/DocStream.Ops char
  */
 export function char<A>(stream: DocStream<A>, char: string): DocStream<A> {
   return new CharStream(char, stream)
 }
 
 /**
- * @tsplus static ets/printer/DocStream/Ops text
+ * @tsplus static effect/printer/DocStream.Ops text
  */
 export function text<A>(stream: DocStream<A>, text: string): DocStream<A> {
   return new TextStream(text, stream)
 }
 
 /**
- * @tsplus static ets/printer/DocStream/Ops line
+ * @tsplus static effect/printer/DocStream.Ops line
  */
 export function line_<A>(stream: DocStream<A>, indentation: number): DocStream<A> {
   return new LineStream(indentation, stream)
 }
 
 /**
- * @tsplus static ets/printer/DocStream/Ops pushAnnotation
+ * @tsplus static effect/printer/DocStream.Ops pushAnnotation
  */
 export function pushAnnotation<A, B>(
   stream: DocStream<B>,
@@ -177,49 +177,49 @@ export function pushAnnotation<A, B>(
 }
 
 /**
- * @tsplus static ets/printer/DocStream/Ops popAnnotation
+ * @tsplus static effect/printer/DocStream.Ops popAnnotation
  */
 export function popAnnotation<A>(stream: DocStream<A>): DocStream<A> {
   return new PopAnnotationStream(stream)
 }
 
 /**
- * @tsplus static ets/printer/DocStream/Ops isFailedStream
+ * @tsplus static effect/printer/DocStream.Ops isFailedStream
  */
 export function isFailedStream<A>(stream: DocStream<A>): stream is FailedStream<A> {
   return stream._tag === "FailedStream"
 }
 
 /**
- * @tsplus static ets/printer/DocStream/Ops isEmptyStream
+ * @tsplus static effect/printer/DocStream.Ops isEmptyStream
  */
 export function isEmptyStream<A>(stream: DocStream<A>): stream is EmptyStream<A> {
   return stream._tag === "EmptyStream"
 }
 
 /**
- * @tsplus static ets/printer/DocStream/Ops isCharStream
+ * @tsplus static effect/printer/DocStream.Ops isCharStream
  */
 export function isCharStream<A>(stream: DocStream<A>): stream is CharStream<A> {
   return stream._tag === "CharStream"
 }
 
 /**
- * @tsplus static ets/printer/DocStream/Ops isTextStream
+ * @tsplus static effect/printer/DocStream.Ops isTextStream
  */
 export function isTextStream<A>(stream: DocStream<A>): stream is TextStream<A> {
   return stream._tag === "TextStream"
 }
 
 /**
- * @tsplus static ets/printer/DocStream/Ops isLineStream
+ * @tsplus static effect/printer/DocStream.Ops isLineStream
  */
 export function isLineStream<A>(stream: DocStream<A>): stream is LineStream<A> {
   return stream._tag === "LineStream"
 }
 
 /**
- * @tsplus static ets/printer/DocStream/Ops isPushAnnotationStream
+ * @tsplus static effect/printer/DocStream.Ops isPushAnnotationStream
  */
 export function isPushAnnotationStream<A>(
   stream: DocStream<A>
@@ -228,7 +228,7 @@ export function isPushAnnotationStream<A>(
 }
 
 /**
- * @tsplus static ets/printer/DocStream/Ops isPopAnnotationStream
+ * @tsplus static effect/printer/DocStream.Ops isPopAnnotationStream
  */
 export function isPopAnnotationStream<A>(
   stream: DocStream<A>

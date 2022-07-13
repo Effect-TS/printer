@@ -7,10 +7,5 @@
     "tsPlusConfig": "../../tsplus.config.json",
     "rootDir": "_src"
   },
-  "include": [
-    "_src/**/*.ts"
-  ],
-  "files": [
-    "./tsplus.prelude.d.ts"
-  ]
+  "include": ["_src/**/*.ts"]
 }

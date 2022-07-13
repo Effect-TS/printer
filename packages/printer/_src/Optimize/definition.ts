@@ -2,26 +2,24 @@
  * Represents optimization of a given document tree through fusion of redundant
  * document nodes.
  *
- * @tsplus type ets/printer/Optimize
+ * @tsplus type effect/printer/Optimize
  */
 export interface Optimize<A> {
-  (depth: FusionDepth): Doc<A>
+  (depth: Optimize.Depth): Doc<A>
 }
 
 /**
- * @tsplus type ets/printer/Optimize/Ops
+ * @tsplus type effect/printer/Optimize.Ops
  */
 export interface OptimizeOps {
-  $: OptimizeAspects
-  Depth: FusionDepthOps
+  readonly $: OptimizeAspects
 }
 export const Optimize: OptimizeOps = {
-  $: {},
-  Depth: {}
+  $: {}
 }
 
 /**
- * @tsplus type ets/printer/Optimize/Aspects
+ * @tsplus type effect/printer/Optimize.Aspects
  */
 export interface OptimizeAspects {}
 
@@ -30,7 +28,7 @@ export declare namespace Optimize {
 }
 
 /**
- * @tsplus unify ets/printer/Optimize
+ * @tsplus unify effect/printer/Optimize
  */
 export function unifyOptimize<X extends Optimize<any>>(
   self: X
@@ -44,14 +42,18 @@ export function unifyOptimize<X extends Optimize<any>>(
  * Represents an instruction that determines how deeply the document fusion
  * optimizer should traverse the document tree.
  *
- * @tsplus type ets/printer/Optimize/FusionDepth
+ * @tsplus type effect/printer/Optimize.Depth
  */
 export type FusionDepth = Shallow | Deep
 
 /**
- * @tsplus type ets/printer/Optimize/FusionDepth/Ops
+ * @tsplus type effect/printer/Optimize.Depth.Ops
  */
 export interface FusionDepthOps {}
+/**
+ * @tsplus static effect/printer/Optimize.Ops Depth
+ */
+export const FusionDepth: FusionDepthOps = {}
 
 /**
  * Instructs the document fusion optimizer to avoid diving deeply into nested
@@ -78,14 +80,14 @@ export interface Deep {
 }
 
 /**
- * @tsplus static ets/printer/Optimize/FusionDepth/Ops Shallow
+ * @tsplus static effect/printer/Optimize.Depth.Ops Shallow
  */
 export const Shallow: FusionDepth = {
   _tag: "Shallow"
 }
 
 /**
- * @tsplus static ets/printer/Optimize/FusionDepth/Ops Deep
+ * @tsplus static effect/printer/Optimize.Depth.Ops Deep
  */
 export const Deep: FusionDepth = {
   _tag: "Deep"

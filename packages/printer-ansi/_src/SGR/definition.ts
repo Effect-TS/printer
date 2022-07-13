@@ -1,10 +1,10 @@
 /**
- * @tsplus type ets/printer-ansi/SGR
+ * @tsplus type effect/printer-ansi/SGR
  */
 export type SGR = Reset | SetBold | SetItalicized | SetUnderlined | SetColor
 
 /**
- * @tsplus type ets/printer-ansi/SGR/Ops
+ * @tsplus type effect/printer-ansi/SGR.Ops
  */
 export interface SGROps {}
 export const SGR: SGROps = {}
@@ -34,33 +34,33 @@ export class SetColor {
 }
 
 /**
- * @tsplus static ets/printer-ansi/SGR/Ops Reset
+ * @tsplus static effect/printer-ansi/SGR.Ops Reset
  */
 export const reset: SGR = new Reset()
 
 /**
- * @tsplus static ets/printer-ansi/SGR/Ops SetBold
+ * @tsplus static effect/printer-ansi/SGR.Ops SetBold
  */
 export function setBold(bold: boolean): SGR {
   return new SetBold(bold)
 }
 
 /**
- * @tsplus static ets/printer-ansi/SGR/Ops SetItalicized
+ * @tsplus static effect/printer-ansi/SGR.Ops SetItalicized
  */
 export function setItalicized(italicized: boolean): SGR {
   return new SetItalicized(italicized)
 }
 
 /**
- * @tsplus static ets/printer-ansi/SGR/Ops SetUnderlined
+ * @tsplus static effect/printer-ansi/SGR.Ops SetUnderlined
  */
 export function setUnderlined(underlined: boolean): SGR {
   return new SetUnderlined(underlined)
 }
 
 /**
- * @tsplus static ets/printer-ansi/SGR/Ops SetColor
+ * @tsplus static effect/printer-ansi/SGR.Ops SetColor
  */
 export function setColor(color: Color, vivid: boolean, layer: Layer): SGR {
   return new SetColor(color, vivid, layer)

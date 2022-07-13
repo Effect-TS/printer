@@ -1,8 +1,9 @@
 /**
- * @tsplus fluent ets/printer/DocStream renderAnsi
+ * @tsplus static effect/printer/DocStream.Ops renderAnsi
+ * @tsplus getter effect/printer/DocStream renderAnsi
  */
 export function renderAnsi(self: DocStream<AnsiStyle>): string {
-  return renderSafe(self, List.make(AnsiStyle.AssociativeIdentity.identity)).run()
+  return renderSafe(self, List.make(AnsiStyle.AssociativeIdentity.identity)).run
 }
 
 function unsafePeek(stack: List<AnsiStyle>): AnsiStyle {

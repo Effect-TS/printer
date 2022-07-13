@@ -1,5 +1,6 @@
 /**
- * @tsplus fluent ets/printer-ansi/Color toCode
+ * @tsplus static effect/printer-ansi/Color.Ops toCode
+ * @tsplus getter effect/printer-ansi/Color toCode
  */
 export function toCode(color: Color): number {
   switch (color._tag) {

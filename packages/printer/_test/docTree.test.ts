@@ -3,15 +3,15 @@ import { AnnotationTree, CharTree, ConcatTree, LineTree, TextTree } from "@effec
 describe.concurrent("DocTree", () => {
   describe.concurrent("constructors", () => {
     it("char", () => {
-      assert.instanceOf(DocStream.char(DocStream.empty, "a").treeForm(), CharTree)
+      assert.instanceOf(DocStream.char(DocStream.empty, "a").treeForm, CharTree)
     })
 
     it("text", () => {
-      assert.instanceOf(DocStream.text(DocStream.empty, "foo").treeForm(), TextTree)
+      assert.instanceOf(DocStream.text(DocStream.empty, "foo").treeForm, TextTree)
     })
 
     it("line", () => {
-      assert.instanceOf(DocStream.line(DocStream.empty, 1).treeForm(), LineTree)
+      assert.instanceOf(DocStream.line(DocStream.empty, 1).treeForm, LineTree)
     })
 
     it("annotated", () => {
@@ -19,14 +19,14 @@ describe.concurrent("DocTree", () => {
         DocStream.pushAnnotation(
           DocStream.char(DocStream.popAnnotation(DocStream.empty), "a"),
           undefined
-        ).treeForm(),
+        ).treeForm,
         AnnotationTree
       )
     })
 
     it("concat", () => {
       assert.instanceOf(
-        DocStream.char(DocStream.char(DocStream.empty, "c"), "a").treeForm(),
+        DocStream.char(DocStream.char(DocStream.empty, "c"), "a").treeForm,
         ConcatTree
       )
     })
@@ -35,13 +35,13 @@ describe.concurrent("DocTree", () => {
   describe("parser", () => {
     it("should fail if parsing an empty stream", () => {
       assert.throws(() => {
-        DocStream.empty.treeForm()
+        DocStream.empty.treeForm
       })
     })
 
     it("should fail if attempting to parse a failed stream", () => {
       assert.throws(() => {
-        DocStream.failed.treeForm()
+        DocStream.failed.treeForm
       })
     })
   })
@@ -144,11 +144,11 @@ describe.concurrent("DocTree", () => {
             return Eval.suspend(renderTreeSafe(tree.tree)).map((content) => encloseInTag(content, tree.annotation))
           }
           case "ConcatTree": {
-            if (tree.trees.isEmpty()) {
+            if (tree.trees.isEmpty) {
               return Eval.succeed("")
             }
-            const head = tree.trees.unsafeHead()
-            const tail = tree.trees.unsafeTail()
+            const head = tree.trees.unsafeHead
+            const tail = tree.trees.unsafeTail
             return tail.reduce(
               Eval.suspend(renderTreeSafe(head)),
               (acc, tree) => acc.zipWith(Eval.suspend(renderTreeSafe(tree)), Associative.string.combine)
@@ -158,11 +158,11 @@ describe.concurrent("DocTree", () => {
       }
 
       function renderTree(tree: DocTree<SimpleHtml>): string {
-        return renderTreeSafe(tree).run()
+        return renderTreeSafe(tree).run
       }
 
       function render(stream: DocStream<SimpleHtml>): string {
-        return renderTree(stream.treeForm())
+        return renderTree(stream.treeForm)
       }
 
       const document = Doc.vsep([
@@ -187,7 +187,7 @@ describe.concurrent("DocTree", () => {
         `|<h1>Example document</h1>
          |<p>This is a <span style="color:#f00">paragraph</span>,</p>
          |<p>and <strong>this text is bold!</strong>,</p>
-         |<p>and <em>this is italicized!</em></p>`.stripMargin()
+         |<p>and <em>this is italicized!</em></p>`.stripMargin
       )
     })
   })

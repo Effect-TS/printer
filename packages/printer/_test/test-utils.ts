@@ -39,7 +39,7 @@ export const arbNesting: fc.Arbitrary<Doc<number>> = fc
 
 export const arbAnnotated: fc.Arbitrary<Doc<number>> = fc
   .tuple(fc.oneof(arbChar, arbText), fc.integer())
-  .map(([d, n]) => Doc.annotate(d, n))
+  .map(([d, n]) => d.annotate(n))
 
 export const arbDoc: fc.Arbitrary<Doc<number>> = fc.oneof(
   arbEmpty,

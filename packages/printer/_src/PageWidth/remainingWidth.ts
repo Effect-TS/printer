@@ -1,7 +1,7 @@
 /**
  * Calculates the remaining width on the current line.
  *
- * @tsplus static ets/printer/PageWidth/Ops remainingWidth
+ * @tsplus static effect/printer/PageWidth.Ops remainingWidth
  */
 export function remainingWidth(
   lineLength: number,

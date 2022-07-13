@@ -14,7 +14,7 @@
  * - mouseover text (e.g., when rendering to rich HTML)
  * - whether to show something or not (to allow simple or detailed versions)
  *
- * @tsplus type ets/printer/Doc
+ * @tsplus type effect/printer/Doc
  */
 export type Doc<A> =
   | Fail<A>
@@ -32,7 +32,7 @@ export type Doc<A> =
   | Annotated<A>
 
 /**
- * @tsplus type ets/printer/Doc/Ops
+ * @tsplus type effect/printer/Doc.Ops
  */
 export interface DocOps {
   $: DocAspects
@@ -46,25 +46,25 @@ export interface DocF extends HKT {
 }
 
 /**
- * @tsplus type ets/printer/Doc/Aspects
+ * @tsplus type effect/printer/Doc.Aspects
  */
 export interface DocAspects {}
 
 /**
- * @tsplus unify ets/printer/Doc
- * @tsplus unify ets/printer/Doc/Fail
- * @tsplus unify ets/printer/Doc/Empty
- * @tsplus unify ets/printer/Doc/Char
- * @tsplus unify ets/printer/Doc/Text
- * @tsplus unify ets/printer/Doc/Line
- * @tsplus unify ets/printer/Doc/FlatAlt
- * @tsplus unify ets/printer/Doc/Cat
- * @tsplus unify ets/printer/Doc/Nest
- * @tsplus unify ets/printer/Doc/Union
- * @tsplus unify ets/printer/Doc/Column
- * @tsplus unify ets/printer/Doc/WithPageWidth
- * @tsplus unify ets/printer/Doc/Nesting
- * @tsplus unify ets/printer/Doc/Annotated
+ * @tsplus unify effect/printer/Doc
+ * @tsplus unify effect/printer/Doc/Fail
+ * @tsplus unify effect/printer/Doc/Empty
+ * @tsplus unify effect/printer/Doc/Char
+ * @tsplus unify effect/printer/Doc/Text
+ * @tsplus unify effect/printer/Doc/Line
+ * @tsplus unify effect/printer/Doc/FlatAlt
+ * @tsplus unify effect/printer/Doc/Cat
+ * @tsplus unify effect/printer/Doc/Nest
+ * @tsplus unify effect/printer/Doc/Union
+ * @tsplus unify effect/printer/Doc/Column
+ * @tsplus unify effect/printer/Doc/WithPageWidth
+ * @tsplus unify effect/printer/Doc/Nesting
+ * @tsplus unify effect/printer/Doc/Annotated
  */
 export function unifyDoc<X extends Doc<any>>(
   self: X
@@ -77,7 +77,7 @@ export function unifyDoc<X extends Doc<any>>(
  * flattening a line. The layout algorithms will reject this document and choose
  * a more suitable rendering.
  *
- * @tsplus type ets/printer/Doc/Fail
+ * @tsplus type effect/printer/Doc/Fail
  */
 export class Fail<A> {
   readonly _tag = "Fail"
@@ -88,7 +88,7 @@ export class Fail<A> {
 /**
  * Represents the empty document. Conceptually, the unit of `Cat`.
  *
- * @tsplus type ets/printer/Doc/Empty
+ * @tsplus type effect/printer/Doc/Empty
  */
 export class Empty<A> {
   readonly _tag = "Empty"
@@ -102,7 +102,7 @@ export class Empty<A> {
  * **Invariants**
  * - Cannot be the newline (`"\n"`) character
  *
- * @tsplus type ets/printer/Doc/Char
+ * @tsplus type effect/printer/Doc/Char
  */
 export class Char<A> {
   readonly _tag = "Char"
@@ -117,7 +117,7 @@ export class Char<A> {
  * - Text cannot be less than two characters long
  * - Text cannot contain a newline (`"\n"`) character
  *
- * @tsplus type ets/printer/Doc/Text
+ * @tsplus type effect/printer/Doc/Text
  */
 export class Text<A> {
   readonly _tag = "Text"
@@ -128,7 +128,7 @@ export class Text<A> {
 /**
  * Represents a document that contains a hard line break.
  *
- * @tsplus type ets/printer/Doc/Line
+ * @tsplus type effect/printer/Doc/Line
  */
 export class Line<A> {
   readonly _tag = "Line"
@@ -144,7 +144,7 @@ export class Line<A> {
  * The layout algorithms operate under the assumption that the first alternative
  * is less wide than the flattened second alternative.
  *
- * @tsplus type ets/printer/Doc/FlatAlt
+ * @tsplus type effect/printer/Doc/FlatAlt
  */
 export class FlatAlt<A> {
   readonly _tag = "FlatAlt"
@@ -155,7 +155,7 @@ export class FlatAlt<A> {
 /**
  * Represents the concatenation of two documents.
  *
- * @tsplus type ets/printer/Doc/Cat
+ * @tsplus type effect/printer/Doc/Cat
  */
 export class Cat<A> {
   readonly _tag = "Cat"
@@ -167,7 +167,7 @@ export class Cat<A> {
  * Represents a document that is indented by a certain
  * number of columns.
  *
- * @tsplus type ets/printer/Doc/Nest
+ * @tsplus type effect/printer/Doc/Nest
  */
 export class Nest<A> {
   readonly _tag = "Nest"
@@ -184,7 +184,7 @@ export class Nest<A> {
  *   of the second document so that the layout algorithm can pick the document
  *   with the best fit.
  *
- * @tsplus type ets/printer/Doc/Union
+ * @tsplus type effect/printer/Doc/Union
  */
 export class Union<A> {
   readonly _tag = "Union"
@@ -195,7 +195,7 @@ export class Union<A> {
 /**
  * Represents a document that reacts to the current cursor position.
  *
- * @tsplus type ets/printer/Doc/Column
+ * @tsplus type effect/printer/Doc/Column
  */
 export class Column<A> {
   readonly _tag = "Column"
@@ -206,7 +206,7 @@ export class Column<A> {
 /**
  * Represents a document that reacts to the current page width.
  *
- * @tsplus type ets/printer/Doc/WithPageWidth
+ * @tsplus type effect/printer/Doc/WithPageWidth
  */
 export class WithPageWidth<A> {
   readonly _tag = "WithPageWidth"
@@ -217,7 +217,7 @@ export class WithPageWidth<A> {
 /**
  * Represents a document that reacts to the current nesting level.
  *
- * @tsplus type ets/printer/Doc/Nesting
+ * @tsplus type effect/printer/Doc/Nesting
  */
 export class Nesting<A> {
   readonly _tag = "Nesting"
@@ -228,7 +228,7 @@ export class Nesting<A> {
 /**
  * Represents a document with an associated annotation.
  *
- * @tsplus type ets/printer/Doc/Annotated
+ * @tsplus type effect/printer/Doc/Annotated
  */
 export class Annotated<A> {
   readonly _tag = "Annotated"
@@ -262,7 +262,7 @@ const line_: Doc<never> = new Line(identity)
  * // world
  * ```
  *
- * @tsplus static ets/printer/Doc/Ops empty
+ * @tsplus static effect/printer/Doc.Ops empty
  */
 export const empty: Doc<never> = new Empty(identity)
 
@@ -272,7 +272,7 @@ export const empty: Doc<never> = new Empty(identity)
  * Generally occurs when flattening a line. The layout algorithms will reject
  * this document and choose a more suitable rendering.
  *
- * @tsplus static ets/printer/Doc/Ops fail
+ * @tsplus static effect/printer/Doc.Ops fail
  */
 export const fail: Doc<never> = new Fail(identity)
 
@@ -282,7 +282,7 @@ export const fail: Doc<never> = new Fail(identity)
  * **Invariants**
  * - Cannot be the newline (`"\n"`) character
  *
- * @tsplus static ets/printer/Doc/Ops char
+ * @tsplus static effect/printer/Doc.Ops char
  */
 export function char(char: string): Doc<never> {
   return new Char(char, identity)
@@ -295,7 +295,7 @@ export function char(char: string): Doc<never> {
  * - Text cannot be less than two characters long
  * - Text cannot contain a newline (`"\n"`) character
  *
- * @tsplus static ets/printer/Doc/Ops text
+ * @tsplus static effect/printer/Doc.Ops text
  */
 export function text(text: string): Doc<never> {
   return new Text(text, identity)
@@ -342,21 +342,21 @@ export function text(text: string): Doc<never> {
  * //    putStrLn greet
  * ```
  *
- * @tsplus static ets/printer/Doc/Ops flatAlt
+ * @tsplus static effect/printer/Doc.Ops flatAlt
  */
 export function flatAlt<A, B>(left: Doc<A>, right: Doc<B>): Doc<A | B> {
   return new FlatAlt<A | B>(left, right)
 }
 
 /**
- * @tsplus static ets/printer/Doc/Ops union
+ * @tsplus static effect/printer/Doc.Ops union
  */
 export function union<A, B>(left: Doc<A>, right: Doc<B>): Doc<A | B> {
   return new Union<A | B>(left, right)
 }
 
 /**
- * @tsplus static ets/printer/Doc/Ops cat
+ * @tsplus static effect/printer/Doc.Ops cat
  */
 export function cat<A, B>(left: Doc<A>, right: Doc<B>): Doc<A | B> {
   return new Cat<A | B>(left, right)
@@ -385,7 +385,7 @@ export function cat<A, B>(left: Doc<A>, right: Doc<B>): Doc<A | B> {
  * // lorem ipsum dolor sit amet
  * ```
  *
- * @tsplus static ets/printer/Doc/Ops line
+ * @tsplus static effect/printer/Doc.Ops line
  */
 export const line: Doc<never> = flatAlt(line_, char(" "))
 
@@ -411,7 +411,7 @@ export const line: Doc<never> = flatAlt(line_, char(" "))
  * // lorem ipsumdolor sit amet
  * ```
  *
- * @tsplus static ets/printer/Doc/Ops lineBreak
+ * @tsplus static effect/printer/Doc.Ops lineBreak
  */
 export const lineBreak: Doc<never> = flatAlt(line_, empty)
 
@@ -441,7 +441,7 @@ export const lineBreak: Doc<never> = flatAlt(line_, empty)
  * // dolor sit amet
  * ```
  *
- * @tsplus static ets/printer/Doc/Ops softLine
+ * @tsplus static effect/printer/Doc.Ops softLine
  */
 export const softLine: Doc<never> = union(char(" "), line_)
 
@@ -472,7 +472,7 @@ export const softLine: Doc<never> = union(char(" "), line_)
  * // IsWayTooLong
  * ```
  *
- * @tsplus static ets/printer/Doc/Ops softLineBreak
+ * @tsplus static effect/printer/Doc.Ops softLineBreak
  */
 export const softLineBreak: Doc<never> = union(empty, line_)
 
@@ -496,7 +496,7 @@ export const softLineBreak: Doc<never> = union(empty, line_)
  * // dolor sit amet
  * ```
  *
- * @tsplus static ets/printer/Doc/Ops hardLine
+ * @tsplus static effect/printer/Doc.Ops hardLine
  */
 export const hardLine: Doc<never> = line_
 
@@ -533,7 +533,7 @@ export const hardLine: Doc<never> = line_
  * // amet
  * ```
  *
- * @tsplus static ets/printer/Doc/Ops nest
+ * @tsplus static effect/printer/Doc.Ops nest
  */
 export function nest<A>(doc: Doc<A>, indent: number): Doc<A> {
   return indent === 0 ? doc : new Nest(indent, doc)
@@ -567,7 +567,7 @@ export function nest<A>(doc: Doc<A>, indent: number): Doc<A> {
  * //         prefix | <- column 15
  * ```
  *
- * @tsplus static ets/printer/Doc/Ops column
+ * @tsplus static effect/printer/Doc.Ops column
  */
 export function column<A>(react: (position: number) => Doc<A>): Doc<A> {
   return new Column(react)
@@ -592,7 +592,7 @@ export function column<A>(react: (position: number) => Doc<A>): Doc<A> {
  * //         prefix [Nested: 8]
  * ```
  *
- * @tsplus static ets/printer/Doc/Ops nesting
+ * @tsplus static effect/printer/Doc.Ops nesting
  */
 export function nesting<A>(react: (level: number) => Doc<A>): Doc<A> {
   return new Nesting(react)
@@ -626,7 +626,7 @@ export function nesting<A>(react: (level: number) => Doc<A>): Doc<A> {
  * //         prefix [Width: 32, Ribbon Fraction: 1]
  * ```
  *
- * @tsplus static ets/printer/Doc/Ops withPageWidth
+ * @tsplus static effect/printer/Doc.Ops withPageWidth
  */
 export function withPageWidth<A>(react: (pageWidth: PageWidth) => Doc<A>): Doc<A> {
   return new WithPageWidth(react)
@@ -639,99 +639,99 @@ export function withPageWidth<A>(react: (pageWidth: PageWidth) => Doc<A>): Doc<A
  * **Note** This function is relevant only for custom formats with their own annotations,
  * and is not relevant for basic pretty printing.
  *
- * @tsplus fluent ets/printer/Doc annotate
- * @tsplus static ets/printer/Doc/Ops annotate
+ * @tsplus static effect/printer/Doc.Aspects annotate
+ * @tsplus pipeable effect/printer/Doc annotate
  */
-export function annotate<A, B>(doc: Doc<B>, annotation: A): Doc<A | B> {
-  return new Annotated<A | B>(annotation, doc)
+export function annotate<A>(annotation: A) {
+  return <B>(doc: Doc<B>): Doc<A | B> => new Annotated<A | B>(annotation, doc)
 }
 
 /**
- * @tsplus static ets/printer/Doc/Ops isFail
+ * @tsplus static effect/printer/Doc.Ops isFail
  */
 export function isFail<A>(doc: Doc<A>): doc is Fail<A> {
   return doc._tag === "Fail"
 }
 
 /**
- * @tsplus static ets/printer/Doc/Ops isEmpty
+ * @tsplus static effect/printer/Doc.Ops isEmpty
  */
 export function isEmpty<A>(doc: Doc<A>): doc is Empty<A> {
   return doc._tag === "Empty"
 }
 
 /**
- * @tsplus static ets/printer/Doc/Ops isChar
+ * @tsplus static effect/printer/Doc.Ops isChar
  */
 export function isChar<A>(doc: Doc<A>): doc is Char<A> {
   return doc._tag === "Char"
 }
 
 /**
- * @tsplus static ets/printer/Doc/Ops isText
+ * @tsplus static effect/printer/Doc.Ops isText
  */
 export function isText<A>(doc: Doc<A>): doc is Text<A> {
   return doc._tag === "Text"
 }
 
 /**
- * @tsplus static ets/printer/Doc/Ops isLine
+ * @tsplus static effect/printer/Doc.Ops isLine
  */
 export function isLine<A>(doc: Doc<A>): doc is Line<A> {
   return doc._tag === "Line"
 }
 
 /**
- * @tsplus static ets/printer/Doc/Ops isFlatAlt
+ * @tsplus static effect/printer/Doc.Ops isFlatAlt
  */
 export function isFlatAlt<A>(doc: Doc<A>): doc is FlatAlt<A> {
   return doc._tag === "FlatAlt"
 }
 
 /**
- * @tsplus static ets/printer/Doc/Ops isCat
+ * @tsplus static effect/printer/Doc.Ops isCat
  */
 export function isCat<A>(doc: Doc<A>): doc is Cat<A> {
   return doc._tag === "Cat"
 }
 
 /**
- * @tsplus static ets/printer/Doc/Ops isNest
+ * @tsplus static effect/printer/Doc.Ops isNest
  */
 export function isNest<A>(doc: Doc<A>): doc is Nest<A> {
   return doc._tag === "Nest"
 }
 
 /**
- * @tsplus static ets/printer/Doc/Ops isUnion
+ * @tsplus static effect/printer/Doc.Ops isUnion
  */
 export function isUnion<A>(doc: Doc<A>): doc is Union<A> {
   return doc._tag === "Union"
 }
 
 /**
- * @tsplus static ets/printer/Doc/Ops isColumn
+ * @tsplus static effect/printer/Doc.Ops isColumn
  */
 export function isColumn<A>(doc: Doc<A>): doc is Column<A> {
   return doc._tag === "Column"
 }
 
 /**
- * @tsplus static ets/printer/Doc/Ops isWithPageWidth
+ * @tsplus static effect/printer/Doc.Ops isWithPageWidth
  */
 export function isWithPageWidth<A>(doc: Doc<A>): doc is WithPageWidth<A> {
   return doc._tag === "WithPageWidth"
 }
 
 /**
- * @tsplus static ets/printer/Doc/Ops isNesting
+ * @tsplus static effect/printer/Doc.Ops isNesting
  */
 export function isNesting<A>(doc: Doc<A>): doc is Nesting<A> {
   return doc._tag === "Nesting"
 }
 
 /**
- * @tsplus static ets/printer/Doc/Ops isAnnotated
+ * @tsplus static effect/printer/Doc.Ops isAnnotated
  */
 export function isAnnotated<A>(doc: Doc<A>): doc is Annotated<A> {
   return doc._tag === "Annotated"

@@ -1,10 +1,10 @@
 /**
- * @tsplus type ets/printer-ansi/Layer
+ * @tsplus type effect/printer-ansi/Layer
  */
 export type Layer = Background | Foreground
 
 /**
- * @tsplus type ets/printer-ansi/Layer/Ops
+ * @tsplus type effect/printer-ansi/Layer.Ops
  */
 export interface LayerOps {}
 export const Layer: LayerOps = {}
@@ -18,14 +18,14 @@ export interface Foreground {
 }
 
 /**
- * @tsplus static ets/printer-ansi/Layer/Ops Foreground
+ * @tsplus static effect/printer-ansi/Layer.Ops Foreground
  */
 export const Foreground: Layer = {
   _tag: "Foreground"
 }
 
 /**
- * @tsplus static ets/printer-ansi/Layer/Ops Background
+ * @tsplus static effect/printer-ansi/Layer.Ops Background
  */
 export const Background: Layer = {
   _tag: "Background"

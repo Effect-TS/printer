@@ -11,9 +11,9 @@ export const doc = Doc.hsep([
       AnsiStyle.Associative.combine(AnsiStyle.color(Color.Blue), AnsiStyle.underlined)
     ),
     Doc.text("red")
-  ]).align()
+  ]).align
 ]).annotate(
   AnsiStyle.color(Color.Red)
 )
 
-console.log(doc.renderPrettyAnsiDefault())
+console.log(doc.renderPrettyAnsiDefault)

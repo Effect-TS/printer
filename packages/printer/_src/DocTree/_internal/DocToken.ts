@@ -1,5 +1,5 @@
 /**
- * @tsplus type ets/printer/DocToken
+ * @tsplus type effect/printer/DocToken
  */
 export type DocToken<A> =
   | EmptyToken<A>
@@ -10,19 +10,19 @@ export type DocToken<A> =
   | PopAnnotationToken<A>
 
 /**
- * @tsplus type ets/printer/DocToken/Ops
+ * @tsplus type effect/printer/DocToken.Ops
  */
 export interface DocTokenOps {}
 export const DocToken: DocTokenOps = {}
 
 /**
- * @tsplus unify ets/printer/DocToken
- * @tsplus unify ets/printer/DocToken/Empty
- * @tsplus unify ets/printer/DocToken/Char
- * @tsplus unify ets/printer/DocToken/Text
- * @tsplus unify ets/printer/DocToken/Line
- * @tsplus unify ets/printer/DocToken/PushAnnotation
- * @tsplus unify ets/printer/DocToken/PopAnnotation
+ * @tsplus unify effect/printer/DocToken
+ * @tsplus unify effect/printer/DocToken/Empty
+ * @tsplus unify effect/printer/DocToken/Char
+ * @tsplus unify effect/printer/DocToken/Text
+ * @tsplus unify effect/printer/DocToken/Line
+ * @tsplus unify effect/printer/DocToken/PushAnnotation
+ * @tsplus unify effect/printer/DocToken/PopAnnotation
  */
 export function unifyDocToken<X extends DocToken<any>>(
   self: X
@@ -33,7 +33,7 @@ export function unifyDocToken<X extends DocToken<any>>(
 }
 
 /**
- * @tsplus type ets/printer/DocToken/Empty
+ * @tsplus type effect/printer/DocToken/Empty
  */
 export class EmptyToken<A> {
   readonly _tag = "EmptyToken"
@@ -42,7 +42,7 @@ export class EmptyToken<A> {
 }
 
 /**
- * @tsplus type ets/printer/DocToken/Char
+ * @tsplus type effect/printer/DocToken/Char
  */
 export class CharToken<A> {
   readonly _tag = "CharToken"
@@ -51,7 +51,7 @@ export class CharToken<A> {
 }
 
 /**
- * @tsplus type ets/printer/DocToken/Text
+ * @tsplus type effect/printer/DocToken/Text
  */
 export class TextToken<A> {
   readonly _tag = "TextToken"
@@ -60,7 +60,7 @@ export class TextToken<A> {
 }
 
 /**
- * @tsplus type ets/printer/DocToken/Line
+ * @tsplus type effect/printer/DocToken/Line
  */
 export class LineToken<A> {
   readonly _tag = "LineToken"
@@ -69,7 +69,7 @@ export class LineToken<A> {
 }
 
 /**
- * @tsplus type ets/printer/DocToken/PushAnnotation
+ * @tsplus type effect/printer/DocToken/PushAnnotation
  */
 export class PushAnnotationToken<A> {
   readonly _tag = "PushAnnotationToken"
@@ -78,7 +78,7 @@ export class PushAnnotationToken<A> {
 }
 
 /**
- * @tsplus type ets/printer/DocToken/PopAnnotation
+ * @tsplus type effect/printer/DocToken/PopAnnotation
  */
 export class PopAnnotationToken<A> {
   readonly _tag = "PopAnnotationToken"
@@ -87,39 +87,39 @@ export class PopAnnotationToken<A> {
 }
 
 /**
- * @tsplus static ets/printer/DocToken/Ops empty
+ * @tsplus static effect/printer/DocToken.Ops empty
  */
 export const empty: DocToken<never> = new EmptyToken(identity)
 
 /**
- * @tsplus static ets/printer/DocToken/Ops char
+ * @tsplus static effect/printer/DocToken.Ops char
  */
 export function char<A>(char: string): DocToken<A> {
   return new CharToken(char, identity)
 }
 
 /**
- * @tsplus static ets/printer/DocToken/Ops text
+ * @tsplus static effect/printer/DocToken.Ops text
  */
 export function text<A>(text: string): DocToken<A> {
   return new TextToken(text, identity)
 }
 
 /**
- * @tsplus static ets/printer/DocToken/Ops line
+ * @tsplus static effect/printer/DocToken.Ops line
  */
 export function line<A>(indentation: number): DocToken<A> {
   return new LineToken(indentation, identity)
 }
 
 /**
- * @tsplus static ets/printer/DocToken/Ops pushAnnotation
+ * @tsplus static effect/printer/DocToken.Ops pushAnnotation
  */
 export function pushAnnotation<A>(annotation: A): DocToken<A> {
   return new PushAnnotationToken(annotation)
 }
 
 /**
- * @tsplus static ets/printer/DocToken/Ops popAnnotation
+ * @tsplus static effect/printer/DocToken.Ops popAnnotation
  */
 export const popAnnotation: DocToken<never> = new PopAnnotationToken(identity)
