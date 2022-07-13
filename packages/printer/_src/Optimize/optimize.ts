@@ -23,40 +23,12 @@
  * const doc2 = D.text("abcd")
  * ```
  *
- * @tsplus fluent ets/printer/Doc optimize
+ * @tsplus static effect/printer/Doc.Aspects optimize
+ * @tsplus pipeable effect/printer/Doc optimize
  */
-export function optimize_<A>(self: Doc<A>, depth: Optimize.Depth): Doc<A> {
-  return optimizeSafe(self, depth).run()
+export function optimize<A>(depth: Optimize.Depth) {
+  return (self: Doc<A>): Doc<A> => optimizeSafe(self, depth).run
 }
-
-/**
- * The `optimize` function will combine text nodes so that they can be rendered
- * more efficiently. An optimized document is always laid out in an identical
- * manner to its un-optimized counterpart.
- *
- * When laying a `Doc` out to a `SimpleDocStream`, every component of the input
- * document is translated directly to the simpler output format. This sometimes
- * yields undesirable chunking when many pieces have been concatenated together.
- *
- * It is therefore a good idea to run `fuse` on concatenations of lots of small
- * strings that are used many times.
- *
- * ```typescript
- * import * as D from "../src/Core/Doc"
- *
- * // The document below contains a chain of four entries in the output
- * // `DocStream`
- * const doc1 = D.hsepT(D.char("a"), D.char("b"), D.char("c"), D.char("d"))
- *
- * // but is fully equivalent to the tightly packed document below which is only
- * // a single entry in the output `DocStream` and can be processed much more
- * // efficiently.
- * const doc2 = D.text("abcd")
- * ```
- *
- * @tsplus static ets/printer/Doc/Aspects optimize
- */
-export const optimize = Pipeable(optimize_)
 
 function optimizeSafe<A>(self: Doc<A>, depth: Optimize.Depth): Eval<Doc<A>> {
   switch (self._tag) {
@@ -157,25 +129,25 @@ function optimizeSafe<A>(self: Doc<A>, depth: Optimize.Depth): Eval<Doc<A>> {
       return depth._tag === "Shallow"
         ? Eval.succeed(Doc.column(self.react))
         : Eval.succeed(
-          Doc.column((position) => optimizeSafe(self.react(position), depth).run())
+          Doc.column((position) => optimizeSafe(self.react(position), depth).run)
         )
     }
     case "WithPageWidth": {
       return depth._tag === "Shallow"
         ? Eval.succeed(Doc.withPageWidth(self.react))
         : Eval.succeed(
-          Doc.withPageWidth((pageWidth) => optimizeSafe(self.react(pageWidth), depth).run())
+          Doc.withPageWidth((pageWidth) => optimizeSafe(self.react(pageWidth), depth).run)
         )
     }
     case "Nesting": {
       return depth._tag === "Shallow"
         ? Eval.succeed(Doc.nesting(self.react))
         : Eval.succeed(
-          Doc.nesting((level) => optimizeSafe(self.react(level), depth).run())
+          Doc.nesting((level) => optimizeSafe(self.react(level), depth).run)
         )
     }
     case "Annotated": {
-      return Eval.suspend(optimizeSafe(self.doc, depth)).map((doc) => Doc.annotate(doc, self.annotation))
+      return Eval.suspend(optimizeSafe(self.doc, depth)).map((doc) => doc.annotate(self.annotation))
     }
     default:
       return Eval.succeed(self)

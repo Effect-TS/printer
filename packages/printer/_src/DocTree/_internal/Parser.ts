@@ -1,12 +1,12 @@
 /**
- * @tsplus type ets/printer/DocTree/Parser
+ * @tsplus type effect/printer/DocTree.Parser
  */
 export interface Parser<S, A> {
-  (stream: S): Option<Tuple<[A, S]>>
+  (stream: S): Maybe<Tuple<[A, S]>>
 }
 
 /**
- * @tsplus type ets/printer/DocTree/Parser/Ops
+ * @tsplus type effect/printer/DocTree.Parser.Ops
  */
 export interface ParserOps {}
 export const Parser: ParserOps = {}
@@ -16,7 +16,7 @@ export interface ParserF<S> extends HKT {
 }
 
 /**
- * @tsplus static ets/printer/DocTree/Parser/Ops getAssociativeEither
+ * @tsplus static effect/printer/DocTree.Parser.Ops getAssociativeEither
  */
 export function getAssociativeEither<S>() {
   return HKT.instance<AssociativeEither<ParserF<S>>>({
@@ -25,26 +25,26 @@ export function getAssociativeEither<S>() {
         (stream) =>
           parser(stream).map((result) => result.update(0, Either.left)).orElse(
             that()(stream).fold(
-              Either.left(Option.none),
-              (result) => Option.some(result.update(0, Either.right))
-            ) as Option<Tuple<[Either<any, any>, S]>>
+              Either.left(Maybe.none),
+              (result) => Maybe.some(result.update(0, Either.right))
+            ) as Maybe<Tuple<[Either<any, any>, S]>>
           )
   })
 }
 
 /**
- * @tsplus static ets/printer/DocTree/Parser/Ops getMonad
+ * @tsplus static effect/printer/DocTree.Parser.Ops getMonad
  */
 export function getMonad<S>() {
   return HKT.instance<Monad<ParserF<S>>>({
-    any: () => (s) => Option.some(Tuple({}, s)),
+    any: () => (s) => Maybe.some(Tuple({}, s)),
     flatten: (ffa) => (s1) => ffa(s1).flatMap(({ tuple: [fa, s2] }) => fa(s2)),
     map: (f) => (parser) => (stream) => parser(stream).map((result) => result.update(0, f))
   })
 }
 
 /**
- * @tsplus static ets/printer/DocTree/Parser/Ops getChainRec
+ * @tsplus static effect/printer/DocTree.Parser.Ops getChainRec
  */
 export function getChainRec<S>() {
   return HKT.instance<ChainRec<ParserF<S>>>({
@@ -55,14 +55,14 @@ export function getChainRec<S>() {
             const result = f(state.value)(state.stream)
 
             if (result.isNone()) {
-              return Either.right(Option.none)
+              return Either.right(Maybe.none)
             }
 
             const { tuple: [cont, stream] } = result.value
 
             return cont.isLeft()
               ? Either.left({ value: cont.left, stream })
-              : Either.right(Option.some(Tuple(cont.right, stream)))
+              : Either.right(Maybe.some(Tuple(cont.right, stream)))
           })
         }
   })

@@ -1,10 +1,10 @@
 /**
- * @tsplus type ets/printer-ansi/AnsiDoc
+ * @tsplus type effect/printer-ansi/AnsiDoc
  */
 export type AnsiDoc = Doc<AnsiStyle>
 
 /**
- * @tsplus type ets/printer-ansi/AnsiDoc/Ops
+ * @tsplus type effect/printer-ansi/AnsiDoc.Ops
  */
 export interface AnsiDocOps {
   $: AnsiDocAspects
@@ -14,6 +14,6 @@ export const AnsiDoc: AnsiDocOps = {
 }
 
 /**
- * @tsplus type ets/printer-ansi/AnsiDoc/Aspects
+ * @tsplus type effect/printer-ansi/AnsiDoc.Aspects
  */
 export interface AnsiDocAspects {}

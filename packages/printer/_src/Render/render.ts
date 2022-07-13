@@ -1,8 +1,9 @@
 /**
- * @tsplus fluent ets/printer/DocStream render
+ * @tsplus static effect/printer/DocStream.Ops render
+ * @tsplus getter effect/printer/DocStream render
  */
 export function render<A>(self: DocStream<A>): string {
-  return renderSafe(self).run()
+  return renderSafe(self).run
 }
 
 function renderSafe<A>(self: DocStream<A>): Eval<string> {

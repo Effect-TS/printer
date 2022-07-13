@@ -1,8 +1,8 @@
 /**
- * @tsplus static ets/printer-ansi/SGR/Ops toEscapeSequence
+ * @tsplus static effect/printer-ansi/SGR.Ops toEscapeSequence
  */
 export function toEscapeSequence(sgrs: Chunk<SGR>): string {
-  return csi("m", sgrs.map((sgr) => sgr.toCode()))
+  return csi("m", sgrs.map((sgr) => sgr.toCode))
 }
 
 function csi(controlFunction: string, controlParameters: Chunk<number>): string {

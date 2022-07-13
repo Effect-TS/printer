@@ -1,16 +1,16 @@
 /**
- * @tsplus type ets/printer-ansi/AnsiStyle
+ * @tsplus type effect/printer-ansi/AnsiStyle
  */
 export interface AnsiStyle {
-  readonly foreground: Option<SGR>
-  readonly background: Option<SGR>
-  readonly bold: Option<SGR>
-  readonly italicized: Option<SGR>
-  readonly underlined: Option<SGR>
+  readonly foreground: Maybe<SGR>
+  readonly background: Maybe<SGR>
+  readonly bold: Maybe<SGR>
+  readonly italicized: Maybe<SGR>
+  readonly underlined: Maybe<SGR>
 }
 
 /**
- * @tsplus type ets/printer-ansi/AnsiStyle/Ops
+ * @tsplus type effect/printer-ansi/AnsiStyle.Ops
  */
 export interface AnsiStyleOps {}
 export const AnsiStyle: AnsiStyleOps = {}

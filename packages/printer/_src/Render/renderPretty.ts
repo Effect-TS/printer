@@ -1,17 +1,11 @@
 /**
- * @tsplus fluent ets/printer/Doc renderPretty
+ * @tsplus static effect/printer/Doc.Aspects renderPretty
+ * @tsplus pipeable effect/printer/Doc renderPretty
  */
-export function renderPretty_<A>(
-  self: Doc<A>,
-  lineWidth: number,
-  ribbonFraction = 1
-): string {
-  const pageWidth = PageWidth.AvailablePerLine(lineWidth, ribbonFraction)
-  const options = LayoutOptions(pageWidth)
-  return self.layoutPretty(options).render()
+export function renderPretty(lineWidth: number, ribbonFraction = 1) {
+  return <A>(self: Doc<A>): string => {
+    const pageWidth = PageWidth.AvailablePerLine(lineWidth, ribbonFraction)
+    const options = LayoutOptions(pageWidth)
+    return self.layoutPretty(options).render
+  }
 }
-
-/**
- * @tsplus static ets/printer/Doc/Aspects renderPretty
- */
-export const renderPretty = Pipeable(renderPretty_)

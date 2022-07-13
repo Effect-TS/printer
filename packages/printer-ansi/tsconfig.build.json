@@ -12,11 +12,5 @@
       "path": "../printer/tsconfig.build.json"
     }
   ],
-  "include": [
-    "_src/**/*.ts"
-  ],
-  "files": [
-    "./tsplus.prelude.d.ts",
-    "../printer/tsplus.prelude.d.ts"
-  ]
+  "include": ["_src/**/*.ts"]
 }

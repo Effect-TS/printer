@@ -10,7 +10,7 @@
  * from a tree-like structure that explicitly marks its contents as annotated.
  * A `DocTree` is therefore much more suitable for this use case.
  *
- * @tsplus type ets/printer/DocTree
+ * @tsplus type effect/printer/DocTree
  */
 export type DocTree<A> =
   | EmptyTree<A>
@@ -21,7 +21,7 @@ export type DocTree<A> =
   | ConcatTree<A>
 
 /**
- * @tsplus type ets/printer/DocTree/Ops
+ * @tsplus type effect/printer/DocTree.Ops
  */
 export interface DocTreeOps {
   $: DocTreeAspects
@@ -35,18 +35,18 @@ export interface DocTreeF extends HKT {
 }
 
 /**
- * @tsplus type ets/printer/DocTree/Aspects
+ * @tsplus type effect/printer/DocTree.Aspects
  */
 export interface DocTreeAspects {}
 
 /**
- * @tsplus unify ets/printer/DocTree
- * @tsplus unify ets/printer/DocTree/Empty
- * @tsplus unify ets/printer/DocTree/Char
- * @tsplus unify ets/printer/DocTree/Text
- * @tsplus unify ets/printer/DocTree/Line
- * @tsplus unify ets/printer/DocTree/Annotation
- * @tsplus unify ets/printer/DocTree/Concat
+ * @tsplus unify effect/printer/DocTree
+ * @tsplus unify effect/printer/DocTree/Empty
+ * @tsplus unify effect/printer/DocTree/Char
+ * @tsplus unify effect/printer/DocTree/Text
+ * @tsplus unify effect/printer/DocTree/Line
+ * @tsplus unify effect/printer/DocTree/Annotation
+ * @tsplus unify effect/printer/DocTree/Concat
  */
 export function unifyDocTree<X extends DocTree<any>>(
   self: X
@@ -57,7 +57,7 @@ export function unifyDocTree<X extends DocTree<any>>(
 }
 
 /**
- * @tsplus type ets/printer/DocTree/Empty
+ * @tsplus type effect/printer/DocTree/Empty
  */
 export class EmptyTree<A> {
   readonly _tag = "EmptyTree"
@@ -66,7 +66,7 @@ export class EmptyTree<A> {
 }
 
 /**
- * @tsplus type ets/printer/DocTree/Char
+ * @tsplus type effect/printer/DocTree/Char
  */
 export class CharTree<A> {
   readonly _tag = "CharTree"
@@ -75,7 +75,7 @@ export class CharTree<A> {
 }
 
 /**
- * @tsplus type ets/printer/DocTree/Text
+ * @tsplus type effect/printer/DocTree/Text
  */
 export class TextTree<A> {
   readonly _tag = "TextTree"
@@ -84,7 +84,7 @@ export class TextTree<A> {
 }
 
 /**
- * @tsplus type ets/printer/DocTree/Line
+ * @tsplus type effect/printer/DocTree/Line
  */
 export class LineTree<A> {
   readonly _tag = "LineTree"
@@ -93,7 +93,7 @@ export class LineTree<A> {
 }
 
 /**
- * @tsplus type ets/printer/DocTree/Annotation
+ * @tsplus type effect/printer/DocTree/Annotation
  */
 export class AnnotationTree<A> {
   readonly _tag = "AnnotationTree"
@@ -102,7 +102,7 @@ export class AnnotationTree<A> {
 }
 
 /**
- * @tsplus type ets/printer/DocTree/Concat
+ * @tsplus type effect/printer/DocTree/Concat
  */
 export class ConcatTree<A> {
   readonly _tag = "ConcatTree"
@@ -111,26 +111,26 @@ export class ConcatTree<A> {
 }
 
 /**
- * @tsplus static ets/printer/DocTree/Ops empty
+ * @tsplus static effect/printer/DocTree.Ops empty
  */
 export const empty: DocTree<never> = new EmptyTree(identity)
 
 /**
- * @tsplus static ets/printer/DocTree/Ops char
+ * @tsplus static effect/printer/DocTree.Ops char
  */
 export function char<A>(char: string): DocTree<A> {
   return new CharTree(char, identity)
 }
 
 /**
- * @tsplus static ets/printer/DocTree/Ops text
+ * @tsplus static effect/printer/DocTree.Ops text
  */
 export function text<A>(text: string): DocTree<A> {
   return new TextTree(text, identity)
 }
 
 /**
- * @tsplus static ets/printer/DocTree/Ops line
+ * @tsplus static effect/printer/DocTree.Ops line
  */
 export function line<A>(indentation: number): DocTree<A> {
   return new LineTree(indentation, identity)
@@ -139,7 +139,7 @@ export function line<A>(indentation: number): DocTree<A> {
 /**
  * Annotate the specified `DocTree` with an annotation of type `A`.
  *
- * @tsplus static ets/printer/DocTree/Ops annotation
+ * @tsplus static effect/printer/DocTree.Ops annotation
  */
 export function annotation<A>(tree: DocTree<A>, annotation: A): DocTree<A> {
   return new AnnotationTree(annotation, tree)
@@ -148,7 +148,7 @@ export function annotation<A>(tree: DocTree<A>, annotation: A): DocTree<A> {
 /**
  * Horizontally concatenates multiple `DocTree`s.
  *
- * @tsplus static ets/printer/DocTree/Ops concat
+ * @tsplus static effect/printer/DocTree.Ops concat
  */
 export function concat<A>(trees: Chunk<DocTree<A>>): DocTree<A> {
   return new ConcatTree(trees)

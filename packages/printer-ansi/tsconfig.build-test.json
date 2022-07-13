@@ -7,17 +7,10 @@
     "tsPlusConfig": "../../tsplus.config.json",
     "rootDir": "_test"
   },
-  "include": [
-    "_test/**/*.ts"
-  ],
+  "include": ["_test/**/*.ts"],
   "references": [
     {
       "path": "./tsconfig.build.json"
     }
-  ],
-  "files": [
-    "./tsplus.prelude.d.ts",
-    "../printer/tsplus.prelude.d.ts",
-    "../../tsplus.prelude.test.d.ts"
   ]
 }

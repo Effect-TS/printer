@@ -5,12 +5,12 @@
  * algorithm to take, resulting in potentially exponential behavior on deeply
  * nested examples.
  *
- * @tsplus type ets/printer/Flatten
+ * @tsplus type effect/printer/Flatten
  */
 export type Flatten<A> = Flattened<A> | AlreadyFlat | NeverFlat
 
 /**
- * @tsplus type ets/printer/Flatten/Ops
+ * @tsplus type effect/printer/Flatten.Ops
  */
 export interface FlattenOps {
   $: FlattenAspects
@@ -24,15 +24,15 @@ export interface FlattenF extends HKT {
 }
 
 /**
- * @tsplus type ets/printer/Flatten/Aspects
+ * @tsplus type effect/printer/Flatten.Aspects
  */
 export interface FlattenAspects {}
 
 /**
- * @tsplus unify ets/printer/Flatten
- * @tsplus unify ets/printer/Flatten/Flattened
- * @tsplus unify ets/printer/Flatten/AlreadyFlat
- * @tsplus unify ets/printer/Flatten/NeverFlat
+ * @tsplus unify effect/printer/Flatten
+ * @tsplus unify effect/printer/Flatten/Flattened
+ * @tsplus unify effect/printer/Flatten/AlreadyFlat
+ * @tsplus unify effect/printer/Flatten/NeverFlat
  */
 export function unifyFlatten<X extends Flatten<any>>(
   self: X
@@ -43,7 +43,7 @@ export function unifyFlatten<X extends Flatten<any>>(
 /**
  * Represents a `FlattenResult` where `A` is likely flatter than the input.
  *
- * @tsplus type ets/printer/Flatten/Flattened
+ * @tsplus type effect/printer/Flatten/Flattened
  */
 export interface Flattened<A> {
   readonly _tag: "Flattened"
@@ -53,7 +53,7 @@ export interface Flattened<A> {
 /**
  * Represents a `FlattenResult` where the input was already flat.
  *
- * @tsplus type ets/printer/Flatten/AlreadyFlat
+ * @tsplus type effect/printer/Flatten/AlreadyFlat
  */
 export interface AlreadyFlat {
   readonly _tag: "AlreadyFlat"
@@ -62,14 +62,14 @@ export interface AlreadyFlat {
 /**
  * Represents a `FlattenResult` where the input cannot be flattened.
  *
- * @tsplus type ets/printer/Flatten/NeverFlat
+ * @tsplus type effect/printer/Flatten/NeverFlat
  */
 export interface NeverFlat {
   readonly _tag: "NeverFlat"
 }
 
 /**
- * @tsplus static ets/printer/Flatten/Ops Flattened
+ * @tsplus static effect/printer/Flatten.Ops Flattened
  */
 export function flattened<A>(value: A): Flattened<A> {
   return {
@@ -79,35 +79,35 @@ export function flattened<A>(value: A): Flattened<A> {
 }
 
 /**
- * @tsplus static ets/printer/Flatten/Ops AlreadyFlat
+ * @tsplus static effect/printer/Flatten.Ops AlreadyFlat
  */
 export const alreadyFlat: Flatten<never> = {
   _tag: "AlreadyFlat"
 }
 
 /**
- * @tsplus static ets/printer/Flatten/Ops NeverFlat
+ * @tsplus static effect/printer/Flatten.Ops NeverFlat
  */
 export const neverFlat: Flatten<never> = {
   _tag: "NeverFlat"
 }
 
 /**
- * @tsplus static ets/printer/Flatten/Ops isFlattened
+ * @tsplus static effect/printer/Flatten.Ops isFlattened
  */
 export function isFlattened<A>(a: Flatten<A>): a is Flattened<A> {
   return a._tag === "Flattened"
 }
 
 /**
- * @tsplus static ets/printer/Flatten/Ops isAlreadyFlat
+ * @tsplus static effect/printer/Flatten.Ops isAlreadyFlat
  */
 export function isAlreadyFlat<A>(a: Flatten<A>): a is AlreadyFlat {
   return a._tag === "AlreadyFlat"
 }
 
 /**
- * @tsplus static ets/printer/Flatten/Ops isNeverFlat
+ * @tsplus static effect/printer/Flatten.Ops isNeverFlat
  */
 export function isNeverFlat<A>(a: Flatten<A>): a is NeverFlat {
   return a._tag === "NeverFlat"

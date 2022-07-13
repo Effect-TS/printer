@@ -6,7 +6,7 @@ export type PageWidthSym = typeof PageWidthSym
  * document. The layout algorithms will try to avoid exceeding the set character
  * limit by inserting line breaks where appropriate (e.g., via `softLine`).
  *
- * @tsplus type ets/printer/PageWidth
+ * @tsplus type effect/printer/PageWidth
  */
 export type PageWidth = AvailablePerLine | Unbounded
 
@@ -14,7 +14,7 @@ export type PageWidth = AvailablePerLine | Unbounded
  * Represents a `PageWidth` setting that informs the layout algorithms to avoid
  * exceeding the specified space per line.
  *
- * @tsplus type ets/printer/PageWidth/AvailablePerLine
+ * @tsplus type effect/printer/PageWidth/AvailablePerLine
  */
 export class AvailablePerLine implements Equals {
   readonly [PageWidthSym]: PageWidthSym = PageWidthSym
@@ -56,7 +56,7 @@ export class AvailablePerLine implements Equals {
  * Represents a `PageWidth` setting that informs the layout algorithms to avoid
  * introducing line breaks into a document.
  *
- * @tsplus type ets/printer/PageWidth/Unbounded
+ * @tsplus type effect/printer/PageWidth/Unbounded
  */
 export class Unbounded {
   readonly [PageWidthSym]: PageWidthSym = PageWidthSym
@@ -73,49 +73,49 @@ export class Unbounded {
 }
 
 /**
- * @tsplus type ets/printer/PageWidth/Ops
+ * @tsplus type effect/printer/PageWidth.Ops
  */
 export interface PageWidthOps {}
 export const PageWidth: PageWidthOps = {}
 
 /**
- * @tsplus type ets/printer/PageWidth/Aspects
+ * @tsplus type effect/printer/PageWidth/Aspects
  */
 export interface PageWidthAspects {}
 
 /**
- * @tsplus static ets/printer/PageWidth/Ops AvailablePerLine
+ * @tsplus static effect/printer/PageWidth.Ops AvailablePerLine
  */
 export function availablePerLine(lineWidth: number, ribbonFraction: number): PageWidth {
   return new AvailablePerLine(lineWidth, ribbonFraction)
 }
 
 /**
- * @tsplus static ets/printer/PageWidth/Ops Unbounded
+ * @tsplus static effect/printer/PageWidth.Ops Unbounded
  */
 export const unbounded: PageWidth = new Unbounded()
 
 /**
- * @tsplus static ets/printer/PageWidth/Ops default
+ * @tsplus static effect/printer/PageWidth.Ops default
  */
 export const defaultPageWidth = new AvailablePerLine(80, 1)
 
 /**
- * @tsplus static ets/printer/PageWidth/Ops isPageWidth
+ * @tsplus static effect/printer/PageWidth.Ops isPageWidth
  */
 export function isPageWidth(u: unknown): u is PageWidth {
   return typeof u === "object" && u != null && PageWidthSym in u
 }
 
 /**
- * @tsplus static ets/printer/PageWidth/Ops isAvailablePerLine
+ * @tsplus static effect/printer/PageWidth.Ops isAvailablePerLine
  */
 export function isAvailablePerLine(u: unknown): u is AvailablePerLine {
   return isPageWidth(u) && u._tag === "AvailablePerLine"
 }
 
 /**
- * @tsplus static ets/printer/PageWidth/Ops isUnbounded
+ * @tsplus static effect/printer/PageWidth.Ops isUnbounded
  */
 export function isUnbounded(u: unknown): u is Unbounded {
   return isPageWidth(u) && u._tag === "Unbounded"

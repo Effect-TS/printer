@@ -1,32 +1,32 @@
 describe.concurrent("Doc", () => {
   describe.concurrent("constructors", () => {
     it("empty", () => {
-      const doc = Doc.vsep([Doc.text("hello"), Doc.empty.parenthesized(), Doc.text("world")])
+      const doc = Doc.vsep([Doc.text("hello"), Doc.empty.parenthesized, Doc.text("world")])
 
       assert.strictEqual(
-        doc.renderPrettyDefault(),
+        doc.renderPrettyDefault,
         `|hello
          |()
-         |world`.stripMargin()
+         |world`.stripMargin
       )
     })
 
     it("char", () => {
       const doc = Doc.char("a")
 
-      assert.strictEqual(doc.renderPrettyDefault(), "a")
+      assert.strictEqual(doc.renderPrettyDefault, "a")
     })
 
     it("text", () => {
       const doc = Doc.text("foo")
 
-      assert.strictEqual(doc.renderPrettyDefault(), "foo")
+      assert.strictEqual(doc.renderPrettyDefault, "foo")
     })
 
     it("string", () => {
       const doc = Doc.string("foo\nbar")
 
-      assert.strictEqual(doc.renderPrettyDefault(), "foobar")
+      assert.strictEqual(doc.renderPrettyDefault, "foobar")
     })
 
     it("flatAlt", () => {
@@ -37,8 +37,8 @@ describe.concurrent("Doc", () => {
       function prettyDo<A>(docs: Collection<Doc<A>>): Doc<A> {
         return Doc.hsep([
           Doc.text("do"),
-          Doc.encloseSep(docs, open, close, separator).align()
-        ]).group()
+          Doc.encloseSep(docs, open, close, separator).align
+        ]).group
       }
 
       const statements = [
@@ -56,21 +56,21 @@ describe.concurrent("Doc", () => {
         prettyDo(statements).renderPretty(10),
         `|do name:_ <- getArgs
          |   let greet = "Hello, " <> name"
-         |   putStrLn greet`.stripMargin()
+         |   putStrLn greet`.stripMargin
       )
     })
 
     it("union", () => {
       const doc = Doc.union(Doc.string("A long string of words"), Doc.char("b"))
 
-      assert.strictEqual(doc.renderPrettyDefault(), "A long string of words")
+      assert.strictEqual(doc.renderPrettyDefault, "A long string of words")
       assert.strictEqual(doc.renderPretty(1), "b")
     })
 
     it("cat", () => {
       const doc = Doc.cat(Doc.char("a"), Doc.char("b"))
 
-      assert.strictEqual(doc.renderPrettyDefault(), "ab")
+      assert.strictEqual(doc.renderPrettyDefault, "ab")
     })
 
     it("line", () => {
@@ -81,12 +81,12 @@ describe.concurrent("Doc", () => {
       ])
 
       assert.strictEqual(
-        doc.renderPrettyDefault(),
+        doc.renderPrettyDefault,
         `|lorem ipsum
-         |dolor sit amet`.stripMargin()
+         |dolor sit amet`.stripMargin
       )
       assert.strictEqual(
-        doc.group().renderPrettyDefault(),
+        doc.group.renderPrettyDefault,
         "lorem ipsum dolor sit amet"
       )
     })
@@ -99,12 +99,12 @@ describe.concurrent("Doc", () => {
       ])
 
       assert.strictEqual(
-        doc.renderPrettyDefault(),
+        doc.renderPrettyDefault,
         `|lorem ipsum
-         |dolor sit amet`.stripMargin()
+         |dolor sit amet`.stripMargin
       )
       assert.strictEqual(
-        doc.group().renderPrettyDefault(),
+        doc.group.renderPrettyDefault,
         "lorem ipsumdolor sit amet"
       )
     })
@@ -120,7 +120,7 @@ describe.concurrent("Doc", () => {
       assert.strictEqual(
         doc.renderPretty(10),
         `|lorem ipsum
-         |dolor sit amet`.stripMargin()
+         |dolor sit amet`.stripMargin
       )
     })
 
@@ -135,7 +135,7 @@ describe.concurrent("Doc", () => {
       assert.strictEqual(
         doc.renderPretty(10),
         `|ThisText
-         |IsWayTooLong`.stripMargin()
+         |IsWayTooLong`.stripMargin
       )
     })
 
@@ -149,7 +149,7 @@ describe.concurrent("Doc", () => {
       assert.strictEqual(
         doc.renderPretty(1000),
         `|lorem ipsum
-         |dolor sit amet`.stripMargin()
+         |dolor sit amet`.stripMargin
       )
     })
 
@@ -161,12 +161,12 @@ describe.concurrent("Doc", () => {
       ])
 
       assert.strictEqual(
-        doc.renderPrettyDefault(),
+        doc.renderPrettyDefault,
         `|lorem
          |    ipsum
          |    dolor
          |sit
-         |amet`.stripMargin()
+         |amet`.stripMargin
       )
     })
 
@@ -178,25 +178,25 @@ describe.concurrent("Doc", () => {
       const doc = Doc.vsep(Chunk(0, 4, 8).map((n) => prefix.indent(n)))
 
       assert.strictEqual(
-        doc.renderPrettyDefault(),
+        doc.renderPrettyDefault,
         `|prefix | <- column 7
          |    prefix | <- column 11
-         |        prefix | <- column 15`.stripMargin()
+         |        prefix | <- column 15`.stripMargin
       )
     })
 
     it("nesting", () => {
       const prefix = Doc.hsep([
         Doc.text("prefix"),
-        Doc.nesting((l) => Doc.text(`Nested: ${l}`).bracketed())
+        Doc.nesting((l) => Doc.text(`Nested: ${l}`).bracketed)
       ])
       const doc = Doc.vsep(Chunk(0, 4, 8).map((n) => prefix.indent(n)))
 
       assert.strictEqual(
-        doc.renderPrettyDefault(),
+        doc.renderPrettyDefault,
         `|prefix [Nested: 0]
          |    prefix [Nested: 4]
-         |        prefix [Nested: 8]`.stripMargin()
+         |        prefix [Nested: 8]`.stripMargin
       )
     })
 
@@ -206,7 +206,7 @@ describe.concurrent("Doc", () => {
         Doc.withPageWidth(
           Match.$.tag({
             AvailablePerLine: ({ lineWidth, ribbonFraction }) =>
-              Doc.text(`Width: ${lineWidth}, Ribbon Fraction: ${ribbonFraction}`).bracketed(),
+              Doc.text(`Width: ${lineWidth}, Ribbon Fraction: ${ribbonFraction}`).bracketed,
             Unbounded: () => Doc.empty
           })
         )
@@ -217,7 +217,7 @@ describe.concurrent("Doc", () => {
         doc.renderPretty(32),
         `|prefix [Width: 32, Ribbon Fraction: 1]
          |    prefix [Width: 32, Ribbon Fraction: 1]
-         |        prefix [Width: 32, Ribbon Fraction: 1]`.stripMargin()
+         |        prefix [Width: 32, Ribbon Fraction: 1]`.stripMargin
       )
     })
 
@@ -283,48 +283,48 @@ describe.concurrent("Doc", () => {
       })
 
       it("isAnnotated", () => {
-        assert.isTrue(Doc.isAnnotated(Doc.annotate(Doc.char("a"), 1)))
+        assert.isTrue(Doc.isAnnotated(Doc.char("a").annotate(1)))
         assert.isFalse(Doc.isAnnotated(Doc.char("a")))
       })
     })
 
     describe.concurrent("concatenation combinators", () => {
       it("concatWith", () => {
-        const doc = Doc.concatWith([Doc.char("a"), Doc.char("b")], Doc.appendWithSpace)
+        const doc = Doc.concatWith([Doc.char("a"), Doc.char("b")], (a, b) => a.appendWithSpace(b))
 
-        assert.strictEqual(doc.renderPrettyDefault(), "a b")
+        assert.strictEqual(doc.renderPrettyDefault, "a b")
       })
 
       it("appendWithSpace", () => {
-        const doc = Doc.appendWithSpace(Doc.char("a"), Doc.char("b"))
+        const doc = Doc.char("a").appendWithSpace(Doc.char("b"))
 
-        assert.strictEqual(doc.renderPrettyDefault(), "a b")
+        assert.strictEqual(doc.renderPrettyDefault, "a b")
       })
 
       it("appendWithLine", () => {
-        const doc = Doc.appendWithLine(Doc.char("a"), Doc.char("b"))
+        const doc = Doc.char("a").appendWithLine(Doc.char("b"))
 
-        assert.strictEqual(doc.renderPrettyDefault(), "a\nb")
+        assert.strictEqual(doc.renderPrettyDefault, "a\nb")
       })
 
       it("appendWithLineBreak", () => {
-        const doc = Doc.appendWithLineBreak(Doc.char("a"), Doc.char("b"))
+        const doc = Doc.char("a").appendWithLineBreak(Doc.char("b"))
 
-        assert.strictEqual(doc.renderPrettyDefault(), "a\nb")
-        assert.strictEqual(doc.group().renderPrettyDefault(), "ab")
+        assert.strictEqual(doc.renderPrettyDefault, "a\nb")
+        assert.strictEqual(doc.group.renderPrettyDefault, "ab")
       })
 
       it("appendWithSoftLine", () => {
-        const doc = Doc.appendWithSoftLine(Doc.char("a"), Doc.char("b"))
+        const doc = Doc.char("a").appendWithSoftLine(Doc.char("b"))
 
-        assert.strictEqual(doc.renderPrettyDefault(), "a b")
+        assert.strictEqual(doc.renderPrettyDefault, "a b")
         assert.strictEqual(doc.renderPretty(1), "a\nb")
       })
 
       it("appendWithSoftLineBreak", () => {
-        const doc = Doc.appendWithSoftLineBreak(Doc.char("a"), Doc.char("b"))
+        const doc = Doc.char("a").appendWithSoftLineBreak(Doc.char("b"))
 
-        assert.strictEqual(doc.renderPrettyDefault(), "ab")
+        assert.strictEqual(doc.renderPrettyDefault, "ab")
         assert.strictEqual(doc.renderPretty(1), "a\nb")
       })
     })
@@ -332,7 +332,7 @@ describe.concurrent("Doc", () => {
     describe.concurrent("alternative combinators", () => {
       describe.concurrent("group", () => {
         it("should ensure that the `left` document is less wide than the `right`", () => {
-          const doc = Doc.flatAlt(Doc.text("even wider"), Doc.text("too wide")).group()
+          const doc = Doc.flatAlt(Doc.text("even wider"), Doc.text("too wide")).group
 
           // If the `right` document does not fit the page, the algorithm falls
           // back to an even wider layout
@@ -340,15 +340,15 @@ describe.concurrent("Doc", () => {
         })
 
         it("should flatten the right document", () => {
-          const doc = Doc.flatAlt(Doc.char("x"), Doc.hcat([Doc.char("y"), Doc.line, Doc.char("y")])).group()
+          const doc = Doc.flatAlt(Doc.char("x"), Doc.hcat([Doc.char("y"), Doc.line, Doc.char("y")])).group
 
-          assert.strictEqual(doc.renderPrettyDefault(), "y y")
+          assert.strictEqual(doc.renderPrettyDefault, "y y")
         })
 
         it("should never render an unflattenable `right` document", () => {
-          const doc = Doc.flatAlt(Doc.char("x"), Doc.hcat([Doc.char("y"), Doc.hardLine, Doc.char("y")])).group()
+          const doc = Doc.flatAlt(Doc.char("x"), Doc.hcat([Doc.char("y"), Doc.hardLine, Doc.char("y")])).group
 
-          assert.strictEqual(doc.renderPrettyDefault(), "x")
+          assert.strictEqual(doc.renderPrettyDefault, "x")
         })
       })
     })
@@ -357,7 +357,7 @@ describe.concurrent("Doc", () => {
       it("hsep", () => {
         const doc = Doc.hsep(Doc.words("lorem ipsum dolor sit amet"))
 
-        assert.strictEqual(doc.renderPrettyDefault(), "lorem ipsum dolor sit amet")
+        assert.strictEqual(doc.renderPrettyDefault, "lorem ipsum dolor sit amet")
         assert.strictEqual(doc.renderPretty(5), "lorem ipsum dolor sit amet")
       })
 
@@ -365,37 +365,37 @@ describe.concurrent("Doc", () => {
         const doc = Doc.hsep([Doc.text("prefix"), Doc.vsep(Doc.words("text to lay out"))])
 
         assert.strictEqual(
-          doc.renderPrettyDefault(),
+          doc.renderPrettyDefault,
           `|prefix text
            |to
            |lay
-           |out`.stripMargin()
+           |out`.stripMargin
         )
       })
 
       it("fillSep", () => {
         const doc = Doc.fillSep(Doc.words("lorem ipsum dolor sit amet"))
 
-        assert.strictEqual(doc.renderPrettyDefault(), "lorem ipsum dolor sit amet")
+        assert.strictEqual(doc.renderPrettyDefault, "lorem ipsum dolor sit amet")
         assert.strictEqual(
           doc.renderPretty(10),
           `|lorem
            |ipsum
            |dolor sit
-           |amet`.stripMargin()
+           |amet`.stripMargin
         )
       })
 
       it("sep", () => {
         const doc = Doc.hsep([Doc.text("prefix"), Doc.seps(Doc.words("text to lay out"))])
 
-        assert.strictEqual(doc.renderPrettyDefault(), "prefix text to lay out")
+        assert.strictEqual(doc.renderPrettyDefault, "prefix text to lay out")
         assert.strictEqual(
           doc.renderPretty(20),
           `|prefix text
            |to
            |lay
-           |out`.stripMargin()
+           |out`.stripMargin
         )
       })
     })
@@ -404,43 +404,43 @@ describe.concurrent("Doc", () => {
       it("hcat", () => {
         const doc = Doc.hcat(Doc.words("lorem ipsum dolor sit amet"))
 
-        assert.strictEqual(doc.renderPrettyDefault(), "loremipsumdolorsitamet")
+        assert.strictEqual(doc.renderPrettyDefault, "loremipsumdolorsitamet")
       })
 
       it("vcat", () => {
         const doc = Doc.vcat(Doc.words("lorem ipsum dolor sit amet"))
 
         assert.strictEqual(
-          doc.renderPrettyDefault(),
+          doc.renderPrettyDefault,
           `|lorem
            |ipsum
            |dolor
            |sit
-           |amet`.stripMargin()
+           |amet`.stripMargin
         )
       })
 
       it("fillCat", () => {
         const doc = Doc.fillCat(Doc.words("lorem ipsum dolor sit amet"))
 
-        assert.strictEqual(doc.renderPrettyDefault(), "loremipsumdolorsitamet")
+        assert.strictEqual(doc.renderPrettyDefault, "loremipsumdolorsitamet")
         assert.strictEqual(
           doc.renderPretty(10),
           `|loremipsum
            |dolorsit
-           |amet`.stripMargin()
+           |amet`.stripMargin
         )
       })
 
       it("cats", () => {
         const doc = Doc.hsep([Doc.text("Docs:"), Doc.cats(Doc.words("lorem ipsum dolor"))])
 
-        assert.strictEqual(doc.renderPrettyDefault(), "Docs: loremipsumdolor")
+        assert.strictEqual(doc.renderPrettyDefault, "Docs: loremipsumdolor")
         assert.strictEqual(
           doc.renderPretty(10),
           `|Docs: lorem
            |ipsum
-           |dolor`.stripMargin()
+           |dolor`.stripMargin
         )
       })
     })
@@ -461,14 +461,14 @@ describe.concurrent("Doc", () => {
 
         const doc = Doc.hsep([
           Doc.text("let"),
-          Doc.vcat(signatures.map(prettySignature)).align()
+          Doc.vcat(signatures.map(prettySignature)).align
         ])
 
         assert.strictEqual(
-          doc.renderPrettyDefault(),
+          doc.renderPrettyDefault,
           `|let empty :: Doc
            |    nest  :: Int -> Doc -> Doc
-           |    fillSep :: [Doc] -> Doc`.stripMargin()
+           |    fillSep :: [Doc] -> Doc`.stripMargin
         )
       })
 
@@ -487,15 +487,15 @@ describe.concurrent("Doc", () => {
 
         const doc = Doc.hsep([
           Doc.text("let"),
-          Doc.vcat(signatures.map(prettySignature)).align()
+          Doc.vcat(signatures.map(prettySignature)).align
         ])
 
         assert.strictEqual(
-          doc.renderPrettyDefault(),
+          doc.renderPrettyDefault,
           `|let empty :: Doc
            |    nest  :: Int -> Doc -> Doc
            |    fillSep
-           |          :: [Doc] -> Doc`.stripMargin()
+           |          :: [Doc] -> Doc`.stripMargin
         )
       })
     })
@@ -504,13 +504,13 @@ describe.concurrent("Doc", () => {
       it("align", () => {
         const doc = Doc.hsep([
           Doc.text("lorem"),
-          Doc.vsep([Doc.text("ipsum"), Doc.text("dolor")]).align()
+          Doc.vsep([Doc.text("ipsum"), Doc.text("dolor")]).align
         ])
 
         assert.strictEqual(
-          doc.renderPrettyDefault(),
+          doc.renderPrettyDefault,
           `|lorem ipsum
-           |      dolor`.stripMargin()
+           |      dolor`.stripMargin
         )
       })
 
@@ -524,7 +524,7 @@ describe.concurrent("Doc", () => {
           doc.renderPretty(24),
           `|prefix Indenting these
            |           words with
-           |           hang`.stripMargin()
+           |           hang`.stripMargin
         )
       })
 
@@ -539,7 +539,7 @@ describe.concurrent("Doc", () => {
           `|prefix    The indent
            |          function
            |          indents these
-           |          words!`.stripMargin()
+           |          words!`.stripMargin
         )
       })
 
@@ -551,16 +551,16 @@ describe.concurrent("Doc", () => {
             Doc.lbracket,
             Doc.rbracket,
             Doc.comma
-          ).align()
+          ).align
         ])
 
-        assert.strictEqual(doc.renderPrettyDefault(), "list [1,20,300,4000]")
+        assert.strictEqual(doc.renderPrettyDefault, "list [1,20,300,4000]")
         assert.strictEqual(
           doc.renderPretty(10),
           `|list [1
            |     ,20
            |     ,300
-           |     ,4000]`.stripMargin()
+           |     ,4000]`.stripMargin
         )
       })
 
@@ -569,7 +569,7 @@ describe.concurrent("Doc", () => {
           Chunk("1", "20", "300", "4000").map((n) => n.length === 1 ? Doc.char(n) : Doc.text(n))
         )
 
-        assert.strictEqual(doc.renderPrettyDefault(), "[1, 20, 300, 4000]")
+        assert.strictEqual(doc.renderPrettyDefault, "[1, 20, 300, 4000]")
       })
 
       it("tupled", () => {
@@ -577,14 +577,14 @@ describe.concurrent("Doc", () => {
           Chunk("1", "20", "300", "4000").map((n) => n.length === 1 ? Doc.char(n) : Doc.text(n))
         )
 
-        assert.strictEqual(doc.renderPrettyDefault(), "(1, 20, 300, 4000)")
+        assert.strictEqual(doc.renderPrettyDefault, "(1, 20, 300, 4000)")
       })
     })
 
     describe.concurrent("reactive/conditional combinators", () => {
       it("width", () => {
         function annotate<A>(self: Doc<A>): Doc<A> {
-          return self.bracketed().width((w) => Doc.text(` <- width: ${w}`))
+          return self.bracketed.width((w) => Doc.text(` <- width: ${w}`))
         }
 
         const docs = Chunk(
@@ -594,15 +594,15 @@ describe.concurrent("Doc", () => {
           Doc.vsep([Doc.text("---"), Doc.text("---").indent(4)])
         )
 
-        const doc = Doc.vsep(docs.map(annotate)).align()
+        const doc = Doc.vsep(docs.map(annotate)).align
 
         assert.strictEqual(
-          doc.renderPrettyDefault(),
+          doc.renderPrettyDefault,
           `|[---] <- width: 5
            |[------] <- width: 8
            |[   ---] <- width: 8
            |[---
-           |    ---] <- width: 8`.stripMargin()
+           |    ---] <- width: 8`.stripMargin
         )
       })
     })
@@ -611,17 +611,17 @@ describe.concurrent("Doc", () => {
       it("punctuate", () => {
         const docs = Doc.punctuate(Doc.words("lorem ipsum dolor sit amet"), Doc.comma)
 
-        assert.strictEqual(Doc.hsep(docs).renderPrettyDefault(), "lorem, ipsum, dolor, sit, amet")
+        assert.strictEqual(Doc.hsep(docs).renderPrettyDefault, "lorem, ipsum, dolor, sit, amet")
 
         // The separators are put at the end of the entries, which can be better
         // visualzied if the documents are rendered vertically
         assert.strictEqual(
-          Doc.vsep(docs).renderPrettyDefault(),
+          Doc.vsep(docs).renderPrettyDefault,
           `|lorem,
            |ipsum,
            |dolor,
            |sit,
-           |amet`.stripMargin()
+           |amet`.stripMargin
         )
       })
 
@@ -631,55 +631,55 @@ describe.concurrent("Doc", () => {
           (x, y) => Doc.slash.surround(x, y)
         )
 
-        assert.strictEqual(doc.renderPrettyDefault(), "@effect-ts/printer/Core/Doc")
+        assert.strictEqual(doc.renderPrettyDefault, "@effect-ts/printer/Core/Doc")
       })
 
       it("parenthesized", () => {
-        const doc = Doc.char("a").parenthesized()
+        const doc = Doc.char("a").parenthesized
 
-        assert.strictEqual(doc.renderPrettyDefault(), "(a)")
+        assert.strictEqual(doc.renderPrettyDefault, "(a)")
       })
 
       it("angled", () => {
-        const doc = Doc.char("a").angled()
+        const doc = Doc.char("a").angled
 
-        assert.strictEqual(doc.renderPrettyDefault(), "<a>")
+        assert.strictEqual(doc.renderPrettyDefault, "<a>")
       })
 
       it("bracketed", () => {
-        const doc = Doc.char("a").bracketed()
+        const doc = Doc.char("a").bracketed
 
-        assert.strictEqual(doc.renderPrettyDefault(), "[a]")
+        assert.strictEqual(doc.renderPrettyDefault, "[a]")
       })
 
       it("braced", () => {
-        const doc = Doc.char("a").braced()
+        const doc = Doc.char("a").braced
 
-        assert.strictEqual(doc.renderPrettyDefault(), "{a}")
+        assert.strictEqual(doc.renderPrettyDefault, "{a}")
       })
 
       it("singleQuoted", () => {
-        const doc = Doc.char("a").singleQuoted()
+        const doc = Doc.char("a").singleQuoted
 
-        assert.strictEqual(doc.renderPrettyDefault(), "'a'")
+        assert.strictEqual(doc.renderPrettyDefault, "'a'")
       })
 
       it("doubleQuoted", () => {
-        const doc = Doc.char("a").doubleQuoted()
+        const doc = Doc.char("a").doubleQuoted
 
-        assert.strictEqual(doc.renderPrettyDefault(), "\"a\"")
+        assert.strictEqual(doc.renderPrettyDefault, "\"a\"")
       })
 
       it("spaces", () => {
-        const doc = Doc.spaces(5).doubleQuoted().bracketed()
+        const doc = Doc.spaces(5).doubleQuoted.bracketed
 
-        assert.strictEqual(doc.renderPrettyDefault(), "[\"     \"]")
+        assert.strictEqual(doc.renderPrettyDefault, "[\"     \"]")
       })
 
       it("words", () => {
         const doc = Doc.tupled(Doc.words("lorem ipsum dolor"))
 
-        assert.strictEqual(doc.renderPrettyDefault(), "(lorem, ipsum, dolor)")
+        assert.strictEqual(doc.renderPrettyDefault, "(lorem, ipsum, dolor)")
       })
 
       it("reflow", () => {
@@ -694,7 +694,7 @@ describe.concurrent("Doc", () => {
            |consectetur adipisicing elit,
            |sed do eiusmod tempor incididunt
            |ut labore et dolore magna
-           |aliqua.`.stripMargin()
+           |aliqua.`.stripMargin
         )
       })
     })
@@ -704,17 +704,17 @@ describe.concurrent("Doc", () => {
         const A = Doc.getAssociative<never>()
         const doc = A.combine(Doc.text("hello"), Doc.text("world"))
 
-        assert.strictEqual(doc.renderPrettyDefault(), "helloworld")
+        assert.strictEqual(doc.renderPrettyDefault, "helloworld")
       })
 
       it("AssociativeIdentity", () => {
         const I = Doc.getAssociativeIdentity<never>()
         const doc = I.combine(
           Doc.text("hello"),
-          I.combine(I.identity.parenthesized(), Doc.text("world"))
+          I.combine(I.identity.parenthesized, Doc.text("world"))
         )
 
-        assert.strictEqual(doc.renderPrettyDefault(), "hello()world")
+        assert.strictEqual(doc.renderPrettyDefault, "hello()world")
       })
     })
 

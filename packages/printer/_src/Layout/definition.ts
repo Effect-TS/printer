@@ -1,18 +1,32 @@
 /**
- * @tsplus type ets/printer/Layout
+ * @tsplus type effect/printer/Layout
  */
 export interface Layout<A> {
-  (options: LayoutOptions): DocStream<A>
+  (options: Layout.Options): DocStream<A>
+}
+
+export declare namespace Layout {
+  export type Options = LayoutOptions
+  export type Pipeline<A> = LayoutPipeline<A>
 }
 
 /**
- * @tsplus type ets/printer/Layout/Ops
+ * @tsplus type effect/printer/Layout.Ops
  */
-export interface LayoutOps {}
-export const Layout: LayoutOps = {}
+export interface LayoutOps {
+  readonly $: LayoutAspects
+}
+export const Layout: LayoutOps = {
+  $: {}
+}
 
 /**
- * @tsplus unify ets/printer/Layout
+ * @tsplus type effect/printer/Layout.Aspects
+ */
+export interface LayoutAspects {}
+
+/**
+ * @tsplus unify effect/printer/Layout
  */
 export function unifyLayout<X extends Layout<any>>(
   self: X

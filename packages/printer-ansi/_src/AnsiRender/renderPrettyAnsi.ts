@@ -1,13 +1,10 @@
 /**
- * @tsplus fluent ets/printer-ansi/AnsiDoc renderPrettyAnsi
+ * @tsplus static effect/printer-ansi/AnsiDoc.Aspects renderPrettyAnsi
+ * @tsplus pipeable effect/printer-ansi/AnsiDoc renderPrettyAnsi
  */
-export function renderPrettyAnsi_(self: AnsiDoc, lineWidth: number, ribbonFraction = 1): string {
-  return self.layoutPretty(
-    LayoutOptions(PageWidth.AvailablePerLine(lineWidth, ribbonFraction))
-  ).renderAnsi()
+export function renderPrettyAnsi(lineWidth: number, ribbonFraction = 1) {
+  return (self: AnsiDoc): string =>
+    self.layoutPretty(
+      Layout.Options(PageWidth.AvailablePerLine(lineWidth, ribbonFraction))
+    ).renderAnsi
 }
-
-/**
- * @tsplus static ets/printer-ansi/AnsiDoc/Aspects renderPrettyAnsi
- */
-export const renderPrettyAnsi = Pipeable(renderPrettyAnsi_)
