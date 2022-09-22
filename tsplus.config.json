@@ -1,5 +1,3 @@
-
-
 {
   "importMap": {
     "^(.*)/packages/([^/]*)/_src(.*)/index\\.ts$": "@effect/$2$3",

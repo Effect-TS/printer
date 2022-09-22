@@ -41,20 +41,6 @@ export interface UndoAnnotation<A> {
 }
 
 /**
- * @tsplus unify effect/printer/Layout.Pipeline
- * @tsplus unify effect/printer/Layout.Pipeline/Nil
- * @tsplus unify effect/printer/Layout.Pipeline/Cons
- * @tsplus unify effect/printer/Layout.Pipeline/UndoAnnotation
- */
-export function unifyLayoutPipeline<X extends LayoutPipeline<any>>(
-  self: X
-): LayoutPipeline<
-  [X] extends [LayoutPipeline<infer AX>] ? AX : never
-> {
-  return self
-}
-
-/**
  * @tsplus static effect/printer/Layout.Pipeline.Ops nil
  */
 export const nil: LayoutPipeline<never> = {
