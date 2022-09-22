@@ -39,22 +39,22 @@ export interface DocTreeF extends HKT {
  */
 export interface DocTreeAspects {}
 
-/**
- * @tsplus unify effect/printer/DocTree
- * @tsplus unify effect/printer/DocTree/Empty
- * @tsplus unify effect/printer/DocTree/Char
- * @tsplus unify effect/printer/DocTree/Text
- * @tsplus unify effect/printer/DocTree/Line
- * @tsplus unify effect/printer/DocTree/Annotation
- * @tsplus unify effect/printer/DocTree/Concat
- */
-export function unifyDocTree<X extends DocTree<any>>(
-  self: X
-): DocTree<
-  [X] extends [{ _A: () => infer A }] ? A : never
-> {
-  return self
-}
+// /**
+//  * @tsplus unify effect/printer/DocTree
+//  * @tsplus unify effect/printer/DocTree/Empty
+//  * @tsplus unify effect/printer/DocTree/Char
+//  * @tsplus unify effect/printer/DocTree/Text
+//  * @tsplus unify effect/printer/DocTree/Line
+//  * @tsplus unify effect/printer/DocTree/Annotation
+//  * @tsplus unify effect/printer/DocTree/Concat
+//  */
+// export function unifyDocTree<X extends DocTree<any>>(
+//   self: X
+// ): DocTree<
+//   [X] extends [{ _A: () => infer A }] ? A : never
+// > {
+//   return self
+// }
 
 /**
  * @tsplus type effect/printer/DocTree/Empty

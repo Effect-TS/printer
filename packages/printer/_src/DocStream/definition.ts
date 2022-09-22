@@ -39,24 +39,6 @@ export interface DocStreamF extends HKT {
 export interface DocStreamAspects {}
 
 /**
- * @tsplus unify effect/printer/DocStream
- * @tsplus unify effect/printer/DocStream/FailedStream
- * @tsplus unify effect/printer/DocStream/EmptyStream
- * @tsplus unify effect/printer/DocStream/CharStream
- * @tsplus unify effect/printer/DocStream/TextStream
- * @tsplus unify effect/printer/DocStream/LineStream
- * @tsplus unify effect/printer/DocStream/PushAnnotationStream
- * @tsplus unify effect/printer/DocStream/PopAnnotationStream
- */
-export function unifyDocStream<X extends DocStream<any>>(
-  self: X
-): DocStream<
-  [X] extends [DocStream<infer AX>] ? AX : never
-> {
-  return self
-}
-
-/**
  * Represents a `Doc` that failed to be laid out.
  *
  * @tsplus type effect/printer/DocStream/FailedStream

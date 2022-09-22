@@ -29,18 +29,6 @@ export interface FlattenF extends HKT {
 export interface FlattenAspects {}
 
 /**
- * @tsplus unify effect/printer/Flatten
- * @tsplus unify effect/printer/Flatten/Flattened
- * @tsplus unify effect/printer/Flatten/AlreadyFlat
- * @tsplus unify effect/printer/Flatten/NeverFlat
- */
-export function unifyFlatten<X extends Flatten<any>>(
-  self: X
-): Flatten<[X] extends [Flatten<infer AX>] ? AX : never> {
-  return self
-}
-
-/**
  * Represents a `FlattenResult` where `A` is likely flatter than the input.
  *
  * @tsplus type effect/printer/Flatten/Flattened
