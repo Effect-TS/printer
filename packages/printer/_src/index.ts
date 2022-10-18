@@ -1,3 +1,7 @@
+/**
+ * @since 1.0.0
+ */
+
 export * as doc from "@effect/printer/Doc"
 export * as docStream from "@effect/printer/DocStream"
 export * as docTree from "@effect/printer/DocTree"

@@ -39,7 +39,6 @@
     "@effect/printer-ansi": "workspace:^",
     "@repo-tooling/eslint-plugin-dprint": "^0.0.4",
     "@tsplus/installer": "0.0.140",
-    "@tsplus/stdlib": "0.2.6",
     "@types/node": "^18.7.18",
     "@types/rimraf": "^3.0.2",
     "@typescript-eslint/eslint-plugin": "^5.38.0",

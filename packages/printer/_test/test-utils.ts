@@ -11,19 +11,19 @@ export const arbLine: fc.Arbitrary<Doc<number>> = fc.constant(Doc.hardLine)
 
 export const arbFlatAlt: fc.Arbitrary<Doc<number>> = fc
   .tuple(fc.oneof(arbChar, arbText), fc.oneof(arbChar, arbText))
-  .map(([d1, d2]) => Doc.flatAlt(d1, d2))
+  .map(([d1, d2]) => d1.flatAlt(d2))
 
 export const arbCat: fc.Arbitrary<Doc<number>> = fc
   .tuple(fc.oneof(arbChar, arbText), fc.oneof(arbChar, arbText))
-  .map(([d1, d2]) => Doc.cat(d1, d2))
+  .map(([d1, d2]) => d1.cat(d2))
 
 export const arbNest: fc.Arbitrary<Doc<number>> = fc
   .tuple(fc.oneof(arbChar, arbText), fc.integer())
-  .map(([d, i]) => Doc.nest(d, i))
+  .map(([d, i]) => d.nest(i))
 
 export const arbUnion: fc.Arbitrary<Doc<number>> = fc
   .tuple(fc.oneof(arbChar, arbText), fc.oneof(arbChar, arbText))
-  .map(([d1, d2]) => Doc.union(d1, d2))
+  .map(([d1, d2]) => d1.union(d2))
 
 export const arbColumn: fc.Arbitrary<Doc<number>> = fc
   .oneof(arbChar, arbText)
@@ -31,7 +31,7 @@ export const arbColumn: fc.Arbitrary<Doc<number>> = fc
 
 export const arbWithPageWidth: fc.Arbitrary<Doc<number>> = fc
   .oneof(arbChar, arbText)
-  .map((d) => Doc.withPageWidth(constant(d)))
+  .map((d) => Doc.pageWidth(constant(d)))
 
 export const arbNesting: fc.Arbitrary<Doc<number>> = fc
   .oneof(arbChar, arbText)

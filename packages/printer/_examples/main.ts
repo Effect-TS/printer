@@ -1,15 +1,15 @@
 function fun<A>(doc: Doc<A>): Doc<A> {
-  return Doc.cat(
-    Doc.hcat([Doc.text("fun("), Doc.softLineBreak, doc]).hang(2),
-    Doc.text(")")
-  )
+  return Doc
+    .hcat([Doc.text("fun("), Doc.softLineBreak, doc])
+    .hang(2)
+    .cat(Doc.text(")"))
 }
 
 function funs<A>(doc: Doc<A>): Doc<A> {
   return fun(fun(fun(fun(fun(doc)))))
 }
 
-const dashes = Doc.text(Chunk.fill(26 - 2, () => "-").join(""))
+const dashes = Doc.text(Array.from({ length: 26 - 2 }, () => "-").join(""))
 
 const hr = Doc.hcat([Doc.vbar, dashes, Doc.vbar])
 

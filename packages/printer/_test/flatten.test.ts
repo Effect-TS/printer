@@ -1,17 +1,19 @@
+import { identity } from "@effect-ts/core/Function"
+
 describe.concurrent("Flatten", () => {
   it("isFlattened", () => {
-    assert.isTrue(Flatten.isFlattened(Flatten.Flattened(1)))
-    assert.isFalse(Flatten.isFlattened(Flatten.NeverFlat))
+    assert.isTrue(Flatten.Flattened(1).isFlattened())
+    assert.isFalse(Flatten.NeverFlat.isFlattened())
   })
 
   it("isAlreadyFlat", () => {
-    assert.isTrue(Flatten.isAlreadyFlat(Flatten.AlreadyFlat))
-    assert.isFalse(Flatten.isAlreadyFlat(Flatten.NeverFlat))
+    assert.isTrue(Flatten.AlreadyFlat.isAlreadyFlat())
+    assert.isFalse(Flatten.NeverFlat.isAlreadyFlat())
   })
 
   it("isNeverFlat", () => {
-    assert.isTrue(Flatten.isNeverFlat(Flatten.NeverFlat))
-    assert.isFalse(Flatten.isNeverFlat(Flatten.AlreadyFlat))
+    assert.isTrue(Flatten.NeverFlat.isNeverFlat())
+    assert.isFalse(Flatten.AlreadyFlat.isNeverFlat())
   })
 
   it("map", () => {

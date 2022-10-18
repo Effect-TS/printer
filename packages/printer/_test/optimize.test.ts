@@ -8,7 +8,7 @@ const arbFusionDepth: fc.Arbitrary<Optimize.Depth> = fc.oneof(
 
 describe("Optimize", () => {
   it("should optimize fused documents", () => {
-    const unfused = Doc.hcatT(Doc.char("a"), Doc.char("b"), Doc.char("c"), Doc.char("d"))
+    const unfused = Doc.hcat([Doc.char("a"), Doc.char("b"), Doc.char("c"), Doc.char("d")])
     const fused = unfused.optimize(Optimize.Depth.Deep)
 
     // Unfused document will have individual documents for each character
@@ -25,9 +25,9 @@ describe("Optimize", () => {
   it("should render fused and unfused documents identically", () => {
     fc.assert(
       fc.property(arbDoc, arbFusionDepth, (doc, depth) => {
-        const fused = doc.optimize(depth).renderPrettyDefault
-        const unfused = doc.renderPrettyDefault
-        return Equivalence.string.equals(fused, unfused)
+        const fused: string = doc.optimize(depth).renderPrettyDefault
+        const unfused: string = doc.renderPrettyDefault
+        return fused === unfused
       })
     )
   })
