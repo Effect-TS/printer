@@ -1,39 +1,47 @@
+/**
+ * @since 1.0.0
+ */
+
 import "@effect/printer"
-import "@tsplus/stdlib/global"
 
 /**
  * @tsplus global
  */
-import { Doc, DocF } from "@effect/printer/Doc/definition"
+import { Doc } from "@effect/printer/Doc"
 /**
  * @tsplus global
  */
-import { DocStream, DocStreamF } from "@effect/printer/DocStream/definition"
+import { DocStream } from "@effect/printer/DocStream"
 /**
  * @tsplus global
  */
-import { DocTree, DocTreeF } from "@effect/printer/DocTree/definition"
+import { DocTree } from "@effect/printer/DocTree"
 /**
  * @tsplus global
  */
-import { Flatten, FlattenF } from "@effect/printer/Flatten/definition"
+import { Flatten } from "@effect/printer/Flatten"
 /**
  * @tsplus global
  */
-import { Layout } from "@effect/printer/Layout/definition"
+import { Layout } from "@effect/printer/Layout"
 /**
  * @tsplus global
  */
-import { LayoutOptions } from "@effect/printer/Layout/operations/options"
+import { Optimize } from "@effect/printer/Optimize"
 /**
  * @tsplus global
  */
-import { LayoutPipeline } from "@effect/printer/Layout/operations/pipeline"
+import { PageWidth } from "@effect/printer/PageWidth"
 /**
  * @tsplus global
  */
-import { Optimize } from "@effect/printer/Optimize/definition"
-/**
- * @tsplus global
- */
-import { PageWidth } from "@effect/printer/PageWidth/definition"
+import {
+  render,
+  renderCompact,
+  renderPretty,
+  renderPrettyDefault,
+  renderPrettyUnbounded,
+  renderSmart,
+  renderSmartDefault,
+  renderSmartUnbounded
+} from "@effect/printer/Render"

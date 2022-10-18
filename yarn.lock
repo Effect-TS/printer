@@ -635,7 +635,7 @@ __metadata:
   resolution: "@effect/printer-ansi@workspace:packages/printer-ansi"
   dependencies:
     "@effect/printer": "*"
-    "@tsplus/stdlib": ^0.2.6
+    "@fp-ts/data": ^0.0.3
   languageName: unknown
   linkType: soft
 
@@ -643,7 +643,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@effect/printer@workspace:packages/printer"
   dependencies:
-    "@tsplus/stdlib": ^0.2.6
+    "@fp-ts/core": ^0.0.5
+    "@fp-ts/data": ^0.0.3
   languageName: unknown
   linkType: soft
 
@@ -677,6 +678,22 @@ __metadata:
     minimatch: ^3.1.2
     strip-json-comments: ^3.1.1
   checksum: 2074dca47d7e1c5c6323ff353f690f4b25d3ab53fe7d27337e2592d37a894cf60ca0e85ca66b50ff2db0bc7e630cc1e9c7347d65bb185b61416565584c38999c
+  languageName: node
+  linkType: hard
+
+"@fp-ts/core@npm:^0.0.5":
+  version: 0.0.5
+  resolution: "@fp-ts/core@npm:0.0.5"
+  checksum: cad176a6ccdc69d04ccf8d187dfa52e2c20c300689aa5ddaa0d68f3cc437652e3110613044fb2c7aa12c443754f9cec56072e86197ae8cd39d5a32bb252f3609
+  languageName: node
+  linkType: hard
+
+"@fp-ts/data@npm:^0.0.3":
+  version: 0.0.3
+  resolution: "@fp-ts/data@npm:0.0.3"
+  dependencies:
+    "@fp-ts/core": ^0.0.5
+  checksum: 2f593f4b53e039dad4095745a922af49ab983019c0765dbcc141b6f965c3b7f7413dee7b3c5687a62458c0da73ae27002bd28c8327533a87c1ab474e76ecf91c
   languageName: node
   linkType: hard
 
@@ -945,13 +962,6 @@ __metadata:
   bin:
     tsplus-install: bin/tsplus-install
   checksum: 11fbedb8bc16f751d7f78bdaf55a83a2f1fb037d0dcd93140bc601600a1d0e138b21151b50a32aec4b51577c1c4ee10e13901e75771ea9f19c35f9abfaa15815
-  languageName: node
-  linkType: hard
-
-"@tsplus/stdlib@npm:0.2.6, @tsplus/stdlib@npm:^0.2.6":
-  version: 0.2.6
-  resolution: "@tsplus/stdlib@npm:0.2.6"
-  checksum: d93aaccebb30b0d3e82a9b8142632ca7bbb7e5fad28808872ef43f5ca0c54cfc1aadad81044ef4c0831d6c5397601c703a529721991a023da99928fa42a2a2cf
   languageName: node
   linkType: hard
 
@@ -2640,7 +2650,6 @@ __metadata:
     "@effect/printer-ansi": "workspace:^"
     "@repo-tooling/eslint-plugin-dprint": ^0.0.4
     "@tsplus/installer": 0.0.140
-    "@tsplus/stdlib": 0.2.6
     "@types/node": ^18.7.18
     "@types/rimraf": ^3.0.2
     "@typescript-eslint/eslint-plugin": ^5.38.0

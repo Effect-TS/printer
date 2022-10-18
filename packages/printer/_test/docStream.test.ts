@@ -1,36 +1,36 @@
 describe.concurrent("DocStream", () => {
   it("isFailedStream", () => {
-    assert.isTrue(DocStream.isFailedStream(DocStream.failed))
-    assert.isFalse(DocStream.isFailedStream(DocStream.empty))
+    assert.isTrue(DocStream.failed.isFailedStream())
+    assert.isFalse(DocStream.empty.isFailedStream())
   })
 
   it("isEmptyStream", () => {
-    assert.isTrue(DocStream.isEmptyStream(DocStream.empty))
-    assert.isFalse(DocStream.isEmptyStream(DocStream.failed))
+    assert.isTrue(DocStream.empty.isEmptyStream())
+    assert.isFalse(DocStream.failed.isEmptyStream())
   })
 
   it("isCharStream", () => {
-    assert.isTrue(DocStream.isCharStream(DocStream.char(DocStream.empty, "a")))
-    assert.isFalse(DocStream.isCharStream(DocStream.empty))
+    assert.isTrue(DocStream.char("a")(DocStream.empty).isCharStream())
+    assert.isFalse(DocStream.empty.isCharStream())
   })
 
   it("isTextStream", () => {
-    assert.isTrue(DocStream.isTextStream(DocStream.text(DocStream.empty, "foo")))
-    assert.isFalse(DocStream.isTextStream(DocStream.empty))
+    assert.isTrue(DocStream.text("foo")(DocStream.empty).isTextStream())
+    assert.isFalse(DocStream.empty.isTextStream())
   })
 
   it("isLineStream", () => {
-    assert.isTrue(DocStream.isLineStream(DocStream.line(DocStream.empty, 4)))
-    assert.isFalse(DocStream.isLineStream(DocStream.empty))
+    assert.isTrue(DocStream.line(4)(DocStream.empty).isLineStream())
+    assert.isFalse(DocStream.empty.isLineStream())
   })
 
   it("isPushAnnotationStream", () => {
-    assert.isTrue(DocStream.isPushAnnotationStream(DocStream.pushAnnotation(DocStream.empty, 1)))
-    assert.isFalse(DocStream.isPushAnnotationStream(DocStream.empty))
+    assert.isTrue(DocStream.pushAnnotation(1)(DocStream.empty).isPushAnnotationStream())
+    assert.isFalse(DocStream.empty.isPushAnnotationStream())
   })
 
   it("isPopAnnotationStream", () => {
-    assert.isTrue(DocStream.isPopAnnotationStream(DocStream.popAnnotation(DocStream.empty)))
-    assert.isFalse(DocStream.isPopAnnotationStream(DocStream.empty))
+    assert.isTrue(DocStream.popAnnotation(DocStream.empty).isPopAnnotationStream())
+    assert.isFalse(DocStream.empty.isPopAnnotationStream())
   })
 })
