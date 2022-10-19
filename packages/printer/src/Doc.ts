@@ -959,7 +959,7 @@ export const cats: <A>(docs: Iterable<Doc<A>>) => Doc<A> = D.cats
  * @tsplus static effect/printer/Doc.Aspects catWithLine
  * @tsplus pipeable effect/printer/Doc catWithLine
  */
-export const catWithLine: <A>(that: Doc<A>) => (self: Doc<A>) => Doc<A> = D.catWithLine
+export const catWithLine: <B>(that: Doc<B>) => <A>(self: Doc<A>) => Doc<A | B> = D.catWithLine
 
 /**
  * The `catWithLineBreak` combinator concatenates two documents by placing a
@@ -994,7 +994,7 @@ export const catWithLine: <A>(that: Doc<A>) => (self: Doc<A>) => Doc<A> = D.catW
  * @tsplus static effect/printer/Doc.Aspects catWithLineBreak
  * @tsplus pipeable effect/printer/Doc catWithLineBreak
  */
-export const catWithLineBreak: <A>(that: Doc<A>) => (self: Doc<A>) => Doc<A> = D.catWithLineBreak
+export const catWithLineBreak: <B>(that: Doc<B>) => <A>(self: Doc<A>) => Doc<A | B> = D.catWithLineBreak
 
 /**
  * The `catWithSoftLine` combinator concatenates two documents by placing a
@@ -1029,7 +1029,7 @@ export const catWithLineBreak: <A>(that: Doc<A>) => (self: Doc<A>) => Doc<A> = D
  * @tsplus static effect/printer/Doc.Aspects catWithSoftLine
  * @tsplus pipeable effect/printer/Doc catWithSoftLine
  */
-export const catWithSoftLine: <A>(that: Doc<A>) => (self: Doc<A>) => Doc<A> = D.catWithSoftLine
+export const catWithSoftLine: <B>(that: Doc<B>) => <A>(self: Doc<A>) => Doc<A | B> = D.catWithSoftLine
 
 /**
  * The `catWithSoftLineBreak` combinator concatenates two documents by
@@ -1064,7 +1064,7 @@ export const catWithSoftLine: <A>(that: Doc<A>) => (self: Doc<A>) => Doc<A> = D.
  * @tsplus static effect/printer/Doc.Aspects catWithSoftLineBreak
  * @tsplus pipeable effect/printer/Doc catWithSoftLineBreak
  */
-export const catWithSoftLineBreak: <A>(that: Doc<A>) => (self: Doc<A>) => Doc<A> = D.catWithSoftLineBreak
+export const catWithSoftLineBreak: <B>(that: Doc<B>) => <A>(self: Doc<A>) => Doc<A | B> = D.catWithSoftLineBreak
 
 /**
  * The `catWithSpace` combinator concatenates two documents by placing a
@@ -1090,7 +1090,7 @@ export const catWithSoftLineBreak: <A>(that: Doc<A>) => (self: Doc<A>) => Doc<A>
  * @tsplus static effect/printer/Doc.Aspects catWithSpace
  * @tsplus pipeable effect/printer/Doc catWithSpace
  */
-export const catWithSpace: <A>(that: Doc<A>) => (self: Doc<A>) => Doc<A> = D.catWithSpace
+export const catWithSpace: <B>(that: Doc<B>) => <A>(self: Doc<A>) => Doc<A | B> = D.catWithSpace
 
 /**
  * The `concatWith` combinator concatenates all documents in a collection

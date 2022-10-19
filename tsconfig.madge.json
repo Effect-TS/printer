@@ -10,9 +10,7 @@
       "@effect/printer/*": ["./packages/printer/build/esm/*"],
       "@effect/printer-ansi": ["./packages/printer-ansi/build/esm/index.js"],
       "@effect/printer-ansi/test/*": ["./packages/printer-ansi/build/test/*"],
-      "@effect/printer-ansi/examples/*": [
-        "./packages/printer-ansi/build/examples/*"
-      ],
+      "@effect/printer-ansi/examples/*": ["./packages/printer-ansi/build/examples/*"],
       "@effect/printer-ansi/*": ["./packages/printer-ansi/build/esm/*"]
     }
   },

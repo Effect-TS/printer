@@ -4,14 +4,14 @@
       {
           "label": "clean",
           "type": "shell",
-          "command": "yarn clean",
+          "command": "pnpm clean",
           "isBackground": false,
           "problemMatcher": []
       },
       {
           "label": "build-watch",
           "type": "shell",
-          "command": "yarn build-watch",
+          "command": "pnpm build-watch",
           "problemMatcher": [
               "$tsc-watch"
           ],
@@ -27,7 +27,7 @@
       {
           "label": "build",
           "type": "shell",
-          "command": "yarn build",
+          "command": "pnpm build",
           "problemMatcher": [],
           "isBackground": false
       },
@@ -37,7 +37,7 @@
               "build-watch"
           ],
           "type": "shell",
-          "command": "yarn test",
+          "command": "pnpm test",
           "problemMatcher": []
       }
   ]

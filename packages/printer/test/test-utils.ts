@@ -1,4 +1,4 @@
-import { constant } from "@effect-ts/core/Function"
+import { constant } from "@fp-ts/data/Function"
 import * as fc from "fast-check"
 
 export const arbEmpty: fc.Arbitrary<Doc<number>> = fc.constant(Doc.empty)

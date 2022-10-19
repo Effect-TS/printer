@@ -419,28 +419,28 @@ export function cats<A>(docs: Iterable<Doc<A>>): Doc<A> {
 }
 
 /** @internal */
-export function catWithLine<A>(that: Doc<A>) {
-  return (self: Doc<A>): Doc<A> => cat(cat(that)(line))(self)
+export function catWithLine<B>(that: Doc<B>) {
+  return <A>(self: Doc<A>): Doc<A | B> => cat(cat(that)(line))(self)
 }
 
 /** @internal */
-export function catWithLineBreak<A>(that: Doc<A>) {
-  return (self: Doc<A>): Doc<A> => cat(cat(that)(lineBreak))(self)
+export function catWithLineBreak<B>(that: Doc<B>) {
+  return <A>(self: Doc<A>): Doc<A | B> => cat(cat(that)(lineBreak))(self)
 }
 
 /** @internal */
-export function catWithSoftLine<A>(that: Doc<A>) {
-  return (self: Doc<A>): Doc<A> => cat(cat(that)(softLine))(self)
+export function catWithSoftLine<B>(that: Doc<B>) {
+  return <A>(self: Doc<A>): Doc<A | B> => cat(cat(that)(softLine))(self)
 }
 
 /** @internal */
-export function catWithSoftLineBreak<A>(that: Doc<A>) {
-  return (self: Doc<A>): Doc<A> => cat(cat(that)(softLineBreak))(self)
+export function catWithSoftLineBreak<B>(that: Doc<B>) {
+  return <A>(self: Doc<A>): Doc<A | B> => cat(cat(that)(softLineBreak))(self)
 }
 
 /** @internal */
-export function catWithSpace<A>(that: Doc<A>) {
-  return (self: Doc<A>): Doc<A> => cat(cat(that)(space))(self)
+export function catWithSpace<B>(that: Doc<B>) {
+  return <A>(self: Doc<A>): Doc<A | B> => cat(cat(that)(space))(self)
 }
 
 /** @internal */
@@ -513,7 +513,7 @@ export function union<B>(that: Doc<B>) {
 export function group<A>(self: Doc<A>): Doc<A> {
   switch (self._tag) {
     case "FlatAlt": {
-      const flattened = self.right.changesUponFlattening
+      const flattened = changesUponFlattening(self.right)
       switch (flattened._tag) {
         case "Flattened": {
           return union(self.left)(flattened.value)
@@ -530,7 +530,7 @@ export function group<A>(self: Doc<A>): Doc<A> {
       return self
     }
     default: {
-      const flattened = self.changesUponFlattening
+      const flattened = changesUponFlattening(self)
       switch (flattened._tag) {
         case "Flattened": {
           return union(self)(flattened.value)
@@ -695,7 +695,7 @@ function flattenSafe<A>(self: Doc<A>): SafeEval.SafeEval<Doc<A>> {
     case "Annotated":
       return pipe(
         SafeEval.suspend(() => flattenSafe(self.doc)),
-        SafeEval.map((doc) => doc.annotate(self.annotation))
+        SafeEval.map(annotate(self.annotation))
       )
     default:
       return SafeEval.succeed(self)
@@ -714,7 +714,7 @@ function changesUponFlatteningSafe<A>(self: Doc<A>): SafeEval.SafeEval<Flatten<D
     case "Line":
       return SafeEval.succeed(Flatten.NeverFlat)
     case "FlatAlt":
-      return SafeEval.succeed(Flatten.Flattened(self.right.flatten))
+      return SafeEval.succeed(Flatten.Flattened(flatten(self.right)))
     case "Cat": {
       return pipe(
         SafeEval.suspend(() => changesUponFlatteningSafe(self.left)),
@@ -886,12 +886,12 @@ export function surround<B, C>(left: Doc<B>, right: Doc<C>) {
 
 /** @internal */
 export function singleQuoted<A>(self: Doc<A>): Doc<A> {
-  return surround<A, A>(squote, squote)(self)
+  return surround(squote, squote)(self)
 }
 
 /** @Internal */
 export function doubleQuoted<A>(self: Doc<A>): Doc<A> {
-  return surround<A, A>(dquote, dquote)(self)
+  return surround(dquote, dquote)(self)
 }
 
 /** @internal */
@@ -901,17 +901,17 @@ export function parenthesized<A>(self: Doc<A>): Doc<A> {
 
 /** @internal */
 export function angleBracketed<A>(self: Doc<A>): Doc<A> {
-  return self.surround(langle, rangle)
+  return surround(langle, rangle)(self)
 }
 
 /** @internal */
 export function squareBracketed<A>(self: Doc<A>): Doc<A> {
-  return self.surround(lbracket, rbracket)
+  return surround(lbracket, rbracket)(self)
 }
 
 /** @internal */
 export function curlyBraced<A>(self: Doc<A>): Doc<A> {
-  return self.surround(lbrace, rbrace)
+  return surround(lbrace, rbrace)(self)
 }
 
 /** @internal */

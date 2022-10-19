@@ -22,7 +22,7 @@ module.exports = {
     "plugin:@typescript-eslint/recommended",
     "plugin:@repo-tooling/dprint/recommended"
   ],
-  plugins: ["import", "sort-destructure-keys", "simple-import-sort", "codegen"],
+  plugins: ["import", "sort-destructure-keys", "simple-import-sort"],
   rules: {
     "@repo-tooling/dprint/dprint": [
       "error",
@@ -42,7 +42,6 @@ module.exports = {
     "no-restricted-imports": ["error", {
       "patterns": [".*"]
     }],
-    "codegen/codegen": "error",
     "no-fallthrough": "off",
     "no-irregular-whitespace": "off",
     "object-shorthand": "error",
