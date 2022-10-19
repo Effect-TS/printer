@@ -20,53 +20,49 @@ import * as R from "@effect/printer/internal/Render"
 export const render: <A>(self: DocStream<A>) => string = R.render
 
 /**
- * @tsplus static effect/printer/Doc.Ops renderCompact
- * @tsplus getter effect/printer/Doc renderCompact
+ * @tsplus static effect/printer/Doc.Ops compact
+ * @tsplus getter effect/printer/Doc compact
  */
-export const renderCompact: <A>(self: Doc<A>) => string = R.renderCompact
+export const compact: <A>(self: Doc<A>) => string = R.compact
 
 /**
- * @tsplus static effect/printer/Doc.Aspects renderPretty
- * @tsplus pipeable effect/printer/Doc renderPretty
+ * @tsplus static effect/printer/Doc.Aspects pretty
+ * @tsplus pipeable effect/printer/Doc pretty
  */
-export const renderPretty: (
+export const pretty: (
   lineWidth: number,
   ribbonFraction?: number
-) => <A>(
-  self: Doc<A>
-) => string = R.renderPretty
+) => <A>(self: Doc<A>) => string = R.pretty
 
 /**
- * @tsplus static effect/printer/Doc.Ops renderPrettyDefault
- * @tsplus getter effect/printer/Doc renderPrettyDefault
+ * @tsplus static effect/printer/Doc.Ops prettyDefault
+ * @tsplus getter effect/printer/Doc prettyDefault
  */
-export const renderPrettyDefault: <A>(self: Doc<A>) => string = R.renderPrettyDefault
+export const prettyDefault: <A>(self: Doc<A>) => string = R.prettyDefault
 
 /**
- * @tsplus static effect/printer/Doc.Ops renderPrettyUnbounded
- * @tsplus getter effect/printer/Doc renderPrettyUnbounded
+ * @tsplus static effect/printer/Doc.Ops prettyUnbounded
+ * @tsplus getter effect/printer/Doc prettyUnbounded
  */
-export const renderPrettyUnbounded: <A>(self: Doc<A>) => string = R.renderPrettyUnbounded
+export const prettyUnbounded: <A>(self: Doc<A>) => string = R.prettyUnbounded
 
 /**
- * @tsplus static effect/printer/Doc.Aspects renderSmart
- * @tsplus pipeable effect/printer/Doc renderSmart
+ * @tsplus static effect/printer/Doc.Aspects smart
+ * @tsplus pipeable effect/printer/Doc smart
  */
-export const renderSmart: <A>(
+export const smart: <A>(
   lineWidth: number,
   ribbonFraction?: number
-) => (
-  self: Doc<A>
-) => string = R.renderSmart
+) => (self: Doc<A>) => string = R.smart
 
 /**
- * @tsplus static effect/printer/Doc.Ops renderSmartDefault
- * @tsplus getter effect/printer/Doc renderSmartDefault
+ * @tsplus static effect/printer/Doc.Ops smartDefault
+ * @tsplus getter effect/printer/Doc smartDefault
  */
-export const renderSmartDefault: <A>(self: Doc<A>) => string = R.renderSmartDefault
+export const smartDefault: <A>(self: Doc<A>) => string = R.smartDefault
 
 /**
- * @tsplus static effect/printer/Doc.Ops renderSmartUnbounded
- * @tsplus getter effect/printer/Doc renderSmartUnbounded
+ * @tsplus static effect/printer/Doc.Ops smartUnbounded
+ * @tsplus getter effect/printer/Doc smartUnbounded
  */
-export const renderSmartUnbounded: <A>(self: Doc<A>) => string = R.renderSmartUnbounded
+export const smartUnbounded: <A>(self: Doc<A>) => string = R.smartUnbounded

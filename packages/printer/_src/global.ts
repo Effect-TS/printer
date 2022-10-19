@@ -36,12 +36,12 @@ import { PageWidth } from "@effect/printer/PageWidth"
  * @tsplus global
  */
 import {
+  compact,
+  pretty,
+  prettyDefault,
+  prettyUnbounded,
   render,
-  renderCompact,
-  renderPretty,
-  renderPrettyDefault,
-  renderPrettyUnbounded,
-  renderSmart,
-  renderSmartDefault,
-  renderSmartUnbounded
+  smart,
+  smartDefault,
+  smartUnbounded
 } from "@effect/printer/Render"

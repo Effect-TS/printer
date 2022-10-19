@@ -25,8 +25,8 @@ describe("Optimize", () => {
   it("should render fused and unfused documents identically", () => {
     fc.assert(
       fc.property(arbDoc, arbFusionDepth, (doc, depth) => {
-        const fused: string = doc.optimize(depth).renderPrettyDefault
-        const unfused: string = doc.renderPrettyDefault
+        const fused: string = doc.optimize(depth).prettyDefault
+        const unfused: string = doc.prettyDefault
         return fused === unfused
       })
     )

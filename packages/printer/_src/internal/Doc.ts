@@ -3,7 +3,7 @@ import type * as functor from "@fp-ts/core/Functor"
 import type * as monoid from "@fp-ts/core/Monoid"
 import type * as semigroup from "@fp-ts/core/Semigroup"
 import * as Equal from "@fp-ts/data/Equal"
-import { identity, pipe } from "@fp-ts/data/Function"
+import { pipe } from "@fp-ts/data/Function"
 import * as ReadonlyArray from "@fp-ts/data/ReadonlyArray"
 import * as SafeEval from "@fp-ts/data/SafeEval"
 
@@ -22,8 +22,8 @@ function variance<A, B>(_: A): B {
 class Fail<A> implements D.Fail<A>, Equal.Equal {
   readonly _tag = "Fail"
   readonly _id: D.TypeId = DocTypeId
-  readonly _A: (_: never) => A = variance
-  constructor(readonly id: (_: never) => A) {}
+  readonly _A: (_: never) => A = variance;
+  // constructor(readonly id: (_: never) => A) {}
   [Equal.symbolHash](): number {
     return Equal.hashCombine(Equal.hash("@effect/printer/Doc/Fail"))(Equal.hash(DocSymbolKey))
   }
@@ -35,8 +35,8 @@ class Fail<A> implements D.Fail<A>, Equal.Equal {
 class Empty<A> implements D.Empty<A>, Equal.Equal {
   readonly _tag = "Empty"
   readonly _id: D.TypeId = DocTypeId
-  readonly _A: (_: never) => A = variance
-  constructor(readonly id: (_: never) => A) {}
+  readonly _A: (_: never) => A = variance;
+  // constructor(readonly id: (_: never) => A) {}
   [Equal.symbolHash](): number {
     return Equal.hashCombine(Equal.hash("@effect/printer/Doc/Empty"))(Equal.hash(DocSymbolKey))
   }
@@ -49,7 +49,7 @@ class Char<A> implements D.Char<A>, Equal.Equal {
   readonly _tag = "Char"
   readonly _id: D.TypeId = DocTypeId
   readonly _A: (_: never) => A = variance
-  constructor(readonly char: string, readonly id: (_: never) => A) {}
+  constructor(readonly char: string /*, readonly id: (_: never) => A */) {}
   [Equal.symbolHash](): number {
     return Equal.hashCombine(Equal.hash(this.char))(Equal.hash(DocSymbolKey))
   }
@@ -62,7 +62,7 @@ class Text<A> implements D.Text<A>, Equal.Equal {
   readonly _tag = "Text"
   readonly _id: D.TypeId = DocTypeId
   readonly _A: (_: never) => A = variance
-  constructor(readonly text: string, readonly id: (_: never) => A) {}
+  constructor(readonly text: string /*, readonly id: (_: never) => A */) {}
   [Equal.symbolHash](): number {
     return Equal.hashCombine(Equal.hash(this.text))(Equal.hash(DocSymbolKey))
   }
@@ -74,8 +74,8 @@ class Text<A> implements D.Text<A>, Equal.Equal {
 class Line<A> implements D.Line<A>, Equal.Equal {
   readonly _tag = "Line"
   readonly _id: D.TypeId = DocTypeId
-  readonly _A: (_: never) => A = variance
-  constructor(readonly id: (_: never) => A) {}
+  readonly _A: (_: never) => A = variance;
+  // constructor(readonly id: (_: never) => A) {}
   [Equal.symbolHash](): number {
     return Equal.hashCombine(Equal.hash("@effect/printer/Doc/Line"))(Equal.hash(DocSymbolKey))
   }
@@ -301,12 +301,12 @@ export function isAnnotated<A>(self: Doc<A>): self is D.Annotated<A> {
 
 /** @internal */
 export function char(char: string): Doc<never> {
-  return new Char(char, identity)
+  return new Char(char /*, identity */)
 }
 
 /** @internal */
 export function text(text: string): Doc<never> {
-  return new Text(text, identity)
+  return new Text(text /*, identity */)
 }
 
 /** @internal */
@@ -327,13 +327,13 @@ export function string(str: string): Doc<never> {
 // -----------------------------------------------------------------------------
 
 /** @internal */
-export const empty: Doc<never> = new Empty(identity)
+export const empty: Doc<never> = new Empty() /*, identity */
 
 /** @internal */
-export const fail: Doc<never> = new Fail(identity)
+export const fail: Doc<never> = new Fail() /*, identity */
 
 /** @internal */
-export const hardLine: Doc<never> = new Line(identity)
+export const hardLine: Doc<never> = new Line() /*, identity */
 
 /** @internal */
 export const line: Doc<never> = flatAlt(char(" "))(hardLine)

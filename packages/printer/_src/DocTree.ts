@@ -327,29 +327,33 @@ export const foldMap: <A, M>(
  * For example, here is a document annotated with `void` and thee behavior is
  * to surround annotated regions with »>>>« and »<<<«.
  *
- * @exampleTodo
- * import { identity } from "@effect-ts/core/Function"
- * import * as Identity from "@effect-ts/core/Identity"
- *
- * import * as Doc from "../src/Core/Doc"
- * import * as DocTree from "../src/Core/DocTree"
- * import * as Layout from "../src/Core/Layout"
+ * @example
+ * import * as Doc from "@effect/printer/Doc"
+ * import * as DocTree from "@effect/printer/DocTree"
+ * import * as Layout from "@effect/printer/Layout"
+ * import { identity, pipe } from "@fp-ts/data/Function"
+ * import * as String from "@fp-ts/data/String"
  *
  * const doc: Doc.Doc<void> = Doc.hsep([
  *   Doc.text("hello"),
- *   Doc.cat_(Doc.annotate_(Doc.text("world"), undefined), Doc.char("!"))
+ *   pipe(
+ *     Doc.text("world"),
+ *     Doc.annotate(undefined),
+ *     Doc.cat(Doc.char("!"))
+ *   )
  * ])
  *
- * const tree = DocTree.treeForm(Layout.pretty_(Layout.defaultLayoutOptions, doc))
+ * const tree = DocTree.treeForm(Layout.pretty(Layout.defaultLayoutOptions)(doc))
  *
- * const rendered = DocTree.renderSimplyDecorated_(Identity.string)(
+ * const rendered = pipe(
  *   tree,
- *   identity,
- *   (_, x) => `>>>${x}<<<`
+ *   DocTree.renderSimplyDecorated(String.Monoid, identity, (_, x) => `>>>${x}<<<`)
  * )
  *
- * console.log(rendered)
- * // => hello >>>world<<<!
+ * assert.strictEqual(
+ *   rendered,
+ *   "hello >>>world<<<!"
+ * )
  *
  * @category rendering
  * @since 1.0.0

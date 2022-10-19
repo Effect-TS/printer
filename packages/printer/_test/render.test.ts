@@ -18,9 +18,9 @@ const hr = Doc.hcat([Doc.vbar, dashes, Doc.vbar])
 const doc = Doc.vsep([hr, funs(Doc.list(Doc.words("abcdef ghijklm")).align), hr])
 
 describe.concurrent("Render", () => {
-  it("renderPretty", () => {
+  it("pretty", () => {
     assert.strictEqual(
-      doc.renderPretty(14, 1),
+      doc.pretty(14, 1),
       String.stripMargin(
         `||------------------------|
           |fun(fun(fun(
@@ -33,9 +33,9 @@ describe.concurrent("Render", () => {
     )
   })
 
-  it("renderPrettyDefault", () => {
+  it("prettyDefault", () => {
     assert.strictEqual(
-      doc.renderPrettyDefault,
+      doc.prettyDefault,
       String.stripMargin(
         `||------------------------|
          |fun(fun(fun(fun(fun([abcdef, ghijklm])))))
@@ -44,9 +44,9 @@ describe.concurrent("Render", () => {
     )
   })
 
-  it("renderPrettyUnbounded", () => {
+  it("prettyUnbounded", () => {
     assert.strictEqual(
-      doc.renderPrettyUnbounded,
+      doc.prettyUnbounded,
       String.stripMargin(
         `||------------------------|
          |fun(fun(fun(fun(fun([abcdef, ghijklm])))))
@@ -55,9 +55,9 @@ describe.concurrent("Render", () => {
     )
   })
 
-  it("renderSmart", () => {
+  it("smart", () => {
     assert.strictEqual(
-      doc.renderSmart(14, 1),
+      doc.smart(14, 1),
       String.stripMargin(
         `||------------------------|
          |fun(
@@ -72,9 +72,9 @@ describe.concurrent("Render", () => {
     )
   })
 
-  it("renderSmartDefault", () => {
+  it("smartDefault", () => {
     assert.strictEqual(
-      doc.renderSmartDefault,
+      doc.smartDefault,
       String.stripMargin(
         `||------------------------|
          |fun(fun(fun(fun(fun([abcdef, ghijklm])))))
@@ -85,7 +85,7 @@ describe.concurrent("Render", () => {
 
   it("renderSmartUnbounded", () => {
     assert.strictEqual(
-      doc.renderSmartDefault,
+      doc.smartDefault,
       String.stripMargin(
         `||------------------------|
          |fun(fun(fun(fun(fun([abcdef, ghijklm])))))
@@ -94,9 +94,9 @@ describe.concurrent("Render", () => {
     )
   })
 
-  it("renderCompact", () => {
+  it("compact", () => {
     assert.strictEqual(
-      doc.renderCompact,
+      doc.compact,
       String.stripMargin(
         `||------------------------|
          |fun(

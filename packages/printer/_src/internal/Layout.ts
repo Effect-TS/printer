@@ -5,16 +5,16 @@ import * as Option from "@fp-ts/data/Option"
 import * as SafeEval from "@fp-ts/data/SafeEval"
 
 // -----------------------------------------------------------------------------
-// layoutWadlerLeijen
+// wadlerLeijen
 // -----------------------------------------------------------------------------
 
 /** @internal */
-export function layoutWadlerLeijen<A>(
+export function wadlerLeijen<A>(
   fits: Layout.FittingPredicate<A>,
   options: Layout.Options
 ) {
   return (self: Doc<A>): DocStream<A> =>
-    SafeEval.execute(layoutWadlerLeijenSafe(
+    SafeEval.execute(wadlerLeijenSafe(
       0,
       0,
       LayoutPipeline.cons(0, self, LayoutPipeline.nil),
@@ -23,7 +23,7 @@ export function layoutWadlerLeijen<A>(
     ))
 }
 
-function layoutWadlerLeijenSafe<A>(
+function wadlerLeijenSafe<A>(
   nl: number,
   cc: number,
   x: LayoutPipeline.LayoutPipeline<A>,
@@ -40,25 +40,25 @@ function layoutWadlerLeijenSafe<A>(
           return SafeEval.succeed(DocStream.failed)
         }
         case "Empty": {
-          return SafeEval.suspend(() => layoutWadlerLeijenSafe(nl, cc, x.pipeline, fits, options))
+          return SafeEval.suspend(() => wadlerLeijenSafe(nl, cc, x.pipeline, fits, options))
         }
         case "Char": {
           const char = x.document.char
           return pipe(
-            SafeEval.suspend(() => layoutWadlerLeijenSafe(nl, cc + 1, x.pipeline, fits, options)),
+            SafeEval.suspend(() => wadlerLeijenSafe(nl, cc + 1, x.pipeline, fits, options)),
             SafeEval.map(DocStream.char(char))
           )
         }
         case "Text": {
           const t = x.document.text
           return pipe(
-            SafeEval.suspend(() => layoutWadlerLeijenSafe(nl, cc + t.length, x.pipeline, fits, options)),
+            SafeEval.suspend(() => wadlerLeijenSafe(nl, cc + t.length, x.pipeline, fits, options)),
             SafeEval.map(DocStream.text(t))
           )
         }
         case "Line": {
           return pipe(
-            SafeEval.suspend(() => layoutWadlerLeijenSafe(x.indent, x.indent, x.pipeline, fits, options)),
+            SafeEval.suspend(() => wadlerLeijenSafe(x.indent, x.indent, x.pipeline, fits, options)),
             SafeEval.map((stream) =>
               DocStream.line(stream.isEmptyStream() || stream.isLineStream() ? 0 : x.indent)(stream)
             )
@@ -66,46 +66,46 @@ function layoutWadlerLeijenSafe<A>(
         }
         case "FlatAlt": {
           const pipeline = LayoutPipeline.cons(x.indent, x.document.left, x.pipeline)
-          return SafeEval.suspend(() => layoutWadlerLeijenSafe(nl, cc, pipeline, fits, options))
+          return SafeEval.suspend(() => wadlerLeijenSafe(nl, cc, pipeline, fits, options))
         }
         case "Cat": {
           const inner = LayoutPipeline.cons(x.indent, x.document.right, x.pipeline)
           const outer = LayoutPipeline.cons(x.indent, x.document.left, inner)
-          return SafeEval.suspend(() => layoutWadlerLeijenSafe(nl, cc, outer, fits, options))
+          return SafeEval.suspend(() => wadlerLeijenSafe(nl, cc, outer, fits, options))
         }
         case "Nest": {
           const indent = x.indent + x.document.indent
           const pipeline = LayoutPipeline.cons(indent, x.document.doc, x.pipeline)
-          return SafeEval.suspend(() => layoutWadlerLeijenSafe(nl, cc, pipeline, fits, options))
+          return SafeEval.suspend(() => wadlerLeijenSafe(nl, cc, pipeline, fits, options))
         }
         case "Union": {
           const leftPipeline = LayoutPipeline.cons(x.indent, x.document.left, x.pipeline)
           const rightPipeline = LayoutPipeline.cons(x.indent, x.document.right, x.pipeline)
           return pipe(
-            SafeEval.suspend(() => layoutWadlerLeijenSafe(nl, cc, leftPipeline, fits, options)),
+            SafeEval.suspend(() => wadlerLeijenSafe(nl, cc, leftPipeline, fits, options)),
             SafeEval.zipWith(
-              layoutWadlerLeijenSafe(nl, cc, rightPipeline, fits, options),
+              wadlerLeijenSafe(nl, cc, rightPipeline, fits, options),
               (left, right) => selectNicer(fits, nl, cc, left, right)
             )
           )
         }
         case "Column": {
           const pipeline = LayoutPipeline.cons(x.indent, x.document.react(cc), x.pipeline)
-          return SafeEval.suspend(() => layoutWadlerLeijenSafe(nl, cc, pipeline, fits, options))
+          return SafeEval.suspend(() => wadlerLeijenSafe(nl, cc, pipeline, fits, options))
         }
         case "WithPageWidth": {
           const pipeline = LayoutPipeline.cons(x.indent, x.document.react(options.pageWidth), x.pipeline)
-          return SafeEval.suspend(() => layoutWadlerLeijenSafe(nl, cc, pipeline, fits, options))
+          return SafeEval.suspend(() => wadlerLeijenSafe(nl, cc, pipeline, fits, options))
         }
         case "Nesting": {
           const pipeline = LayoutPipeline.cons(x.indent, x.document.react(x.indent), x.pipeline)
-          return SafeEval.suspend(() => layoutWadlerLeijenSafe(nl, cc, pipeline, fits, options))
+          return SafeEval.suspend(() => wadlerLeijenSafe(nl, cc, pipeline, fits, options))
         }
         case "Annotated": {
           const annotation = x.document.annotation
           const pipeline = LayoutPipeline.cons(x.indent, x.document.doc, LayoutPipeline.undoAnnotation(x.pipeline))
           return pipe(
-            SafeEval.suspend(() => layoutWadlerLeijenSafe(nl, cc, pipeline, fits, options)),
+            SafeEval.suspend(() => wadlerLeijenSafe(nl, cc, pipeline, fits, options)),
             SafeEval.map((stream) => DocStream.pushAnnotation(annotation)(stream))
           )
         }
@@ -113,7 +113,7 @@ function layoutWadlerLeijenSafe<A>(
     }
     case "UndoAnnotation":
       return pipe(
-        SafeEval.suspend(() => layoutWadlerLeijenSafe(nl, cc, x.pipeline, fits, options)),
+        SafeEval.suspend(() => wadlerLeijenSafe(nl, cc, x.pipeline, fits, options)),
         SafeEval.map(DocStream.popAnnotation)
       )
   }
@@ -146,15 +146,15 @@ function selectNicer<A>(
 }
 
 // -----------------------------------------------------------------------------
-// layoutCompact
+// compact
 // -----------------------------------------------------------------------------
 
 /** @internal */
-export function layoutCompact<A>(self: Doc<A>): DocStream<A> {
-  return SafeEval.execute(layoutCompactSafe(List.of(self), 0))
+export function compact<A>(self: Doc<A>): DocStream<A> {
+  return SafeEval.execute(compactSafe(List.of(self), 0))
 }
 
-function layoutCompactSafe<A>(docs: List.List<Doc<A>>, i: number): SafeEval.SafeEval<DocStream<A>> {
+function compactSafe<A>(docs: List.List<Doc<A>>, i: number): SafeEval.SafeEval<DocStream<A>> {
   if (List.isNil(docs)) {
     return SafeEval.succeed(DocStream.empty)
   }
@@ -165,63 +165,63 @@ function layoutCompactSafe<A>(docs: List.List<Doc<A>>, i: number): SafeEval.Safe
       return SafeEval.succeed(DocStream.failed)
     }
     case "Empty":
-      return SafeEval.suspend(() => layoutCompactSafe(tail, i))
+      return SafeEval.suspend(() => compactSafe(tail, i))
     case "Char": {
       return pipe(
-        SafeEval.suspend(() => layoutCompactSafe(tail, i + 1)),
+        SafeEval.suspend(() => compactSafe(tail, i + 1)),
         SafeEval.map(DocStream.char(head.char))
       )
     }
     case "Text": {
       return pipe(
-        SafeEval.suspend(() => layoutCompactSafe(tail, i + head.text.length)),
+        SafeEval.suspend(() => compactSafe(tail, i + head.text.length)),
         SafeEval.map(DocStream.text(head.text))
       )
     }
     case "Line": {
       return pipe(
-        SafeEval.suspend(() => layoutCompactSafe(tail, 0)),
+        SafeEval.suspend(() => compactSafe(tail, 0)),
         SafeEval.map(DocStream.line(0))
       )
     }
     case "FlatAlt": {
-      return SafeEval.suspend(() => layoutCompactSafe(List.cons(head.left, tail), i))
+      return SafeEval.suspend(() => compactSafe(List.cons(head.left, tail), i))
     }
     case "Cat": {
-      return SafeEval.suspend(() => layoutCompactSafe(List.cons(head.left, List.cons(head.right, tail)), i))
+      return SafeEval.suspend(() => compactSafe(List.cons(head.left, List.cons(head.right, tail)), i))
     }
     case "Nest": {
-      return SafeEval.suspend(() => layoutCompactSafe(List.cons(head.doc, tail), i))
+      return SafeEval.suspend(() => compactSafe(List.cons(head.doc, tail), i))
     }
     case "Union": {
-      return SafeEval.suspend(() => layoutCompactSafe(List.cons(head.right, tail), i))
+      return SafeEval.suspend(() => compactSafe(List.cons(head.right, tail), i))
     }
     case "Column": {
-      return SafeEval.suspend(() => layoutCompactSafe(List.cons(head.react(i), tail), i))
+      return SafeEval.suspend(() => compactSafe(List.cons(head.react(i), tail), i))
     }
     case "WithPageWidth": {
-      return SafeEval.suspend(() => layoutCompactSafe(List.cons(head.react(PageWidth.Unbounded), tail), i))
+      return SafeEval.suspend(() => compactSafe(List.cons(head.react(PageWidth.Unbounded), tail), i))
     }
     case "Nesting": {
-      return SafeEval.suspend(() => layoutCompactSafe(List.cons(head.react(0), tail), i))
+      return SafeEval.suspend(() => compactSafe(List.cons(head.react(0), tail), i))
     }
     case "Annotated": {
-      return SafeEval.suspend(() => layoutCompactSafe(List.cons(head.doc, tail), i))
+      return SafeEval.suspend(() => compactSafe(List.cons(head.doc, tail), i))
     }
   }
 }
 
 // -----------------------------------------------------------------------------
-// layoutPretty
+// pretty
 // -----------------------------------------------------------------------------
 
 /** @internal */
-export function layoutPretty(options: Layout.Options) {
+export function pretty(options: Layout.Options) {
   return <A>(self: Doc<A>): DocStream<A> => {
     const pageWidth = options.pageWidth
     switch (pageWidth._tag) {
       case "AvailablePerLine": {
-        return self.layoutWadlerLeijen(
+        return wadlerLeijen<A>(
           (lineIndent, currentColumn) =>
             (stream) => {
               const remainingWidth = PageWidth.remainingWidth(
@@ -233,10 +233,10 @@ export function layoutPretty(options: Layout.Options) {
               return fitsPretty(stream, remainingWidth)
             },
           options
-        )
+        )(self)
       }
       case "Unbounded": {
-        return self.layoutUnbounded
+        return unbounded(self)
       }
     }
   }
@@ -280,19 +280,22 @@ function fitsPretty<A>(self: DocStream<A>, width: number): boolean {
 }
 
 // -----------------------------------------------------------------------------
-// layoutSmart
+// smart
 // -----------------------------------------------------------------------------
 
 /** @internal */
-export function layoutSmart(options: Layout.Options) {
+export function smart(options: Layout.Options) {
   return <A>(self: Doc<A>): DocStream<A> => {
     const pageWidth = options.pageWidth
     switch (pageWidth._tag) {
       case "AvailablePerLine": {
-        return self.layoutWadlerLeijen(fitsSmart(pageWidth.lineWidth, pageWidth.ribbonFraction), options)
+        return wadlerLeijen<A>(
+          fitsSmart(pageWidth.lineWidth, pageWidth.ribbonFraction),
+          options
+        )(self)
       }
       case "Unbounded": {
-        return self.layoutUnbounded
+        return unbounded(self)
       }
     }
   }
@@ -376,15 +379,15 @@ function fitsSmartLoop<A>(
 }
 
 // -----------------------------------------------------------------------------
-// layoutUnbounded
+// unbounded
 // -----------------------------------------------------------------------------
 
 /** @internal */
-export function layoutUnbounded<A>(self: Doc<A>): DocStream<A> {
-  return self.layoutWadlerLeijen<A>(
+export function unbounded<A>(self: Doc<A>): DocStream<A> {
+  return wadlerLeijen<A>(
     () => (stream) => !failsOnFirstLine(stream),
     Layout.Options(PageWidth.Unbounded)
-  )
+  )(self)
 }
 
 function failsOnFirstLine<A>(self: DocStream<A>): boolean {
