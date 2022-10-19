@@ -1,3 +1,7 @@
+/**
+ * @since 1.0.0
+ */
+
 export * as ansiDoc from "@effect/printer-ansi/AnsiDoc"
 export * as ansiRender from "@effect/printer-ansi/AnsiRender"
 export * as ansiStyle from "@effect/printer-ansi/AnsiStyle"

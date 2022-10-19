@@ -4,11 +4,11 @@ export const doc = Doc.hsep([
     Doc.hsep([
       Doc.text("blue+u"),
       Doc.text("bold").annotate(
-        AnsiStyle.Associative.combine(AnsiStyle.color(Color.Blue), AnsiStyle.bold)
+        AnsiStyle.Semigroup.combine(AnsiStyle.bold)(AnsiStyle.color(Color.Blue))
       ),
       Doc.text("blue+u")
     ]).annotate(
-      AnsiStyle.Associative.combine(AnsiStyle.color(Color.Blue), AnsiStyle.underlined)
+      AnsiStyle.Semigroup.combine(AnsiStyle.underlined)(AnsiStyle.color(Color.Blue))
     ),
     Doc.text("red")
   ]).align

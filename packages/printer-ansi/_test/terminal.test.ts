@@ -1,14 +1,16 @@
+import * as String from "@fp-ts/data/String"
+
 export const complex = Doc.hsep([
   Doc.text("red"),
   Doc.vsep([
     Doc.hsep([
       Doc.text("blue+u"),
       Doc.text("bold").annotate(
-        AnsiStyle.Associative.combine(AnsiStyle.color(Color.Blue), AnsiStyle.bold)
+        AnsiStyle.Semigroup.combine(AnsiStyle.bold)(AnsiStyle.color(Color.Blue))
       ),
       Doc.text("blue+u")
     ]).annotate(
-      AnsiStyle.Associative.combine(AnsiStyle.color(Color.Blue), AnsiStyle.underlined)
+      AnsiStyle.Semigroup.combine(AnsiStyle.underlined)(AnsiStyle.color(Color.Blue))
     ),
     Doc.text("red")
   ]).align
@@ -113,25 +115,26 @@ describe.concurrent("Terminal", () => {
     it("should combine annotations appropriately", () => {
       assert.strictEqual(
         complex.renderPrettyAnsiDefault,
-        `|\u001b[0;91mred \u001b[0;94;4mblue+u \u001b[0;94;1;4mbold\u001b[0;94;4m blue+u\u001b[0;91m
-         |    red\u001b[0m`.stripMargin
+        String.stripMargin(
+          `|\u001b[0;91mred \u001b[0;94;4mblue+u \u001b[0;94;1;4mbold\u001b[0;94;4m blue+u\u001b[0;91m
+           |    red\u001b[0m`
+        )
       )
     })
   })
 
   describe.concurrent("Annotations", () => {
     it("should re-annotate a document", () => {
-      const result = complex.map((style) =>
-        AnsiStyle.Associative.combine(
-          AnsiStyle.backgroundColor(Color.White),
-          style
-        )
-      ).renderPrettyAnsiDefault
+      const result = complex
+        .map((style) => AnsiStyle.Semigroup.combine(style)(AnsiStyle.backgroundColor(Color.White)))
+        .renderPrettyAnsiDefault
 
       assert.strictEqual(
         result,
-        `|\u001b[0;91;107mred \u001b[0;94;107;4mblue+u \u001b[0;94;107;1;4mbold\u001b[0;94;107;4m blue+u\u001b[0;91;107m
-         |    red\u001b[0m`.stripMargin
+        String.stripMargin(
+          `|\u001b[0;91;107mred \u001b[0;94;107;4mblue+u \u001b[0;94;107;1;4mbold\u001b[0;94;107;4m blue+u\u001b[0;91;107m
+           |    red\u001b[0m`
+        )
       )
     })
 
@@ -141,16 +144,20 @@ describe.concurrent("Terminal", () => {
 
       assert.strictEqual(
         altered,
-        `|\u001b[0;1m\u001b[0;92;1mred \u001b[0;92;1m\u001b[0;92;1mblue+u \u001b[0;92;1m\u001b[0;92;1mbold\u001b[0;1m\u001b[0;92m blue+u\u001b[0;1m\u001b[0;92m
-         |    red\u001b[0;1m\u001b[0m`.stripMargin
+        String.stripMargin(
+          `|\u001b[0;1m\u001b[0;92;1mred \u001b[0;92;1m\u001b[0;92;1mblue+u \u001b[0;92;1m\u001b[0;92;1mbold\u001b[0;1m\u001b[0;92m blue+u\u001b[0;1m\u001b[0;92m
+           |    red\u001b[0;1m\u001b[0m`
+        )
       )
     })
 
     it("should remove all annotations", () => {
       assert.strictEqual(
         complex.unAnnotate.renderPrettyAnsiDefault,
-        `|red blue+u bold blue+u
-         |    red`.stripMargin
+        String.stripMargin(
+          `|red blue+u bold blue+u
+           |    red`
+        )
       )
     })
   })
