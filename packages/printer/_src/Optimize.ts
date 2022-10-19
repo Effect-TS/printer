@@ -140,17 +140,25 @@ export const Deep: FusionDepth = {
  * It is therefore a good idea to run `fuse` on concatenations of lots of small
  * strings that are used many times.
  *
- * @exampleTodo
- * import * as D from "../src/Core/Doc"
+ * @example
+ * import * as Doc from "@effect/printer/Doc"
+ * import * as Optimize from "@effect/printer/Optimize"
  *
- * // The document below contains a chain of four entries in the output
- * // `DocStream`
- * const doc1 = D.hsepT(D.char("a"), D.char("b"), D.char("c"), D.char("d"))
+ * // The document below contains a chain of four entries in the output `DocStream`
+ * const inefficient = Doc.hsep([
+ *   Doc.char("a"),
+ *   Doc.char("b"),
+ *   Doc.char("c"),
+ *   Doc.char("d")
+ * ])
  *
- * // but is fully equivalent to the tightly packed document below which is only
- * // a single entry in the output `DocStream` and can be processed much more
- * // efficiently.
- * const doc2 = D.text("abcd")
+ * // However, the above document is fully equivalent to the tightly packed
+ * // document below which is only a single entry in the output `DocStream` and
+ * // can be processed much more efficiently.
+ * const efficient = Doc.text("abcd")
+ *
+ * // We can optimize the `inefficient` document using `Optimize`
+ * Optimize.optimize(Optimize.Deep)(inefficient)
  *
  * @category optimization
  * @since 1.0.0

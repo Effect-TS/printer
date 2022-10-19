@@ -1,6 +1,6 @@
 /**
- * The abstract data type `Doc` represents prettified documents that have been
- * annotated with data of type `A`.
+ * The abstract data type `Doc<A>` represents prettified documents that have
+ * been annotated with data of type `A`.
  *
  * More specifically, a value of type `Doc` represents a non-empty set of
  * possible layouts for a given document. The layout algorithms select one of
@@ -542,22 +542,28 @@ export const fail: Doc<never> = D.fail
  * nesting level. However, `line` will behave like `space` if the line break is
  * undone by `group`.
  *
- * @exampleTodo
- * import * as D from '@effect-ts/printer/Core/Doc'
- * import * as R from '@effect-ts/printer/Core/Render'
+ * @example
+ * import * as Doc from "@effect/printer/Doc"
+ * import * as Render from "@effect/printer/Render"
+ * import * as String from "@fp-ts/data/String"
  *
- * const doc = D.hcat([
- *   D.text('lorem ipsum'),
- *   D.line,
- *   D.text('dolor sit amet')
+ * const doc: Doc.Doc<never> = Doc.hcat([
+ *   Doc.text("lorem ipsum"),
+ *   Doc.line,
+ *   Doc.text("dolor sit amet")
  * ])
  *
- * console.log(R.renderPrettyDefault(doc))
- * // lorem ipsum
- * // dolor sit amet
- *
- * console.log(R.renderPrettyDefault(D.group(doc)))
- * // lorem ipsum dolor sit amet
+ * assert.strictEqual(
+ *   Render.prettyDefault(doc),
+ *   String.stripMargin(
+ *     `|lorem ipsum
+ *      |dolor sit amet`
+ *   )
+ * )
+ * assert.strictEqual(
+ *   Render.prettyDefault(Doc.group(doc)),
+ *   "lorem ipsum dolor sit amet"
+ * )
  *
  * @category primitives
  * @since 1.0.0
@@ -569,22 +575,28 @@ export const line: Doc<never> = D.line
  * The `lineBreak` document is like `line` but behaves like `empty` if the line
  * break is undone by `group` (instead of `space`).
  *
- * @exampleTodo
- * import * as D from '@effect-ts/printer/Core/Doc'
- * import * as R from '@effect-ts/printer/Core/Render'
+ * @example
+ * import * as Doc from "@effect/printer/Doc"
+ * import * as Render from "@effect/printer/Render"
+ * import * as String from "@fp-ts/data/String"
  *
- * const doc = D.hcat([
- *   D.text('lorem ipsum'),
- *   D.lineBreak,
- *   D.text('dolor sit amet')
+ * const doc: Doc.Doc<never> = Doc.hcat([
+ *   Doc.text("lorem ipsum"),
+ *   Doc.lineBreak,
+ *   Doc.text("dolor sit amet")
  * ])
  *
- * console.log(R.renderPrettyDefault(doc))
- * // lorem ipsum
- * // dolor sit amet
- *
- * console.log(R.renderPrettyDefault(D.group(doc)))
- * // lorem ipsumdolor sit amet
+ * assert.strictEqual(
+ *   Render.prettyDefault(doc),
+ *   String.stripMargin(
+ *     `|lorem ipsum
+ *      |dolor sit amet`
+ *   )
+ * )
+ * assert.strictEqual(
+ *   Render.prettyDefault(Doc.group(doc)),
+ *   "lorem ipsumdolor sit amet"
+ * )
  *
  * @category primitives
  * @since 1.0.0
@@ -596,26 +608,32 @@ export const lineBreak: Doc<never> = D.lineBreak
  * The `softLine` document behaves like `space` if the resulting output fits
  * onto the page, otherwise it behaves like `line`.
  *
- * @exampleTodo
- * import { pipe } from '@effect-ts/core/Function'
- * import * as D from '@effect-ts/printer/Core/Doc'
- * import * as R from '@effect-ts/printer/Core/Render'
+ * @example
+ * import * as Doc from "@effect/printer/Doc"
+ * import * as Render from "@effect/printer/Render"
+ * import * as String from "@fp-ts/data/String"
  *
- * // Here we have enough space to put everything onto one line:
- * const doc = D.hcat([
- *   D.text('lorem ipsum'),
- *   D.softLine,
- *   D.text('dolor sit amet')
+ * const doc: Doc.Doc<never> = Doc.hcat([
+ *   Doc.text("lorem ipsum"),
+ *   Doc.softLine,
+ *   Doc.text("dolor sit amet")
  * ])
  *
- * console.log(pipe(doc, R.renderPretty(80)))
- * // lorem ipsum dolor sit amet
+ * // Here we have enough space to put everything onto one line
+ * assert.strictEqual(
+ *   Render.pretty(80)(doc),
+ *   "lorem ipsum dolor sit amet"
+ * )
  *
  * // If the page width is narrowed to `10`, the layout algorithm will
- * // introduce a line break:
- * console.log(pipe(doc, R.renderPretty(10)))
- * // lorem ipsum
- * // dolor sit amet
+ * // introduce a line break
+ * assert.strictEqual(
+ *   Render.pretty(10)(Doc.group(doc)),
+ *   String.stripMargin(
+ *     `|lorem ipsum
+ *      |dolor sit amet`
+ *   )
+ * )
  *
  * @category primitives
  * @since 1.0.0
@@ -628,26 +646,32 @@ export const softLine: Doc<never> = D.softLine
  * `empty` if the resulting output does not fit onto the page (instead of
  * `space`).
  *
- * @exampleTodo
- * import { pipe } from '@effect-ts/core/Function'
- * import * as D from '@effect-ts/printer/Core/Doc'
- * import * as R from '@effect-ts/printer/Core/Render'
+ * @example
+ * import * as Doc from "@effect/printer/Doc"
+ * import * as Render from "@effect/printer/Render"
+ * import * as String from "@fp-ts/data/String"
  *
- * // With enough space, we get direct concatenation of documents:
- * const doc = D.hcat([
- *   D.text('ThisText'),
- *   D.softLineBreak,
- *   D.text('IsWayTooLong')
+ * const doc: Doc.Doc<never> = Doc.hcat([
+ *   Doc.text("ThisText"),
+ *   Doc.softLineBreak,
+ *   Doc.text("IsWayTooLong")
  * ])
  *
- * console.log(pipe(doc, R.renderPretty(80)))
- * // ThisTextIsWayTooLong
+ * // With enough space, we get direct concatenation of documents:
+ * assert.strictEqual(
+ *   Render.pretty(80)(doc),
+ *   "ThisTextIsWayTooLong"
+ * )
  *
  * // If the page width is narrowed to `10`, the layout algorithm will
- * // introduce a line break:
- * console.log(pipe(doc, R.renderPretty(10)))
- * // ThisText
- * // IsWayTooLong
+ * // introduce a line break
+ * assert.strictEqual(
+ *   Render.pretty(10)(Doc.group(doc)),
+ *   String.stripMargin(
+ *     `|ThisText
+ *      |IsWayTooLong`
+ *   )
+ * )
  *
  * @category primitives
  * @since 1.0.0
@@ -657,22 +681,27 @@ export const softLineBreak: Doc<never> = D.softLineBreak
 
 /**
  * The `hardLine` document is always laid out as a line break, regardless of
- * space or whether or not the document was `group`'ed.
+ * space or whether or not the document was `group`"ed.
  *
- * @exampleTodo
- * import { pipe } from '@effect-ts/core/Function'
- * import * as D from '@effect-ts/printer/Core/Doc'
- * import * as R from '@effect-ts/printer/Core/Render'
+ * @example
+ * import * as Doc from "@effect/printer/Doc"
+ * import * as Render from "@effect/printer/Render"
+ * import * as String from "@fp-ts/data/String"
  *
- * const doc = D.hcat([
- *   D.text('lorem ipsum'),
- *   D.hardLine,
- *   D.text('dolor sit amet')
+ * const doc: Doc.Doc<never> = Doc.hcat([
+ *   Doc.text("lorem ipsum"),
+ *   Doc.hardLine,
+ *   Doc.text("dolor sit amet")
  * ])
  *
- * console.log(pipe(doc, R.renderPretty(1000)))
- * // lorem ipsum
- * // dolor sit amet
+ * // Even with enough space, a line break is introduced
+ * assert.strictEqual(
+ *   Render.pretty(1000)(doc),
+ *   String.stripMargin(
+ *     `|lorem ipsum
+ *      |dolor sit amet`
+ *   )
+ * )
  *
  * @category primitives
  * @since 1.0.0
@@ -825,7 +854,7 @@ export const semi: Doc<never> = D.semi
 export const slash: Doc<never> = D.slash
 
 /**
- * A document containing a single `'` character.
+ * A document containing a single `"` character.
  *
  * @category primitives
  * @since 1.0.0
@@ -870,25 +899,31 @@ export const cat: <B>(that: Doc<B>) => <A>(self: Doc<A>) => Doc<B | A> = D.cat
  * will be separated by newlines. This is what differentiates it from `vcat`,
  * which always lays out documents beneath one another.
  *
- * @exampleTodo
- * import { pipe } from '@effect-ts/core/Function'
- * import * as D from '@effect-ts/printer/Core/Doc'
- * import * as R from '@effect-ts/printer/Core/Render'
+ * @example
+ * import * as Doc from "@effect/printer/Doc"
+ * import * as Render from "@effect/printer/Render"
+ * import * as String from "@fp-ts/data/String"
  *
- * const doc = D.hsep([
- *   D.text('Docs:'),
- *   D.cats(D.words('lorem ipsum dolor'))
+ * const doc: Doc.Doc<never> = Doc.hsep([
+ *   Doc.text("Docs:"),
+ *   Doc.cats(Doc.words("lorem ipsum dolor"))
  * ])
  *
- * console.log(R.renderPrettyDefault(doc))
- * // Docs: loremipsumdolor
+ * assert.strictEqual(
+ *   Render.prettyDefault(doc),
+ *   "Docs: loremipsumdolor"
+ * )
  *
  * // If the document exceeds the width of the page, the documents are rendered
  * // one above another
- * console.log(pipe(doc, R.renderPretty(10)))
- * // Docs: lorem
- * // ipsum
- * // dolor
+ * assert.strictEqual(
+ *   Render.pretty(10)(doc),
+ *   String.stripMargin(
+ *     `|Docs: lorem
+ *      |ipsum
+ *      |dolor`
+ *   )
+ * )
  *
  * @category concatenation
  * @since 1.0.0
@@ -900,15 +935,24 @@ export const cats: <A>(docs: Iterable<Doc<A>>) => Doc<A> = D.cats
  * The `catWithLine` combinator concatenates two documents by placing a `line`
  * document between them.
  *
- * @exampleTodo
- * import * as D from '@effect-ts/printer/Core/Doc'
- * import * as R from '@effect-ts/printer/Core/Render'
+ * @example
+ * import * as Doc from "@effect/printer/Doc"
+ * import * as Render from "@effect/printer/Render"
+ * import { pipe } from "@fp-ts/data/Function"
+ * import * as String from "@fp-ts/data/String"
  *
- * const doc = D.appendWithLine_(D.char('a'), D.char('b'))
+ * const doc: Doc.Doc<never> = pipe(
+ *   Doc.char("a"),
+ *   Doc.catWithLine(Doc.char("b"))
+ * )
  *
- * console.log(R.renderPrettyDefault(doc))
- * // a
- * // b
+ * assert.strictEqual(
+ *   Render.prettyDefault(doc),
+ *   String.stripMargin(
+ *     `|a
+ *      |b`
+ *   )
+ * )
  *
  * @category concatenation
  * @since 1.0.0
@@ -921,18 +965,29 @@ export const catWithLine: <A>(that: Doc<A>) => (self: Doc<A>) => Doc<A> = D.catW
  * The `catWithLineBreak` combinator concatenates two documents by placing a
  * `lineBreak` document between them.
  *
- * @exampleTodo
- * import * as D from '@effect-ts/printer/Core/Doc'
- * import * as R from '@effect-ts/printer/Core/Render'
+ * @example
+ * import * as Doc from "@effect/printer/Doc"
+ * import * as Render from "@effect/printer/Render"
+ * import { pipe } from "@fp-ts/data/Function"
+ * import * as String from "@fp-ts/data/String"
  *
- * const doc = D.appendWithLineBreak_(D.char('a'), D.char('b'))
+ * const doc: Doc.Doc<never> = pipe(
+ *   Doc.char("a"),
+ *   Doc.catWithLineBreak(Doc.char("b"))
+ * )
  *
- * console.log(R.renderPrettyDefault(doc))
- * // a
- * // b
+ * assert.strictEqual(
+ *   Render.prettyDefault(doc),
+ *   String.stripMargin(
+ *     `|a
+ *      |b`
+ *   )
+ * )
  *
- * console.log(R.renderPrettyDefault(D.group(doc)))
- * // ab
+ * assert.strictEqual(
+ *   Render.prettyDefault(Doc.group(doc)),
+ *   "ab"
+ * )
  *
  * @category concatenation
  * @since 1.0.0
@@ -945,20 +1000,29 @@ export const catWithLineBreak: <A>(that: Doc<A>) => (self: Doc<A>) => Doc<A> = D
  * The `catWithSoftLine` combinator concatenates two documents by placing a
  * `softLine` document between them.
  *
- * ```typescript
- * import { pipe } from '@effect-ts/core/Function'
- * import * as D from '@effect-ts/printer/Core/Doc'
- * import * as R from '@effect-ts/printer/Core/Render'
+ * @example
+ * import * as Doc from "@effect/printer/Doc"
+ * import * as Render from "@effect/printer/Render"
+ * import { pipe } from "@fp-ts/data/Function"
+ * import * as String from "@fp-ts/data/String"
  *
- * const doc = D.appendWithSoftLine_(D.char('a'), D.char('b'))
+ * const doc: Doc.Doc<never> = pipe(
+ *   Doc.char("a"),
+ *   Doc.catWithSoftLine(Doc.char("b"))
+ * )
  *
- * console.log(R.renderPrettyDefault(doc))
- * // a b
+ * assert.strictEqual(
+ *   Render.prettyDefault(doc),
+ *   "a b"
+ * )
  *
- * console.log(pipe(doc, R.renderPretty(1)))
- * // a
- * // b
- * ```
+ * assert.strictEqual(
+ *   Render.pretty(1)(doc),
+ *   String.stripMargin(
+ *     `|a
+ *      |b`
+ *   )
+ * )
  *
  * @category concatenation
  * @since 1.0.0
@@ -971,19 +1035,29 @@ export const catWithSoftLine: <A>(that: Doc<A>) => (self: Doc<A>) => Doc<A> = D.
  * The `catWithSoftLineBreak` combinator concatenates two documents by
  * placing a `softLineBreak` document between them.
  *
- * @exampleTodo
- * import { pipe } from '@effect-ts/core/Function'
- * import * as D from '@effect-ts/printer/Core/Doc'
- * import * as R from '@effect-ts/printer/Core/Render'
+ * @example
+ * import * as Doc from "@effect/printer/Doc"
+ * import * as Render from "@effect/printer/Render"
+ * import { pipe } from "@fp-ts/data/Function"
+ * import * as String from "@fp-ts/data/String"
  *
- * const doc = D.appendWithSoftLineBreak_(D.char('a'), D.char('b'))
+ * const doc: Doc.Doc<never> = pipe(
+ *   Doc.char("a"),
+ *   Doc.catWithSoftLineBreak(Doc.char("b"))
+ * )
  *
- * console.log(R.renderPrettyDefault(doc))
- * // ab
+ * assert.strictEqual(
+ *   Render.prettyDefault(doc),
+ *   "ab"
+ * )
  *
- * console.log(pipe(doc, R.renderPretty(1)))
- * // a
- * // b
+ * assert.strictEqual(
+ *   Render.pretty(1)(doc),
+ *   String.stripMargin(
+ *     `|a
+ *      |b`
+ *   )
+ * )
  *
  * @category concatenation
  * @since 1.0.0
@@ -996,14 +1070,20 @@ export const catWithSoftLineBreak: <A>(that: Doc<A>) => (self: Doc<A>) => Doc<A>
  * The `catWithSpace` combinator concatenates two documents by placing a
  * `space` document between them.
  *
- * @exampleTodo
- * import * as D from '@effect-ts/printer/Core/Doc'
- * import * as R from '@effect-ts/printer/Core/Render'
+ * @example
+ * import * as Doc from "@effect/printer/Doc"
+ * import * as Render from "@effect/printer/Render"
+ * import { pipe } from "@fp-ts/data/Function"
  *
- * const doc = D.appendWithSpace_(D.char('a'), D.char('b'))
+ * const doc: Doc.Doc<never> = pipe(
+ *   Doc.char("a"),
+ *   Doc.catWithSpace(Doc.char("b"))
+ * )
  *
- * console.log(R.renderPrettyDefault(doc))
- * // a b
+ * assert.strictEqual(
+ *   Render.prettyDefault(doc),
+ *   "a b"
+ * )
  *
  * @category concatenation
  * @since 1.0.0
@@ -1016,18 +1096,20 @@ export const catWithSpace: <A>(that: Doc<A>) => (self: Doc<A>) => Doc<A> = D.cat
  * The `concatWith` combinator concatenates all documents in a collection
  * element-wise with the specified binary function.
  *
- * @exampleTodo
- * import { pipe } from '@effect-ts/core/Function'
- * import * as D from '@effect-ts/printer/Core/Doc'
- * import * as R from '@effect-ts/printer/Core/Render'
+ * @example
+ * import * as Doc from "@effect/printer/Doc"
+ * import * as Render from "@effect/printer/Render"
+ * import { pipe } from "@fp-ts/data/Function"
  *
- * const doc = pipe(
- *   [D.char('a'), D.char('b')],
- *   D.concatWith(D.appendWithSpace_)
+ * const doc: Doc.Doc<never> = pipe(
+ *   [Doc.char("a"), Doc.char("b")],
+ *   Doc.concatWith((x, y) => Doc.catWithSpace(y)(x))
  * )
  *
- * console.log(R.renderPrettyDefault(doc))
- * // a b
+ * assert.strictEqual(
+ *   Render.prettyDefault(doc),
+ *   "a b"
+ * )
  *
  * @category concatenation
  * @since 1.0.0
@@ -1046,16 +1128,21 @@ export const concatWith: <A>(
  * In other words `vcat` is like `vsep`, with newlines removed instead of
  * replaced by spaces.
  *
- * @exampleTodo
- * import * as D from '@effect-ts/printer/Core/Doc'
- * import * as R from '@effect-ts/printer/Core/Render'
+ * @example
+ * import * as Doc from "@effect/printer/Doc"
+ * import * as Render from "@effect/printer/Render"
+ * import * as String from "@fp-ts/data/String"
  *
- * const doc = D.vcat(D.words('lorem ipsum dolor'))
+ * const doc: Doc.Doc<never> = Doc.vcat(Doc.words("lorem ipsum dolor"))
  *
- * console.log(R.renderPrettyDefault(doc))
- * // lorem
- * // ipsum
- * // dolor
+ * assert.strictEqual(
+ *   Render.prettyDefault(doc),
+ *   String.stripMargin(
+ *     `|lorem
+ *      |ipsum
+ *      |dolor`
+ *   )
+ * )
  *
  * @category concatenation
  * @since 1.0.0
@@ -1067,14 +1154,16 @@ export const vcat: <A>(docs: Iterable<Doc<A>>) => Doc<A> = D.vcat
  * The `hcat` combinator concatenates all documents in a collection horizontally
  * without any spacing.
  *
- * @exampleTodo
- * import * as D from '@effect-ts/printer/Core/Doc'
- * import * as R from '@effect-ts/printer/Core/Render'
+ * @example
+ * import * as Render from "@effect/printer/Render"
+ * import * as String from "@fp-ts/data/String"
  *
- * const doc = D.hcat(D.words('lorem ipsum dolor'))
+ * const doc: Doc.Doc<never> = Doc.hcat(Doc.words("lorem ipsum dolor"))
  *
- * console.log(R.renderPrettyDefault(doc))
- * // loremipsumdolor
+ * assert.strictEqual(
+ *   Render.prettyDefault(doc),
+ *   "loremipsumdolor"
+ * )
  *
  * @category concatenation
  * @since 1.0.0
@@ -1108,20 +1197,23 @@ export const fillCat: <A>(docs: Iterable<Doc<A>>) => Doc<A> = D.fillCat
  *
  * For automatic line breaks, consider using `fillSep`.
  *
- * @exampleTodo
- * import { pipe } from '@effect-ts/core/Function'
- * import * as D from '@effect-ts/printer/Core/Doc'
- * import * as R from '@effect-ts/printer/Core/Render'
+ * @example
+ * import * as Doc from "@effect/printer/Doc"
+ * import * as Render from "@effect/printer/Render"
  *
- * const doc = D.hsep(D.words('lorem ipsum dolor sit amet'))
+ * const doc: Doc.Doc<never> = Doc.hsep(Doc.words("lorem ipsum dolor sit amet"))
  *
- * console.log(pipe(doc, R.renderPretty(80)))
- * // lorem ipsum dolor sit amet
+ * assert.strictEqual(
+ *   Render.pretty(80)(doc),
+ *   "lorem ipsum dolor sit amet"
+ * )
  *
  * // The `hsep` combinator will not introduce line breaks on its own, even when
  * // the page is too narrow
- * console.log(pipe(doc, R.renderPretty(5)))
- * // lorem ipsum dolor sit amet
+ * assert.strictEqual(
+ *   Render.pretty(5)(doc),
+ *   "lorem ipsum dolor sit amet"
+ * )
  *
  * @category separation
  * @since 1.0.0
@@ -1138,32 +1230,42 @@ export const hsep: <A>(docs: Iterable<Doc<A>>) => Doc<A> = D.hsep
  * layoutfits the page, otherwise nothing is done. See the `sep` convenience
  * function for this use case.
  *
- * @exampleTodo
- * import * as D from '@effect-ts/printer/Core/Doc'
- * import * as R from '@effect-ts/printer/Core/Render'
+ * @example
+ * import * as Doc from "@effect/printer/Doc"
+ * import * as Render from "@effect/printer/Render"
+ * import * as String from "@fp-ts/data/String"
  *
- * const unaligned = D.hsep([
- *   D.text('prefix'),
- *   D.vsep(D.words('text to lay out'))
+ * const unaligned = Doc.hsep([
+ *   Doc.text("prefix"),
+ *   Doc.vsep(Doc.words("text to lay out"))
  * ])
  *
- * console.log(R.renderPrettyDefault(unaligned))
- * // prefix text
- * // to
- * // lay
- * // out
+ * assert.strictEqual(
+ *   Render.prettyDefault(unaligned),
+ *   String.stripMargin(
+ *     `|prefix text
+ *      |to
+ *      |lay
+ *      |out`
+ *   )
+ * )
  *
- * // The `align` function can be used to align the documents under their first element
- * const aligned = D.hsep([
- *   D.text('prefix'),
- *   D.align(D.vsep(D.words('text to lay out')))
+ * // The `align` function can be used to align the documents under their first
+ * // element
+ * const aligned = Doc.hsep([
+ *   Doc.text("prefix"),
+ *   Doc.align(Doc.vsep(Doc.words("text to lay out")))
  * ])
  *
- * console.log(R.renderPrettyDefault(aligned))
- * // prefix text
- * //        to
- * //        lay
- * //        out
+ * assert.strictEqual(
+ *   Render.prettyDefault(aligned),
+ *   String.stripMargin(
+ *     `|prefix text
+ *      |       to
+ *      |       lay
+ *      |       out`
+ *   )
+ * )
  *
  * @category separation
  * @since 1.0.0
@@ -1193,25 +1295,31 @@ export const fillSep: <A>(docs: Iterable<Doc<A>>) => Doc<A> = D.fillSep
  * documents will be separated by newlines. This is what differentiates it from
  * `vsep`, which always lays out documents beneath one another.
  *
- * @exampleTodo
- * import { pipe } from '@effect-ts/core/Function'
- * import * as D from '@effect-ts/printer/Core/Doc'
- * import * as R from '@effect-ts/printer/Core/Render'
+ * @example
+ * import * as Doc from "@effect/printer/Doc"
+ * import * as Render from "@effect/printer/Render"
+ * import * as String from "@fp-ts/data/String"
  *
- * const doc = D.hsep([
- *   D.text('prefix'),
- *   D.seps(D.words('text to lay out'))
+ * const doc: Doc.Doc<never> = Doc.hsep([
+ *   Doc.text("prefix"),
+ *   Doc.seps(Doc.words("text to lay out"))
  * ])
  *
- * console.log(R.renderPrettyDefault(doc))
- * // prefix text to lay out
+ * assert.strictEqual(
+ *   Render.prettyDefault(doc),
+ *   "prefix text to lay out"
+ * )
  *
  * // If the page width is too narrow, documents are separated by newlines
- * console.log(pipe(doc, R.renderPretty(20)))
- * // prefix text
- * // to
- * // lay
- * // out
+ * assert.strictEqual(
+ *   Render.pretty(20)(doc),
+ *   String.stripMargin(
+ *     `|prefix text
+ *      |to
+ *      |lay
+ *      |out`
+ *   )
+ * )
  *
  * @category separation
  * @since 1.0.0
@@ -1233,35 +1341,51 @@ export const seps: <A>(docs: Iterable<Doc<A>>) => Doc<A> = D.seps
  * Otherwise, if `right` ends up not fitting the page, then the layout
  * algorithms will fall back to an even wider layout.
  *
- * @exampleTodo
- * import type { Array } from '@effect-ts/core/Array'
- * import { pipe } from '@effect-ts/core/Function'
- * import type { Doc } from '@effect-ts/printer/Core/Doc'
- * import * as D from '@effect-ts/printer/Core/Doc'
- * import * as R from '@effect-ts/printer/Core/Render'
+ * @example
+ * import * as Doc from "@effect/printer/Doc"
+ * import * as Render from "@effect/printer/Render"
+ * import { pipe } from "@fp-ts/data/Function"
+ * import * as String from "@fp-ts/data/String"
  *
- * const open = D.flatAlt_(D.empty, D.text('{ '))
- * const close = D.flatAlt_(D.empty, D.text(' }'))
- * const separator = D.flatAlt_(D.empty, D.text('; '))
+ * const open = pipe(Doc.empty, Doc.flatAlt(Doc.text("{ ")))
+ * const close = pipe(Doc.empty, Doc.flatAlt(Doc.text(" }")))
+ * const separator = pipe(Doc.empty, Doc.flatAlt(Doc.text("; ")))
  *
- * const prettyDo = <A>(xs: Array<Doc<A>>): Doc<A> =>
- *   D.group(D.hsep([D.text('do'), D.align(D.encloseSep_(xs, open, close, separator))]))
+ * const prettyDo = <A>(documents: Array<Doc.Doc<A>>): Doc.Doc<A> => {
+ *   return pipe(
+ *     Doc.hsep([
+ *       Doc.text("do"),
+ *       pipe(
+ *         documents,
+ *         Doc.encloseSep(open, close, separator),
+ *         Doc.align
+ *       )
+ *     ]),
+ *     Doc.group
+ *   )
+ * }
  *
  * const statements = [
- *   D.text('name:_ <- getArgs'),
- *   D.text('let greet = "Hello, " <> name"'),
- *   D.text('putStrLn greet')
+ *   Doc.text("name:_ <- getArgs"),
+ *   Doc.text("let greet = \"Hello, \" <> name"),
+ *   Doc.text("putStrLn greet")
  * ]
  *
  * // If it fits, then the content is put onto a single line with the `{;}` style
- * console.log(pipe(prettyDo(statements), R.renderPretty(80)))
- * // do { name:_ <- getArgs; let greet = "Hello, " <> name"; putStrLn greet }
+ * assert.strictEqual(
+ *   pipe(prettyDo(statements), Render.pretty(80)),
+ *   "do { name:_ <- getArgs; let greet = \"Hello, \" <> name; putStrLn greet }"
+ * )
  *
  * // When there is not enough space, the content is broken up onto multiple lines
- * console.log(pipe(prettyDo(statements), R.renderPretty(10)))
- * // do name:_ <- getArgs
- * //    let greet = "Hello, " <> name"
- * //    putStrLn greet
+ * assert.strictEqual(
+ *   pipe(prettyDo(statements), Render.pretty(10)),
+ *   String.stripMargin(
+ *     `|do name:_ <- getArgs
+ *      |   let greet = "Hello, " <> name
+ *      |   putStrLn greet`
+ *   )
+ * )
  *
  * @category alternative layouts
  * @since 1.0.0
@@ -1300,29 +1424,37 @@ export const group: <A>(self: Doc<A>) => Doc<A> = D.group
 /**
  * Lays out a document depending upon the column at which the document starts.
  *
- * @exampleTodo
- * import * as A from '@effect-ts/core/Array'
- * import * as D from '@effect-ts/printer/Core/Doc'
- * import * as R from '@effect-ts/printer/Core/Render'
+ * @example
+ * import * as Doc from "@effect/printer/Doc"
+ * import * as Render from "@effect/printer/Render"
+ * import * as String from "@fp-ts/data/String"
  *
  * // Example 1:
- * const example1 = D.column((l) => D.hsep([D.text('Columns are'), D.text(`${l}-based.`)]))
+ * const example1 = Doc.column((l) =>
+ *   Doc.hsep([Doc.text("Columns are"), Doc.text(`${l}-based`)])
+ * )
  *
- * console.log(R.renderPrettyDefault(example1))
- * // Columns are 0-based.
+ * assert.strictEqual(
+ *   Render.prettyDefault(example1),
+ *   "Columns are 0-based"
+ * )
  *
  * // Example 2:
- * const doc = D.hsep([
- *   D.text('prefix'),
- *   D.column((l) => D.text(`| <- column ${l}`))
+ * const doc = Doc.hsep([
+ *   Doc.text("prefix"),
+ *   Doc.column((l) => Doc.text(`| <- column ${l}`))
  * ])
  *
- * const example2 = D.vsep(A.map_([0, 4, 8], (n) => D.indent_(doc, n)))
+ * const example2 = Doc.vsep([0, 4, 8].map((n) => Doc.indent(n)(doc)))
  *
- * console.log(R.renderPrettyDefault(example2))
- * // prefix | <- column 7
- * //     prefix | <- column 11
- * //         prefix | <- column 15
+ * assert.strictEqual(
+ *   Render.prettyDefault(example2),
+ *   String.stripMargin(
+ *     `|prefix | <- column 7
+ *      |    prefix | <- column 11
+ *      |        prefix | <- column 15`
+ *   )
+ * )
  *
  * @category reactive layouts
  * @since 1.0.0
@@ -1334,19 +1466,26 @@ export const column: <A>(react: (position: number) => Doc<A>) => Doc<A> = D.colu
  * Lays out a document depending upon the current nesting level (i.e., the
  * current indentation of the document).
  *
- * @exampleTodo
- * import * as A from '@effect-ts/core/Array'
- * import * as D from '@effect-ts/printer/Core/Doc'
- * import * as R from '@effect-ts/printer/Core/Render'
+ * @example
+ * import * as Doc from "@effect/printer/Doc"
+ * import * as Render from "@effect/printer/Render"
+ * import * as String from "@fp-ts/data/String"
  *
- * const doc = D.hsep([D.text('prefix'), D.nesting((l) => D.brackets(D.text(`Nested: ${l}`)))])
+ * const doc = Doc.hsep([
+ *   Doc.text("prefix"),
+ *   Doc.nesting((l) => Doc.squareBracketed(Doc.text(`Nested: ${l}`)))
+ * ])
  *
- * const example = D.vsep(A.map_([0, 4, 8], (n) => D.indent_(doc, n)))
+ * const example = Doc.vsep([0, 4, 8].map((n) => Doc.indent(n)(doc)))
  *
- * console.log(R.renderPrettyDefault(example))
- * // prefix [Nested: 0]
- * //     prefix [Nested: 4]
- * //         prefix [Nested: 8]
+ * assert.strictEqual(
+ *   Render.prettyDefault(example),
+ *   String.stripMargin(
+ *     `|prefix [Nested: 0]
+ *      |    prefix [Nested: 4]
+ *      |        prefix [Nested: 8]`
+ *   )
+ * )
  *
  * @category reactive layouts
  * @since 1.0.0
@@ -1358,33 +1497,37 @@ export const nesting: <A>(react: (level: number) => Doc<A>) => Doc<A> = D.nestin
  * The `width` combinator makes the column width of a document available to the
  * document while rendering.
  *
- * @exampleTodo
- * import * as A from "@effect-ts/core/Array"
- * import { flow } from "@effect-ts/core/Function"
- * import type { Doc } from "@effect-ts/printer/Core/Doc"
- * import * as D from "@effect-ts/printer/Core/Doc"
- * import * as R from "@effect-ts/printer/Core/Render"
+ * @example
+ * import * as Doc from "@effect/printer/Doc"
+ * import * as Render from "@effect/printer/Render"
+ * import { pipe } from "@fp-ts/data/Function"
+ * import * as String from "@fp-ts/data/String"
  *
- * const annotate: <A>(doc: Doc<A>) => Doc<A> = flow(
- *   D.brackets,
- *   D.width((w) => D.text(` <- width: ${w}`))
- * )
+ * const annotate = <A>(doc: Doc.Doc<A>): Doc.Doc<A> =>
+ *   pipe(
+ *     Doc.squareBracketed(doc),
+ *     Doc.width((w) => Doc.text(` <- width: ${w}`))
+ *   )
  *
  * const docs = [
- *   D.text("---"),
- *   D.text("------"),
- *   D.indent_(D.text("---"), 3),
- *   D.vsep([D.text("---"), D.indent_(D.text("---"), 4)])
+ *   Doc.text("---"),
+ *   Doc.text("------"),
+ *   Doc.indent(3)(Doc.text("---")),
+ *   Doc.vsep([Doc.text("---"), Doc.indent(4)(Doc.text("---"))])
  * ]
  *
- * const doc = D.align(D.vsep(A.map_(docs, annotate)))
+ * const doc = Doc.align(Doc.vsep(docs.map(annotate)))
  *
- * console.log(R.renderPrettyDefault(doc))
- * // [---] <- width: 5
- * // [------] <- width: 8
- * // [   ---] <- width: 8
- * // [---
- * //     ---] <- width: 8
+ * assert.strictEqual(
+ *   Render.prettyDefault(doc),
+ *   String.stripMargin(
+ *     `|[---] <- width: 5
+ *      |[------] <- width: 8
+ *      |[   ---] <- width: 8
+ *      |[---
+ *      |    ---] <- width: 8`
+ *   )
+ * )
  *
  * @category reactive layouts
  * @since 1.0.0
@@ -1394,31 +1537,40 @@ export const nesting: <A>(react: (level: number) => Doc<A>) => Doc<A> = D.nestin
 export const width: <A, B>(react: (width: number) => Doc<A>) => (self: Doc<B>) => Doc<A | B> = D.width
 
 /**
- * Lays out a document according to the document's`PageWidth`.
+ * Lays out a document according to the document"s`PageWidth`.
  *
- * @exampleTodo
- * import { pipe } from '@effect-ts/core/Function'
- * import * as A from '@effect-ts/core/Array'
- * import * as D from '@effect-ts/printer/Core/Doc'
- * import * as R from '@effect-ts/printer/Core/Render'
- * import * as PW from '@effect-ts/printer/Core/PageWidth'
+ * @example
+ * import * as Doc from "@effect/printer/Doc"
+ * import * as Render from "@effect/printer/Render"
+ * import * as String from "@fp-ts/data/String"
  *
- * const doc = D.hsep([
- *   D.text('prefix'),
- *   D.withPageWidth(
- *     PW.match({
- *       AvailablePerLine: (lw, rf) => D.brackets(D.text(`Width: ${lw}, Ribbon Fraction: ${rf}`)),
- *       Unbounded: () => D.empty
- *     })
- *   )
+ * const doc = Doc.hsep([
+ *   Doc.text("prefix"),
+ *   Doc.pageWidth((pageWidth) => {
+ *     switch (pageWidth._tag) {
+ *       case "AvailablePerLine": {
+ *         const { lineWidth, ribbonFraction } = pageWidth
+ *         return Doc.squareBracketed(
+ *           Doc.text(`Width: ${lineWidth}, Ribbon Fraction: ${ribbonFraction}`)
+ *         )
+ *       }
+ *       case "Unbounded": {
+ *         return Doc.empty
+ *       }
+ *     }
+ *   })
  * ])
  *
- * const example = D.vsep(A.map_([0, 4, 8], (n) => D.indent_(doc, n)))
+ * const example = Doc.vsep([0, 4, 8].map((n) => Doc.indent(n)(doc)))
  *
- * console.log(pipe(example, R.renderPretty(32)))
- * // prefix [Width: 32, Ribbon Fraction: 1]
- * //     prefix [Width: 32, Ribbon Fraction: 1]
- * //         prefix [Width: 32, Ribbon Fraction: 1]
+ * assert.strictEqual(
+ *   Render.pretty(32)(example),
+ *   String.stripMargin(
+ *     `|prefix [Width: 32, Ribbon Fraction: 1]
+ *      |    prefix [Width: 32, Ribbon Fraction: 1]
+ *      |        prefix [Width: 32, Ribbon Fraction: 1]`
+ *   )
+ * )
  *
  * @category constructors
  * @since 1.0.0
@@ -1444,23 +1596,28 @@ export const pageWidth: <A>(react: (pageWidth: PageWidth) => Doc<A>) => Doc<A> =
  * * `indent`: increase the indentation on the spot, padding
  * any empty space with spaces
  *
- * @exampleTodo
- * import { pipe } from '@effect-ts/core/Function'
- * import * as D from '@effect-ts/printer/Core/Doc'
- * import * as R from '@effect-ts/printer/Core/Render'
+ * @example
+ * import * as Doc from "@effect/printer/Doc"
+ * import * as Render from "@effect/printer/Render"
+ * import { pipe } from "@fp-ts/data/Function"
+ * import * as String from "@fp-ts/data/String"
  *
- * const doc = D.vsep([
- *   D.nest_(D.vsep(D.words('lorem ipsum dolor')), 4),
- *   D.text('sit'),
- *   D.text('amet')
+ * const doc = Doc.vsep([
+ *   pipe(Doc.vsep(Doc.words("lorem ipsum dolor")), Doc.nest(4)),
+ *   Doc.text("sit"),
+ *   Doc.text("amet")
  * ])
  *
- * console.log(R.renderPrettyDefault(doc))
- * // lorem
- * //     ipsum
- * //     dolor
- * // sit
- * // amet
+ * assert.strictEqual(
+ *   Render.prettyDefault(doc),
+ *   String.stripMargin(
+ *     `|lorem
+ *      |    ipsum
+ *      |    dolor
+ *      |sit
+ *      |amet`
+ *   )
+ * )
  *
  * @category alignment
  * @since 1.0.0
@@ -1473,33 +1630,42 @@ export const nest: (indent: number) => <A>(self: Doc<A>) => Doc<A> = D.nest
  * The `align` combinator lays out a document with the nesting level set to the
  * current column.
  *
- * @exampleTodo
- * import * as D from '@effect-ts/printer/Core/Doc'
- * import * as R from '@effect-ts/printer/Core/Render'
+ * @example
+ * import * as Doc from "@effect/printer/Doc"
+ * import * as Render from "@effect/printer/Render"
+ * import * as String from "@fp-ts/data/String"
  *
  * // As an example, the documents below will be placed one above the other
  * // regardless of the current nesting level
  *
  * // Without `align`ment, the second line is simply placed below everything
  * // that has been laid out so far
- * const unaligned = D.hsep([
- *   D.text('lorem'),
- *   D.vsep([D.text('ipsum'), D.text('dolor')])
+ * const unaligned = Doc.hsep([
+ *   Doc.text("lorem"),
+ *   Doc.vsep([Doc.text("ipsum"), Doc.text("dolor")])
  * ])
  *
- * console.log(R.renderPrettyDefault(unaligned))
- * // lorem ipsum
- * // dolor
+ * assert.strictEqual(
+ *   Render.prettyDefault(unaligned),
+ *   String.stripMargin(
+ *     `|lorem ipsum
+ *      |dolor`
+ *   )
+ * )
  *
  * // With `align`ment, the `vsep`ed documents all start at the same column
- * const aligned = D.hsep([
- *   D.text('lorem'),
- *   D.align(D.vsep([D.text('ipsum'), D.text('dolor')]))
+ * const aligned = Doc.hsep([
+ *   Doc.text("lorem"),
+ *   Doc.align(Doc.vsep([Doc.text("ipsum"), Doc.text("dolor")]))
  * ])
  *
- * console.log(R.renderPrettyDefault(aligned))
- * // lorem ipsum
- * //       dolor
+ * assert.strictEqual(
+ *   Render.prettyDefault(aligned),
+ *   String.stripMargin(
+ *     `|lorem ipsum
+ *      |      dolor`
+ *   )
+ * )
  *
  * @category alignment
  * @since 1.0.0
@@ -1513,23 +1679,28 @@ export const align: <A>(self: Doc<A>) => Doc<A> = D.align
  * `indent` are allowed and decrease the nesting level accordingly.
  *
  * This differs from the `nest` combinator, which is based on the *current
- * nesting level* plus the specified `indent`. When you're not sure, try the
+ * nesting level* plus the specified `indent`. When you"re not sure, try the
  * more efficient combinator (`nest`) first.
  *
- * @exampleTodo
- * import { pipe } from '@effect-ts/core/Function'
- * import * as D from '@effect-ts/printer/Core/Doc'
- * import * as R from '@effect-ts/printer/Core/Render'
+ * @example
+ * import * as Doc from "@effect/printer/Doc"
+ * import * as Render from "@effect/printer/Render"
+ * import { pipe } from "@fp-ts/data/Function"
+ * import * as String from "@fp-ts/data/String"
  *
- * const doc = D.hsep([
- *   D.text('prefix'),
- *   D.hang_(D.reflow('Indenting these words with hang'), 4)
+ * const doc = Doc.hsep([
+ *   Doc.text("prefix"),
+ *   pipe(Doc.reflow("Indenting these words with hang"), Doc.hang(4))
  * ])
  *
- * console.log(pipe(doc, R.renderPretty(24)))
- * // prefix Indenting these
- * //            words with
- * //            hang
+ * assert.strictEqual(
+ *   Render.pretty(24)(doc),
+ *   String.stripMargin(
+ *     `|prefix Indenting these
+ *      |           words with
+ *      |           hang`
+ *   )
+ * )
  *
  * @category alignment
  * @since 1.0.0
@@ -1542,21 +1713,26 @@ export const hang: <A>(indent: number) => (self: Doc<A>) => Doc<A> = D.hang
  * The `indent` combinator indents a document by the specified `indent`
  * beginning from the current cursor position.
  *
- * @exampleTodo
- * import { pipe } from '@effect-ts/core/Function'
- * import * as D from '@effect-ts/printer/Core/Doc'
- * import * as R from '@effect-ts/printer/Core/Render'
+ * @example
+ * import * as Doc from "@effect/printer/Doc"
+ * import * as Render from "@effect/printer/Render"
+ * import { pipe } from "@fp-ts/data/Function"
+ * import * as String from "@fp-ts/data/String"
  *
- * const doc = D.hcat([
- *   D.text('prefix'),
- *   D.indent_(D.reflow('The indent function indents these words!'), 4)
+ * const doc = Doc.hcat([
+ *   Doc.text("prefix"),
+ *   pipe(Doc.reflow("The indent function indents these words!"), Doc.indent(4))
  * ])
  *
- * console.log(pipe(doc, R.renderPretty(24)))
- * // prefix    The indent
- * //           function
- * //           indents these
- * //           words!
+ * assert.strictEqual(
+ *   Render.pretty(24)(doc),
+ *   String.stripMargin(
+ *     `|prefix    The indent
+ *      |          function
+ *      |          indents these
+ *      |          words!`
+ *   )
+ * )
  *
  * @category alignment
  * @since 1.0.0
@@ -1574,34 +1750,40 @@ export const indent: <A>(indent: number) => (self: Doc<A>) => Doc<A> = D.indent
  * To place the `sep` document at the end of each entry, see the `punctuate`
  * combinator.
  *
- * @exampleTodo
- * import { pipe } from '@effect-ts/core/Function'
- * import * as A from '@effect-ts/core/Array'
- * import * as D from '@effect-ts/printer/Core/Doc'
- * import * as R from '@effect-ts/printer/Core/Render'
+ * @example
+ * import * as Doc from "@effect/printer/Doc"
+ * import * as Render from "@effect/printer/Render"
+ * import { pipe } from "@fp-ts/data/Function"
+ * import * as String from "@fp-ts/data/String"
  *
- * const doc = D.hsep([
- *   D.text("list"),
- *   D.align(
+ * const doc = Doc.hsep([
+ *   Doc.text("list"),
+ *   Doc.align(
  *     pipe(
- *       A.map_(["1", "20", "300", "4000"], (n) =>
- *         n.length === 1 ? D.char(n) : D.text(n)
+ *       ["1", "20", "300", "4000"].map(
+ *         (n) => n.length === 1 ? Doc.char(n) : Doc.text(n)
  *       ),
- *       D.encloseSep(D.lbracket, D.rbracket, D.comma)
+ *       Doc.encloseSep(Doc.lbracket, Doc.rbracket, Doc.comma)
  *     )
  *   )
  * ])
  *
- * // The documents are laid out horizontally if that fits the page:
- * console.log(R.renderPrettyDefault(doc))
- * // list [1,20,300,4000]
+ * // The documents are laid out horizontally if the document fits the page
+ * assert.strictEqual(
+ *   Render.prettyDefault(doc),
+ *   "list [1,20,300,4000]"
+ * )
  *
- * // Otherwise they are laid out vertically, with separators put in the front:
- * console.log(pipe(doc, R.renderPretty(10)))
- * // list [1
- * //      ,20
- * //      ,300
- * //      ,4000]
+ * // Otherwise they are laid out vertically, with separators put in the front
+ * assert.strictEqual(
+ *   Render.pretty(10)(doc),
+ *   String.stripMargin(
+ *     `|list [1
+ *      |     ,20
+ *      |     ,300
+ *      |     ,4000]`
+ *   )
+ * )
  *
  * @category alignment
  * @since 1.0.0
@@ -1617,17 +1799,20 @@ export const encloseSep: <A, B, C>(
  * A Haskell-inspired variant of `encloseSep` that uses a comma as the separator
  * and braces as the enclosure for a collection of documents.
  *
- * @exampleTodo
- * import * as A from "@effect-ts/core/Array"
- * import * as D from "@effect-ts/printer/Core/Doc"
- * import * as R from "@effect-ts/printer/Core/Render"
+ * @example
+ * import * as Doc from "@effect/printer/Doc"
+ * import * as Render from "@effect/printer/Render"
  *
- * const doc = D.list(
- *   A.map_(["1", "20", "300", "4000"], (n) => (n.length === 1 ? D.char(n) : D.text(n)))
+ * const doc = Doc.list(
+ *   ["1", "20", "300", "4000"].map(
+ *     (n) => (n.length === 1 ? Doc.char(n) : Doc.text(n))
+ *   )
  * )
  *
- * console.log(R.renderPrettyDefault(doc))
- * // [1, 20, 300, 4000]
+ * assert.strictEqual(
+ *   Render.prettyDefault(doc),
+ *   "[1, 20, 300, 4000]"
+ * )
  *
  * @category alignment
  * @since 1.0.0
@@ -1639,17 +1824,20 @@ export const list: <A>(docs: Iterable<Doc<A>>) => Doc<A> = D.list
  * A Haskell-inspired variant of `encloseSep` that uses a comma as the separator
  * and parentheses as the enclosure for a collection of documents.
  *
- * @exampleTodo
- * import * as A from "@effect-ts/core/Array"
- * import * as D from "@effect-ts/printer/Core/Doc"
- * import * as R from "@effect-ts/printer/Core/Render"
+ * @example
+ * import * as Doc from "@effect/printer/Doc"
+ * import * as Render from "@effect/printer/Render"
  *
- * const doc = D.tupled(
- *   A.map_(["1", "20", "300", "4000"], (n) => (n.length === 1 ? D.char(n) : D.text(n)))
+ * const doc = Doc.tupled(
+ *   ["1", "20", "300", "4000"].map(
+ *     (n) => (n.length === 1 ? Doc.char(n) : Doc.text(n))
+ *   )
  * )
  *
- * console.log(R.renderPrettyDefault(doc))
- * // (1, 20, 300, 4000)
+ * assert.strictEqual(
+ *   Render.prettyDefault(doc),
+ *   "(1, 20, 300, 4000)"
+ * )
  *
  * @category alignment
  * @since 1.0.0
@@ -1667,33 +1855,40 @@ export const tupled: <A>(docs: Iterable<Doc<A>>) => Doc<A> = D.tupled
  * If the width of `x` is already larger than the specified `width`, nothing is
  * appended.
  *
- * @exampleTodo
- * import type { Array } from '@effect-ts/core/Array'
- * import * as A from '@effect-ts/core/Array'
- * import type { Doc } from '@effect-ts/printer/Core/Doc'
- * import * as D from '@effect-ts/printer/Core/Doc'
- * import * as R from '@effect-ts/printer/Core/Render'
+ * @example
+ * import * as Doc from "@effect/printer/Doc"
+ * import * as Render from "@effect/printer/Render"
+ * import { pipe } from "@fp-ts/data/Function"
+ * import * as String from "@fp-ts/data/String"
  *
  * type Signature = [name: string, type: string]
  *
  * const signatures: Array<Signature> = [
- *   ['empty', 'Doc'],
- *   ['nest', 'Int -> Doc -> Doc'],
- *   ['fillSep', '[Doc] -> Doc']
+ *   ["empty", "Doc"],
+ *   ["nest", "Int -> Doc -> Doc"],
+ *   ["fillSep", "[Doc] -> Doc"]
  * ]
  *
- * const prettySignature = <A>([name, type]: Signature): Doc<A> =>
- *   D.hsep([D.fill_(D.text(name), 5), D.text('::'), D.text(type)])
+ * const prettySignature = <A>([name, type]: Signature): Doc.Doc<A> =>
+ *   Doc.hsep([
+ *     pipe(Doc.text(name), Doc.fill(5)),
+ *     Doc.text("::"),
+ *     Doc.text(type)
+ *   ])
  *
- * const doc = D.hsep([
- *   D.text('let'),
- *   D.align(D.vcat(A.map_(signatures, prettySignature)))
+ * const doc = Doc.hsep([
+ *   Doc.text("let"),
+ *   Doc.align(Doc.vcat(signatures.map(prettySignature)))
  * ])
  *
- * console.log(R.renderPrettyDefault(doc))
- * // let empty :: Doc
- * //     nest  :: Int -> Doc -> Doc
- * //     fillSep :: [Doc] -> Doc
+ * assert.strictEqual(
+ *   Render.prettyDefault(doc),
+ *   String.stripMargin(
+ *     `|let empty :: Doc
+ *      |    nest  :: Int -> Doc -> Doc
+ *      |    fillSep :: [Doc] -> Doc`
+ *   )
+ * )
  *
  * @category filling
  * @since 1.0.0
@@ -1708,35 +1903,41 @@ export const fill: <A>(width: number) => (self: Doc<A>) => Doc<A> = D.fill
  * If the width of `x` is already larger than the specified `width`, the nesting
  * level is increased by the specified `width` and a `line` is appended.
  *
- * @exampleTodo
- * import { pipe } from '@effect-ts/core/Function'
- * import type { Array } from '@effect-ts/core/Array'
- * import * as A from '@effect-ts/core/Array'
- * import type { Doc } from '@effect-ts/printer/Core/Doc'
- * import * as D from '@effect-ts/printer/Core/Doc'
- * import * as R from '@effect-ts/printer/Core/Render'
+ * @example
+ * import * as Doc from "@effect/printer/Doc"
+ * import * as Render from "@effect/printer/Render"
+ * import { pipe } from "@fp-ts/data/Function"
+ * import * as String from "@fp-ts/data/String"
  *
  * type Signature = [name: string, type: string]
  *
  * const signatures: Array<Signature> = [
- *   ['empty', 'Doc'],
- *   ['nest', 'Int -> Doc -> Doc'],
- *   ['fillSep', '[Doc] -> Doc']
+ *   ["empty", "Doc"],
+ *   ["nest", "Int -> Doc -> Doc"],
+ *   ["fillSep", "[Doc] -> Doc"]
  * ]
  *
- * const prettySignature = <A>([name, type]: Signature): Doc<A> =>
- *   D.hsep([D.fillBreak_(D.text(name), 5), D.text('::'), D.text(type)])
+ * const prettySignature = <A>([name, type]: Signature): Doc.Doc<A> =>
+ *   Doc.hsep([
+ *     pipe(Doc.text(name), Doc.fillBreak(5)),
+ *     Doc.text("::"),
+ *     Doc.text(type)
+ *   ])
  *
- * const doc = D.hsep([
- *   D.text('let'),
- *   D.align(D.vcat(A.map_(signatures, prettySignature)))
+ * const doc = Doc.hsep([
+ *   Doc.text("let"),
+ *   Doc.align(Doc.vcat(signatures.map(prettySignature)))
  * ])
  *
- * console.log(R.renderPrettyDefault(doc))
- * // let empty :: Doc
- * //     nest  :: Int -> Doc -> Doc
- * //     fillSep
- * //           :: [Doc] -> Doc
+ * assert.strictEqual(
+ *   Render.prettyDefault(doc),
+ *   String.stripMargin(
+ *     `|let empty :: Doc
+ *      |    nest  :: Int -> Doc -> Doc
+ *      |    fillSep
+ *      |          :: [Doc] -> Doc`
+ *   )
+ * )
  *
  * @category filling
  * @since 1.0.0
@@ -1914,18 +2115,23 @@ export const Functor: _Functor<Doc.TypeLambda> = D.Functor
 // -----------------------------------------------------------------------------
 
 /**
- * The `surround` combinator encloses a document `x` in between `left` and
- * `right` documents.
+ * The `surround` combinator encloses a document in between `left` and `right`
+ * documents.
  *
- * @exampleTodo
- * import { pipe } from '@effect-ts/core/Function'
- * import * as D from '@effect-ts/printer/Core/Doc'
- * import * as R from '@effect-ts/printer/Core/Render'
+ * @example
+ * import * as Doc from "@effect/printer/Doc"
+ * import * as Render from "@effect/printer/Render"
+ * import { pipe } from "@fp-ts/data/Function"
  *
- * const doc = pipe(D.char('-'), D.enclose(D.char('A'), D.char('Z')))
+ * const doc = pipe(
+ *   Doc.char("-"),
+ *   Doc.surround(Doc.char("A"), Doc.char("Z"))
+ * )
  *
- * console.log(R.renderPrettyDefault(doc))
- * // A-Z
+ * assert.strictEqual(
+ *   Render.prettyDefault(doc),
+ *   "A-Z"
+ * )
  *
  * @category utilities
  * @since 1.0.0
@@ -1940,7 +2146,7 @@ export const surround: <B, C>(
 ) => Doc<A | B | C> = D.surround
 
 /**
- * Encloses the input document in single quotes (`''`).
+ * Encloses the input document in single quotes (`""`).
  *
  * @category utilities
  * @since 1.0.0
@@ -2003,14 +2209,16 @@ export const curlyBraced: <A>(self: Doc<A>) => Doc<A> = D.curlyBraced
  * The `spaces` combinator lays out a document containing `n` spaces. Negative
  * values for `n` count as `0` spaces.
  *
- * @exampleTodo
- * import * as D from '@effect-ts/printer/Core/Doc'
- * import * as R from '@effect-ts/printer/Core/Render'
+ * @example
+ * import * as Doc from "@effect/printer/Doc"
+ * import * as Render from "@effect/printer/Render"
  *
- * const doc = D.brackets(D.dquotes(D.spaces(5)))
+ * const doc = Doc.squareBracketed(Doc.doubleQuoted(Doc.spaces(5)))
  *
- * console.log(R.renderPrettyDefault(doc))
- * // ["     "]
+ * assert.strictEqual(
+ *   Render.prettyDefault(doc),
+ *   "[\"     \"]"
+ * )
  *
  * @category utilities
  * @since 1.0.0
@@ -2027,16 +2235,18 @@ export const textSpaces: (n: number) => string = D.textSpaces
 
 /**
  * Splits a string of words into individual `Text` documents using the
- * specified `char` to split on (defaults to `' '`).
+ * specified `char` to split on (defaults to `" "`).
  *
- * @exampleTodo
- * import * as D from '@effect-ts/printer/Core/Doc'
- * import * as R from '@effect-ts/printer/Core/Render'
+ * @example
+ * import * as Doc from "@effect/printer/Doc"
+ * import * as Render from "@effect/printer/Render"
  *
- * const doc = D.tupled(D.words('lorem ipsum dolor'))
+ * const doc = Doc.tupled(Doc.words("lorem ipsum dolor"))
  *
- * console.log(R.renderPrettyDefault(doc))
- * // (lorem, ipsum, dolor)
+ * assert.strictEqual(
+ *   Render.prettyDefault(doc),
+ *   "(lorem, ipsum, dolor)"
+ * )
  *
  * @category utilities
  * @since 1.0.0
@@ -2046,27 +2256,30 @@ export const words: (s: string, char?: string) => ReadonlyArray<Doc<never>> = D.
 
 /**
  * Splits a string of words into individual `Text` documents using the specified
- * `char` to split on (defaults to `' '`). In addition, a `softLine` is inserted
+ * `char` to split on (defaults to `" "`). In addition, a `softLine` is inserted
  * in between each word so that if the text exceeds the available width it will
  * be broken into multiple lines.
  *
- * @exampleTodo
- * import { pipe } from '@effect-ts/core/Function'
+ * @example
+ * import * as Doc from "@effect/printer/Doc"
+ * import * as Render from "@effect/printer/Render"
+ * import * as String from "@fp-ts/data/String"
  *
- * import * as D from '@effect-ts/printer/Core/Doc'
- * import * as R from '@effect-ts/printer/Core/Render'
- *
- * const doc = D.reflow(
- *   'Lorem ipsum dolor sit amet, consectetur adipisicing elit, ' +
- *     'sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+ * const doc = Doc.reflow(
+ *   "Lorem ipsum dolor sit amet, consectetur adipisicing elit, " +
+ *     "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
  * )
  *
- * console.log(pipe(doc, R.renderPretty(32)))
- * // Lorem ipsum dolor sit amet,
- * // consectetur adipisicing elit,
- * // sed do eiusmod tempor incididunt
- * // ut labore et dolore magna
- * // aliqua.
+ * assert.strictEqual(
+ *   Render.pretty(32)(doc),
+ *   String.stripMargin(
+ *     `|Lorem ipsum dolor sit amet,
+ *      |consectetur adipisicing elit,
+ *      |sed do eiusmod tempor incididunt
+ *      |ut labore et dolore magna
+ *      |aliqua.`
+ *   )
+ * )
  *
  * @category utilities
  * @since 1.0.0
@@ -2080,24 +2293,34 @@ export const reflow: (s: string, char?: string) => Doc<never> = D.reflow
  * the document entries, which can be observed if the result is oriented
  * vertically.
  *
- * @exampleTodo
- * import * as D from "@effect-ts/printer/Core/Doc"
- * import * as R from "@effect-ts/printer/Core/Render"
+ * @example
+ * import * as Doc from "@effect/printer/Doc"
+ * import * as Render from "@effect/printer/Render"
+ * import { pipe } from "@fp-ts/data/Function"
+ * import * as String from "@fp-ts/data/String"
  *
- * const docs = D.punctuate_(D.words("lorem ipsum dolor sit amet"), D.comma)
+ * const docs = pipe(
+ *   Doc.words("lorem ipsum dolor sit amet"),
+ *   Doc.punctuate(Doc.comma)
+ * )
  *
- * console.log(R.renderPrettyDefault(D.hsep(docs)))
- * // lorem, ipsum, dolor, sit, amet
+ * assert.strictEqual(
+ *   Render.prettyDefault(Doc.hsep(docs)),
+ *   "lorem, ipsum, dolor, sit, amet"
+ * )
  *
  * // The separators are put at the end of the entries, which can be better
  * // visualzied if the documents are rendered vertically
- * console.log(R.renderPrettyDefault(D.vsep(docs)))
- * // lorem,
- * // ipsum,
- * // dolor,
- * // sit,
- * // amet
- * ```
+ * assert.strictEqual(
+ *   Render.prettyDefault(Doc.vsep(docs)),
+ *   String.stripMargin(
+ *     `|lorem,
+ *      |ipsum,
+ *      |dolor,
+ *      |sit,
+ *      |amet`
+ *   )
+ * )
  *
  * @category utilities
  * @since 1.0.0

@@ -15,4 +15,4 @@ const hr = Doc.hcat([Doc.vbar, dashes, Doc.vbar])
 
 const doc = Doc.vsep([hr, funs(Doc.list(Doc.words("abcdef ghijklm")).align), hr])
 
-console.log(doc.renderPrettyDefault)
+console.log(doc.prettyDefault)

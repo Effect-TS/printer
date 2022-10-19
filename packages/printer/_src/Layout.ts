@@ -112,133 +112,154 @@ export const defaultLayoutOptions = LayoutOptions(PageWidth.default)
  * @tsplus static effect/printer/Doc.Aspects layoutWadlerLeijen
  * @tsplus pipeable effect/printer/Doc layoutWadlerLeijen
  */
-export const layoutWadlerLeijen: <A>(
+export const wadlerLeijen: <A>(
   fits: Layout.FittingPredicate<A>,
   options: Layout.Options
-) => (
-  self: Doc<A>
-) => DocStream<A> = L.layoutWadlerLeijen
+) => (self: Doc<A>) => DocStream<A> = L.wadlerLeijen
 
 /**
  * A layout algorithm which will lay out a document without adding any
  * indentation and without preserving annotations.
  *
- * Since no pretty-printing is involved, this layout algorithm is ver fast. The
+ * Since no pretty-printing is involved, this layout algorithm is very fast. The
  * resulting output contains fewer characters than a pretty-printed version and
  * can be used for output that is read by other programs.
  *
- * @exampleTodo
- * import { pipe } from "@effect-ts/core/Function"
- * import * as D from "@effect-ts/printer/Core/Doc"
- * import * as R from "@effect-ts/printer/Core/Render"
+ * @example
+ * import * as Doc from "@effect/printer/Doc"
+ * import * as Render from "@effect/printer/Render"
+ * import { pipe } from "@fp-ts/data/Function"
+ * import * as String from "@fp-ts/data/String"
  *
  * const doc = pipe(
- *   D.vsep([
- *     D.text("lorem"),
- *     D.text("ipsum"),
- *     D.hang_(D.vsep([D.text("dolor"), D.text("sit")]), 4)
+ *   Doc.vsep([
+ *     Doc.text("lorem"),
+ *     Doc.text("ipsum"),
+ *     pipe(
+ *       Doc.vsep([Doc.text("dolor"), Doc.text("sit")]),
+ *       Doc.hang(4)
+ *     )
  *   ]),
- *   D.hang(4)
+ *   Doc.hang(4)
  * )
  *
- * console.log(R.renderPrettyDefault(doc))
- * // lorem
- * //     ipsum
- * //     dolor
- * //         sit
+ * assert.strictEqual(
+ *   Render.prettyDefault(doc),
+ *   String.stripMargin(
+ *     `|lorem
+ *      |    ipsum
+ *      |    dolor
+ *      |        sit`
+ *   )
+ * )
  *
- * console.log(R.renderCompact(doc))
- * // lorem
- * // ipsum
- * // dolor
- * // sit
- * ```
+ * assert.strictEqual(
+ *   Render.compact(doc),
+ *   String.stripMargin(
+ *     `|lorem
+ *      |ipsum
+ *      |dolor
+ *      |sit`
+ *   )
+ * )
  *
  * @category layout algorithms
  * @since 1.0.0
  * @tsplus static effect/printer/Doc.Ops layoutCompact
  * @tsplus getter effect/printer/Doc layoutCompact
  */
-export const layoutCompact: <A>(self: Doc<A>) => DocStream<A> = L.layoutCompact
+export const compact: <A>(self: Doc<A>) => DocStream<A> = L.compact
 
 /**
- * The `layoutPretty` layout algorithm is the default algorithm for rendering
+ * The `pretty` layout algorithm is the default algorithm for rendering
  * documents.
  *
- * `layoutPretty` commits to rendering something in a certain way if the next
+ * `pretty` commits to rendering something in a certain way if the next
  * element fits the layout constrants. In other words, it has one `DocStream`
  * element lookahead when rendering.
  *
- * Consider using the smarter, but slightly less performant `layoutSmart`
+ * Consider using the smarter, but slightly less performant `smart`
  * algorithm if the results seem to run off to the right before having lots of
  * line breaks.
  *
  * @tsplus static effect/printer/Doc.Aspects layoutPretty
  * @tsplus pipeable effect/printer/Doc layoutPretty
  */
-export const layoutPretty: (
+export const pretty: (
   options: Layout.Options
-) => <A>(
-  self: Doc<A>
-) => DocStream<A> = L.layoutPretty
+) => <A>(self: Doc<A>) => DocStream<A> = L.pretty
 
 /**
- * A layout algorithm with more look ahead than `layoutPretty`, which will introduce
- * line breaks into a document earlier if the content does not, or will not, fit onto
- * one line.
+ * A layout algorithm with more look ahead than `pretty`, which will introduce
+ * line breaks into a document earlier if the content does not, or will not, fit
+ * onto one line.
  *
- * @exampleTodo
- * import * as A from "@effect-ts/core/Array"
- * import { flow, pipe } from "@effect-ts/core/Function"
- * import * as I from "@effect-ts/core/Identity"
- * import type { Doc } from "@effect-ts/printer/Core/Doc"
- * import * as D from "@effect-ts/printer/Core/Doc"
- * import type { Layout, LayoutOptions } from "@effect-ts/printer/Core/Layout"
- * import * as L from "@effect-ts/printer/Core/Layout"
- * import type { PageWidth } from "@effect-ts/printer/Core/PageWidth"
- * import * as PW from "@effect-ts/printer/Core/PageWidth"
- * import * as R from "@effect-ts/printer/Core/Render"
+ * @example
+ * import * as Doc from "@effect/printer/Doc"
+ * import type * as DocStream from "@effect/printer/DocStream"
+ * import * as Layout from "@effect/printer/Layout"
+ * import * as PageWidth from "@effect/printer/PageWidth"
+ * import * as Render from "@effect/printer/Render"
+ * import { flow, pipe } from "@fp-ts/data/Function"
+ * import * as String from "@fp-ts/data/String"
  *
  * // Consider the following python-ish document:
- * const fun = <A>(doc: Doc<A>): Doc<A> =>
- *   D.hcat([D.hang_(D.hcat([D.text("fun("), D.softLineBreak, doc]), 2), D.text(")")])
+ * const fun = <A>(doc: Doc.Doc<A>): Doc.Doc<A> =>
+ *   Doc.hcat([
+ *     pipe(
+ *       Doc.hcat([Doc.text("fun("), Doc.softLineBreak, doc]),
+ *       Doc.hang(2)
+ *     ),
+ *     Doc.text(")")
+ *   ])
  *
  * const funs = flow(fun, fun, fun, fun, fun)
  *
- * const doc = funs(D.align(D.list(D.words("abcdef ghijklm"))))
+ * const doc = funs(Doc.align(Doc.list(Doc.words("abcdef ghijklm"))))
  *
  * // The document will be rendered using the following pipeline, where the choice
  * // of layout algorithm has been left open:
- * const pageWidth: PageWidth = PW.availablePerLine(26, 1)
- * const layoutOptions: LayoutOptions = L.layoutOptions(pageWidth)
- * const dashes = D.text(pipe(A.replicate_(26 - 2, "-"), I.fold(I.string)))
- * const hr = D.hcat([D.vbar, dashes, D.vbar])
+ * const pageWidth = PageWidth.availablePerLine(26, 1)
+ * const layoutOptions = Layout.LayoutOptions(pageWidth)
+ * const dashes = Doc.text(Array.from({ length: 26 - 2 }, () => "-").join(""))
+ * const hr = Doc.hcat([Doc.vbar, dashes, Doc.vbar])
  *
- * const render = <A>(doc: Doc<A>) => (
- *   layoutAlgorithm: (doc: Doc<A>) => Layout<A>
- * ): string => pipe(layoutOptions, layoutAlgorithm(D.vsep([hr, doc, hr])), R.render)
+ * const render = <A>(
+ *   doc: Doc.Doc<A>
+ * ) =>
+ *   (
+ *     layoutAlgorithm: (options: Layout.Layout.Options) => (doc: Doc.Doc<A>) => DocStream.DocStream<A>
+ *   ): string => pipe(Doc.vsep([hr, doc, hr]), layoutAlgorithm(layoutOptions), Render.render)
  *
  * // If rendered using `Layout.pretty`, with a page width of `26` characters per line,
  * // all the calls to `fun` will fit into the first line. However, this exceeds the
  * // desired `26` character page width.
- * console.log(pipe(L.pretty, render(doc)))
- * // |------------------------|
- * // fun(fun(fun(fun(fun(
- * //                   [ abcdef
- * //                   , ghijklm ])))))
- * // |------------------------|
+ * assert.strictEqual(
+ *   render(doc)(Layout.pretty),
+ *   String.stripMargin(
+ *     `||------------------------|
+ *      |fun(fun(fun(fun(fun(
+ *      |                  [ abcdef
+ *      |                  , ghijklm ])))))
+ *      ||------------------------|`
+ *   )
+ * )
  *
  * // The same document, rendered with `Layout.smart`, fits the layout contstraints:
- * console.log(pipe(L.smart, render(doc)))
- * // |------------------------|
- * // fun(
- * //   fun(
- * //     fun(
- * //       fun(
- * //         fun(
- * //           [ abcdef
- * //           , ghijklm ])))))
- * // |------------------------|
+ * assert.strictEqual(
+ *   render(doc)(Layout.smart),
+ *   String.stripMargin(
+ *     `||------------------------|
+ *      |fun(
+ *      |  fun(
+ *      |    fun(
+ *      |      fun(
+ *      |        fun(
+ *      |          [ abcdef
+ *      |          , ghijklm ])))))
+ *      ||------------------------|`
+ *   )
+ * )
  *
  * // The key difference between `Layout.pretty` and `Layout.smart` is that the
  * // latter will check the potential document until it encounters a line with the
@@ -254,7 +275,7 @@ export const layoutPretty: (
  * // > 4 B
  * // > 5   B
  *
- * // `Layout.layoutPretty` will check only the first line, ignoring whether the second line
+ * // `pretty` will check only the first line, ignoring whether the second line
  * // may already be too wide. In contrast, `Layout.smart` stops only once it reaches
  * // the fourth line 4, where the `B` has the same indentation as the first `A`.
  *
@@ -263,14 +284,12 @@ export const layoutPretty: (
  * @tsplus static effect/printer/Doc.Aspects layoutSmart
  * @tsplus pipeable effect/printer/Doc layoutSmart
  */
-export const layoutSmart: (
+export const smart: (
   options: Layout.Options
-) => <A>(
-  self: Doc<A>
-) => DocStream<A> = L.layoutSmart
+) => <A>(self: Doc<A>) => DocStream<A> = L.smart
 
 /**
- * The `layoutUnbounded` layout algorithm will lay out a document an `Unbounded`
+ * The `unbounded` layout algorithm will lay out a document an `Unbounded`
  * page width.
  *
  * @category layout algorithms
@@ -278,4 +297,4 @@ export const layoutSmart: (
  * @tsplus static effect/printer/Doc.Ops layoutUnbounded
  * @tsplus getter effect/printer/Doc layoutUnbounded
  */
-export const layoutUnbounded: <A>(self: Doc<A>) => DocStream<A> = L.layoutUnbounded
+export const unbounded: <A>(self: Doc<A>) => DocStream<A> = L.unbounded
