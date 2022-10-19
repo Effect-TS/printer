@@ -1,11 +1,13 @@
 import type * as DT from "@effect/printer/DocTree"
-import { parser } from "@effect/printer/internal/DocTree/parser"
+import type { DocTreeToken } from "@effect/printer/internal/DocTree/token"
+import * as DTT from "@effect/printer/internal/DocTree/token"
 import type * as functor from "@fp-ts/core/Functor"
 import type * as monoid from "@fp-ts/core/Monoid"
 import type * as semigroup from "@fp-ts/core/Semigroup"
 import * as Chunk from "@fp-ts/data/Chunk"
 import * as Equal from "@fp-ts/data/Equal"
 import { pipe } from "@fp-ts/data/Function"
+import * as Option from "@fp-ts/data/Option"
 import * as SafeEval from "@fp-ts/data/SafeEval"
 
 // -----------------------------------------------------------------------------
@@ -260,12 +262,12 @@ function alterAnnotationsSafe<A, B>(
 
 /** @internal */
 export function reAnnotate<A, B>(f: (a: A) => B) {
-  return (self: DocTree<A>): DocTree<B> => self.alterAnnotations((a) => [f(a)])
+  return (self: DocTree<A>): DocTree<B> => alterAnnotations<A, B>((a) => [f(a)])(self)
 }
 
 /** @internal */
 export function unAnnotate<A>(self: DocTree<A>): DocTree<never> {
-  return self.alterAnnotations(() => [])
+  return alterAnnotations(() => [])(self)
 }
 
 // -----------------------------------------------------------------------------
@@ -392,6 +394,133 @@ export function treeForm<A>(stream: DocStream<A>): DocTree<A> {
       return docTree
     }
   }
+}
+
+// -----------------------------------------------------------------------------
+// Parser
+// -----------------------------------------------------------------------------
+
+interface DocTreeParser<S, A> {
+  (stream: S): Option.Option<readonly [A, S]>
+}
+
+function succeed<S, A>(value: A): DocTreeParser<S, A> {
+  return (stream) => Option.some([value, stream] as const)
+}
+
+function map<A, B>(f: (a: A) => B) {
+  return <S>(self: DocTreeParser<S, A>): DocTreeParser<S, B> => {
+    return (stream) => pipe(self(stream), Option.map(([a, s]) => [f(a), s]))
+  }
+}
+
+function flatMap<A, S, B>(f: (a: A) => DocTreeParser<S, B>) {
+  return (self: DocTreeParser<S, A>): DocTreeParser<S, B> => {
+    return (stream) => pipe(self(stream), Option.flatMap(([a, s1]) => f(a)(s1)))
+  }
+}
+
+function many<S, A>(parser: DocTreeParser<S, A>): DocTreeParser<S, ReadonlyArray<A>> {
+  return (stream) =>
+    pipe(
+      parser(stream),
+      Option.map(([head, next]) => {
+        const output: Array<A> = [head]
+        let input: S = next
+        let result = parser(next)
+        while (result._tag === "Some") {
+          const [value, nextInput] = result.value
+          output.push(value)
+          input = nextInput
+          result = parser(nextInput)
+        }
+        return [output, input] as const
+      })
+    )
+}
+
+function nextToken<A>(): DocTreeParser<DocStream<A>, DocTreeToken<A>> {
+  return (stream) => {
+    switch (stream._tag) {
+      case "FailedStream": {
+        throw new Error("bug, found a failed stream while parsing!")
+      }
+      case "EmptyStream": {
+        return Option.none
+      }
+      case "CharStream": {
+        return Option.some([DTT.char(stream.char), stream.stream] as const)
+      }
+      case "TextStream": {
+        return Option.some([DTT.text(stream.text), stream.stream] as const)
+      }
+      case "LineStream": {
+        return Option.some([DTT.line(stream.indentation), stream.stream] as const)
+      }
+      case "PushAnnotationStream": {
+        return Option.some(
+          [DTT.pushAnnotation(stream.annotation), stream.stream] as const
+        )
+      }
+      case "PopAnnotationStream": {
+        return Option.some([DTT.popAnnotation, stream.stream])
+      }
+    }
+  }
+}
+
+function mergeTrees<A>(trees: ReadonlyArray<DocTree<A>>): DocTree<A> {
+  if (trees.length === 0) {
+    return empty
+  }
+  const head = trees[0]!
+  const tail = trees.slice(1)
+  return tail.length === 0 ? head : concat(Chunk.fromIterable(trees))
+}
+
+function tree<A>(parser: () => DocTreeParser<DocStream<A>, DocTree<A>>): DocTreeParser<DocStream<A>, DocTree<A>> {
+  return pipe(
+    nextToken<A>(),
+    flatMap((token) => {
+      switch (token._tag) {
+        case "EmptyToken": {
+          return succeed(empty)
+        }
+        case "CharToken": {
+          return succeed(char<A>(token.char))
+        }
+        case "TextToken": {
+          return succeed(text<A>(token.text))
+        }
+        case "LineToken": {
+          return succeed(line<A>(token.indentation))
+        }
+        case "PushAnnotationToken": {
+          return pipe(
+            parser(),
+            flatMap((annotatedContents) =>
+              pipe(
+                // Make sure to handle the subsequent pop annotation token
+                nextToken<A>(),
+                map(() => annotation(token.annotation)(annotatedContents))
+              )
+            )
+          )
+        }
+        case "PopAnnotationToken": {
+          return () => Option.none
+        }
+      }
+    })
+  )
+}
+
+/** @internal */
+export function parser<A>(): DocTreeParser<DocStream<A>, DocTree<A>> {
+  return pipe(
+    many(tree<A>(parser)),
+    map(mergeTrees)
+  )
 }
 
 // -----------------------------------------------------------------------------

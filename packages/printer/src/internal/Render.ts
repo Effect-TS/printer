@@ -49,7 +49,7 @@ function renderSafe<A>(self: DocStream<A>): SafeEval.SafeEval<string> {
 
 /** @internal */
 export function compact<A>(self: Doc<A>): string {
-  return self.layoutCompact.render
+  return render(self.layoutCompact)
 }
 
 /** @internal */
@@ -57,18 +57,18 @@ export function pretty(lineWidth: number, ribbonFraction = 1) {
   return <A>(self: Doc<A>): string => {
     const pageWidth = PageWidth.AvailablePerLine(lineWidth, ribbonFraction)
     const options = Layout.Options(pageWidth)
-    return self.layoutPretty(options).render
+    return render(self.layoutPretty(options))
   }
 }
 
 /** @internal */
 export function prettyDefault<A>(self: Doc<A>): string {
-  return self.layoutPretty(Layout.Options.default).render
+  return render(self.layoutPretty(Layout.Options.default))
 }
 
 /** @internal */
 export function prettyUnbounded<A>(self: Doc<A>): string {
-  return self.layoutPretty(Layout.Options(PageWidth.Unbounded)).render
+  return render(self.layoutPretty(Layout.Options(PageWidth.Unbounded)))
 }
 
 /** @internal */
@@ -76,16 +76,16 @@ export function smart<A>(lineWidth: number, ribbonFraction = 1) {
   return (self: Doc<A>): string => {
     const pageWidth = PageWidth.AvailablePerLine(lineWidth, ribbonFraction)
     const options = Layout.Options(pageWidth)
-    return self.layoutSmart(options).render
+    return render(self.layoutSmart(options))
   }
 }
 
 /** @internal */
 export function smartDefault<A>(self: Doc<A>): string {
-  return self.layoutSmart(Layout.Options.default).render
+  return render(self.layoutSmart(Layout.Options.default))
 }
 
 /** @internal */
 export function smartUnbounded<A>(self: Doc<A>): string {
-  return self.layoutSmart(Layout.Options(PageWidth.Unbounded)).render
+  return render(self.layoutSmart(Layout.Options(PageWidth.Unbounded)))
 }

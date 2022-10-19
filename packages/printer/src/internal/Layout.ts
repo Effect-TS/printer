@@ -386,7 +386,7 @@ function fitsSmartLoop<A>(
 export function unbounded<A>(self: Doc<A>): DocStream<A> {
   return wadlerLeijen<A>(
     () => (stream) => !failsOnFirstLine(stream),
-    Layout.Options(PageWidth.Unbounded)
+    { pageWidth: PageWidth.Unbounded }
   )(self)
 }
 

@@ -1,4 +1,4 @@
-import { identity } from "@effect-ts/core/Function"
+import { identity } from "@fp-ts/data/Function"
 
 describe.concurrent("Flatten", () => {
   it("isFlattened", () => {

@@ -5,12 +5,12 @@
     "declarationDir": "build/dts",
     "tsBuildInfoFile": "build/tsbuildinfo/esm.tsbuildinfo",
     "tsPlusConfig": "../../tsplus.config.json",
-    "rootDir": "_src"
+    "rootDir": "src"
   },
+  "include": ["src/**/*.ts"],
   "references": [
     {
       "path": "../printer/tsconfig.build.json"
     }
-  ],
-  "include": ["_src/**/*.ts"]
+  ]
 }

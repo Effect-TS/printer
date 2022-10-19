@@ -5,9 +5,9 @@
     "declarationDir": "build/examples-dts",
     "tsBuildInfoFile": "build/tsbuildinfo/examples.tsbuildinfo",
     "tsPlusConfig": "../../tsplus.config.json",
-    "rootDir": "_examples"
+    "rootDir": "examples"
   },
-  "include": ["_examples/**/*.ts"],
+  "include": ["examples/**/*.ts"],
   "references": [
     {
       "path": "./tsconfig.build.json"

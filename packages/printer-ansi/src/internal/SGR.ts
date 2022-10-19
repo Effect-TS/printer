@@ -36,6 +36,6 @@ export function toEscapeSequence(sgrs: Iterable<SGR>): string {
 }
 
 function csi(controlFunction: string, sgrs: Iterable<SGR>): string {
-  const params = Array.from(sgrs).map((sgr) => sgr.toCode.toString()).join(";")
+  const params = Array.from(sgrs).map((sgr) => toCode(sgr).toString()).join(";")
   return `\u001b[${params}${controlFunction}`
 }

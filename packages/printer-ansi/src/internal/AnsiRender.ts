@@ -76,41 +76,45 @@ function renderSafe(self: DocStream<AnsiStyle>, stack: List.List<AnsiStyle>): Sa
 
 /** @internal */
 export function renderCompactAnsi(self: AnsiDoc): string {
-  return self.layoutCompact.renderAnsi
+  return renderAnsi(self.layoutCompact)
 }
 
 /** @internal */
 export function renderPrettyAnsi(lineWidth: number, ribbonFraction = 1) {
   return (self: AnsiDoc): string =>
-    self.layoutPretty(
-      Layout.Options(PageWidth.AvailablePerLine(lineWidth, ribbonFraction))
-    ).renderAnsi
+    renderAnsi(
+      self.layoutPretty(
+        Layout.Options(PageWidth.AvailablePerLine(lineWidth, ribbonFraction))
+      )
+    )
 }
 
 /** @internal */
 export function renderPrettyAnsiDefault(self: AnsiDoc): string {
-  return self.layoutPretty(Layout.Options.default).renderAnsi
+  return renderAnsi(self.layoutPretty(Layout.Options.default))
 }
 
 /** @internal */
 export function renderPrettyAnsiUnbounded(self: AnsiDoc): string {
-  return self.layoutPretty(Layout.Options(PageWidth.Unbounded)).renderAnsi
+  return renderAnsi(self.layoutPretty(Layout.Options(PageWidth.Unbounded)))
 }
 
 /** @internal */
 export function renderSmartAnsi(lineWidth: number, ribbonFraction = 1) {
   return (self: AnsiDoc): string =>
-    self.layoutSmart(
-      Layout.Options(PageWidth.AvailablePerLine(lineWidth, ribbonFraction))
-    ).renderAnsi
+    renderAnsi(
+      self.layoutSmart(
+        Layout.Options(PageWidth.AvailablePerLine(lineWidth, ribbonFraction))
+      )
+    )
 }
 
 /** @internal */
 export function renderSmartAnsiDefault(self: AnsiDoc): string {
-  return self.layoutSmart(Layout.Options.default).renderAnsi
+  return renderAnsi(self.layoutSmart(Layout.Options.default))
 }
 
 /** @internal */
 export function renderSmartAnsiUnbounded(self: AnsiDoc): string {
-  return self.layoutSmart(Layout.Options(PageWidth.Unbounded)).renderAnsi
+  return renderAnsi(self.layoutSmart(Layout.Options(PageWidth.Unbounded)))
 }

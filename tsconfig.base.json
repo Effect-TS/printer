@@ -40,35 +40,31 @@
     "removeComments": false,
     "paths": {
       "@effect/printer": [
-        "./packages/printer/_src/index.ts"
+        "./packages/printer/src/index.ts"
       ],
       "@effect/printer/test/*": [
-        "./packages/printer/_test/*"
+        "./packages/printer/test/*"
       ],
       "@effect/printer/examples/*": [
-        "./packages/printer/_examples/*"
+        "./packages/printer/examples/*"
       ],
       "@effect/printer/*": [
-        "./packages/printer/_src/*"
+        "./packages/printer/src/*"
       ],
       "@effect/printer-ansi": [
-        "./packages/printer-ansi/_src/index.ts"
+        "./packages/printer-ansi/src/index.ts"
       ],
       "@effect/printer-ansi/test/*": [
-        "./packages/printer-ansi/_test/*"
+        "./packages/printer-ansi/test/*"
       ],
       "@effect/printer-ansi/examples/*": [
-        "./packages/printer-ansi/_examples/*"
+        "./packages/printer-ansi/examples/*"
       ],
       "@effect/printer-ansi/*": [
-        "./packages/printer-ansi/_src/*"
+        "./packages/printer-ansi/src/*"
       ]
     }
   },
   "include": [],
-  "exclude": [
-    "node_modules",
-    "build",
-    "lib"
-  ]
+  "exclude": ["node_modules", "build", "lib"]
 }
