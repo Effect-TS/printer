@@ -1,7 +1,8 @@
-/**
- * @tsplus static effect/printer-ansi/SGR.Ops toCode
- * @tsplus getter effect/printer-ansi/SGR toCode
- */
+// -----------------------------------------------------------------------------
+// Destructors
+// -----------------------------------------------------------------------------
+
+/** @internal */
 export function toCode(self: SGR): number {
   switch (self._tag) {
     case "Reset": {
@@ -27,4 +28,14 @@ export function toCode(self: SGR): number {
       }
     }
   }
+}
+
+/** @internal */
+export function toEscapeSequence(sgrs: Iterable<SGR>): string {
+  return csi("m", sgrs)
+}
+
+function csi(controlFunction: string, sgrs: Iterable<SGR>): string {
+  const params = Array.from(sgrs).map((sgr) => sgr.toCode.toString()).join(";")
+  return `\u001b[${params}${controlFunction}`
 }

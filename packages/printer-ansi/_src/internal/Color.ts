@@ -1,7 +1,8 @@
-/**
- * @tsplus static effect/printer-ansi/Color.Ops toCode
- * @tsplus getter effect/printer-ansi/Color toCode
- */
+// -----------------------------------------------------------------------------
+// Destructors
+// -----------------------------------------------------------------------------
+
+/** @internal */
 export function toCode(color: Color): number {
   switch (color._tag) {
     case "Black": {
