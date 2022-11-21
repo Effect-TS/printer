@@ -12,9 +12,7 @@
     "preserveSymlinks": true,
     "moduleResolution": "node",
     "noEmit": false,
-    "lib": [
-      "ES2021"
-    ],
+    "lib": ["ES2021"],
     "sourceMap": true,
     "declarationMap": true,
     "strict": true,
@@ -39,31 +37,16 @@
     "incremental": true,
     "removeComments": false,
     "paths": {
-      "@effect/printer": [
-        "./packages/printer/src/index.ts"
-      ],
-      "@effect/printer/test/*": [
-        "./packages/printer/test/*"
-      ],
-      "@effect/printer/examples/*": [
-        "./packages/printer/examples/*"
-      ],
-      "@effect/printer/*": [
-        "./packages/printer/src/*"
-      ],
-      "@effect/printer-ansi": [
-        "./packages/printer-ansi/src/index.ts"
-      ],
-      "@effect/printer-ansi/test/*": [
-        "./packages/printer-ansi/test/*"
-      ],
-      "@effect/printer-ansi/examples/*": [
-        "./packages/printer-ansi/examples/*"
-      ],
-      "@effect/printer-ansi/*": [
-        "./packages/printer-ansi/src/*"
-      ]
-    }
+      "@effect/printer": ["./packages/printer/src/index.ts"],
+      "@effect/printer/test/*": ["./packages/printer/test/*"],
+      "@effect/printer/examples/*": ["./packages/printer/examples/*"],
+      "@effect/printer/*": ["./packages/printer/src/*"],
+      "@effect/printer-ansi": ["./packages/printer-ansi/src/index.ts"],
+      "@effect/printer-ansi/test/*": ["./packages/printer-ansi/test/*"],
+      "@effect/printer-ansi/examples/*": ["./packages/printer-ansi/examples/*"],
+      "@effect/printer-ansi/*": ["./packages/printer-ansi/src/*"]
+    },
+    "plugins": [{ "name": "@effect/language-service" }]
   },
   "include": [],
   "exclude": ["node_modules", "build", "lib"]
