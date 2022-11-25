@@ -29,7 +29,7 @@
     "@changesets/cli": "^2.25.2",
     "@effect-ts/build-utils": "0.40.3",
     "@effect-ts/core": "^0.60.4",
-    "@effect/language-service": "^0.0.2",
+    "@effect/language-service": "^0.0.4",
     "@effect/printer": "workspace:^",
     "@effect/printer-ansi": "workspace:^",
     "@repo-tooling/eslint-plugin-dprint": "^0.0.4",
