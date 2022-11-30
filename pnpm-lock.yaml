@@ -80,21 +80,21 @@ importers:
   packages/printer:
     specifiers:
       '@fp-ts/core': ^0.0.9
-      '@fp-ts/data': ^0.0.18
+      '@fp-ts/data': ^0.0.19
     dependencies:
       '@fp-ts/core': 0.0.9
-      '@fp-ts/data': 0.0.18
+      '@fp-ts/data': 0.0.19
     publishDirectory: dist
 
   packages/printer-ansi:
     specifiers:
       '@effect/printer': '*'
       '@fp-ts/core': ^0.0.9
-      '@fp-ts/data': ^0.0.18
+      '@fp-ts/data': ^0.0.19
     dependencies:
       '@effect/printer': link:../printer
       '@fp-ts/core': 0.0.9
-      '@fp-ts/data': 0.0.18
+      '@fp-ts/data': 0.0.19
     publishDirectory: dist
 
 packages:
@@ -678,8 +678,8 @@ packages:
       '@fp-ts/core': 0.0.8
     dev: true
 
-  /@fp-ts/data/0.0.18:
-    resolution: {integrity: sha512-5Gxq9K+Ckhy8XcwOTiUQIbsO34WvS3axaqB9A0Qm5REr/O8EtYbfmDnqoLmXabMnyo+RVeJ9AQAv7tHeHLBTVg==}
+  /@fp-ts/data/0.0.19:
+    resolution: {integrity: sha512-oZJmUPLHx3577m9qVLYknWmJJNGAFqwnWGtKRAosWZYwpgB7OF+p2aMf+muzfOZ4TsDaZbaJN17UM7nzxFohrA==}
     dependencies:
       '@fp-ts/core': 0.0.9
     dev: false
