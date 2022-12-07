@@ -41,7 +41,7 @@ importers:
       typescript: https://cdn.jsdelivr.net/npm/@tsplus/installer@0.0.155/compiler/typescript.tgz
       ultra-runner: ^3.10.5
       vite: ^3.2.5
-      vitest: 0.25.4
+      vitest: 0.25.5
     devDependencies:
       '@babel/cli': 7.19.3_@babel+core@7.20.5
       '@babel/core': 7.20.5
@@ -75,26 +75,26 @@ importers:
       typescript: '@cdn.jsdelivr.net/npm/@tsplus/installer@0.0.155/compiler/typescript.tgz'
       ultra-runner: 3.10.5
       vite: 3.2.5_@types+node@18.11.11
-      vitest: 0.25.4
+      vitest: 0.25.5
 
   packages/printer:
     specifiers:
-      '@fp-ts/core': ^0.0.9
-      '@fp-ts/data': ^0.0.21
+      '@fp-ts/core': ~0.0.9
+      '@fp-ts/data': ~0.0.22
     dependencies:
       '@fp-ts/core': 0.0.9
-      '@fp-ts/data': 0.0.21
+      '@fp-ts/data': 0.0.22
     publishDirectory: dist
 
   packages/printer-ansi:
     specifiers:
       '@effect/printer': '*'
-      '@fp-ts/core': ^0.0.9
-      '@fp-ts/data': ^0.0.21
+      '@fp-ts/core': ~0.0.9
+      '@fp-ts/data': ~0.0.22
     dependencies:
       '@effect/printer': link:../printer
       '@fp-ts/core': 0.0.9
-      '@fp-ts/data': 0.0.21
+      '@fp-ts/data': 0.0.22
     publishDirectory: dist
 
 packages:
@@ -596,7 +596,7 @@ packages:
   /@effect/io/0.0.30:
     resolution: {integrity: sha512-2f7DL01GSwNJbC3l9e1gIm4zSI4FfghFGPDdGbHTL//dUCamt7d8EK7VjB3IECv7xcu3a2edCJUqWHQPDmNoAg==}
     dependencies:
-      '@effect/printer': 0.1.8
+      '@effect/printer': 0.1.10
       '@fp-ts/core': 0.0.9
       '@fp-ts/data': 0.0.20
     dev: true
@@ -605,16 +605,16 @@ packages:
     resolution: {integrity: sha512-/e+L5rdhlCeM9JI1z2gHfBAeB40EpibfSEnpowbWO7epLQjIBHB7+dy9RKUjKbbcHPHh4D9cf+GfBKuaB2qO+g==}
     dependencies:
       '@effect/io': 0.0.30
-      '@effect/printer': 0.1.8
+      '@effect/printer': 0.1.10
       '@fp-ts/core': 0.0.9
       '@fp-ts/data': 0.0.20
     dev: true
 
-  /@effect/printer/0.1.8:
-    resolution: {integrity: sha512-fNiWjMcDiIxJhEnC+hOKiuB53IpFpFcAY15o/EM7rc1sfoOWwBX5zFG7LbVPVxw3Q34u/ijbz+/vFBDM/J0oWA==}
+  /@effect/printer/0.1.10:
+    resolution: {integrity: sha512-Kh25kPkFhhXAqxvjW9IvcM9se7rJLZ8gfDyw8rpq1wQByvRijKsneaKUe0t2s/gx3PKCEu5SWhnvyYx2aP6OEA==}
     dependencies:
       '@fp-ts/core': 0.0.9
-      '@fp-ts/data': 0.0.20
+      '@fp-ts/data': 0.0.21
     dev: true
 
   /@esbuild/android-arm/0.15.18:
@@ -663,6 +663,12 @@ packages:
 
   /@fp-ts/data/0.0.21:
     resolution: {integrity: sha512-8YcoRmHTiBCttJaVtej652hu6YMUGdzdwaqznX6NVKeJXRWLPcS77aCdMdyevZn3B2BIz+x+oeSCiVKgmrXT1Q==}
+    dependencies:
+      '@fp-ts/core': 0.0.9
+    dev: true
+
+  /@fp-ts/data/0.0.22:
+    resolution: {integrity: sha512-chgnnyMAT17WCfAIbD8vvnJOsPtA2Xi79oMNklexprI9YaV/2u8QeeerHCYKuEJihK6GuIJtAYSsOwjBYMfWcQ==}
     dependencies:
       '@fp-ts/core': 0.0.9
     dev: false
@@ -5464,8 +5470,8 @@ packages:
       fsevents: 2.3.2
     dev: true
 
-  /vitest/0.25.4:
-    resolution: {integrity: sha512-v/qoSEYPrf8qa1CbKIKYK+1GGmPPEJyXFbkuD6jhh080cfNBsuUDAdMu6hV2h9Uv34EMiUrVETL/wB+EHxFtbA==}
+  /vitest/0.25.5:
+    resolution: {integrity: sha512-lFKSTZV+AjuL44/yNC0aDPKTiasYSqOQ97Gg2G4P2LnjyzQ21ZUs4rQOscHK3lrSnVuir3+1QavHzbDgH4tWQA==}
     engines: {node: '>=v14.16.0'}
     hasBin: true
     peerDependencies:
