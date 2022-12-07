@@ -80,21 +80,21 @@ importers:
   packages/printer:
     specifiers:
       '@fp-ts/core': ^0.0.9
-      '@fp-ts/data': ^0.0.20
+      '@fp-ts/data': ^0.0.21
     dependencies:
       '@fp-ts/core': 0.0.9
-      '@fp-ts/data': 0.0.20
+      '@fp-ts/data': 0.0.21
     publishDirectory: dist
 
   packages/printer-ansi:
     specifiers:
       '@effect/printer': '*'
       '@fp-ts/core': ^0.0.9
-      '@fp-ts/data': ^0.0.20
+      '@fp-ts/data': ^0.0.21
     dependencies:
       '@effect/printer': link:../printer
       '@fp-ts/core': 0.0.9
-      '@fp-ts/data': 0.0.20
+      '@fp-ts/data': 0.0.21
     publishDirectory: dist
 
 packages:
@@ -659,6 +659,13 @@ packages:
     resolution: {integrity: sha512-7nv25VxgZiJzintT1Bsl4mXOZlIOGag/GsI0Rov1r/RTfOzd4RePpnDYZzC9BFJ5Iru2/mHeXejRuxgBP2v8Qg==}
     dependencies:
       '@fp-ts/core': 0.0.9
+    dev: true
+
+  /@fp-ts/data/0.0.21:
+    resolution: {integrity: sha512-8YcoRmHTiBCttJaVtej652hu6YMUGdzdwaqznX6NVKeJXRWLPcS77aCdMdyevZn3B2BIz+x+oeSCiVKgmrXT1Q==}
+    dependencies:
+      '@fp-ts/core': 0.0.9
+    dev: false
 
   /@humanwhocodes/config-array/0.11.7:
     resolution: {integrity: sha512-kBbPWzN8oVMLb0hOUYXhmxggL/1cJE6ydvjDIGi9EnAGUyA7cLVKQg+d/Dsm+KZwx2czGHrCmMVLiyg8s5JPKw==}
