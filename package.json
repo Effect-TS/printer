@@ -10,6 +10,7 @@
   ],
   "scripts": {
     "changeset": "changeset",
+    "release": "changeset publish",
     "clean": "ultra -r clean && rimraf tsconfig.tsbuildinfo",
     "build": "pnpm build-all && ultra -r -b build-pack",
     "build-all": "tsc -b tsconfig.build.json",
@@ -19,8 +20,7 @@
     "autofix": "ultra -r autofix",
     "lint": "ultra -r lint",
     "tc": "ultra -r tc",
-    "version": "changeset version && pnpm install --frozen-lockfile false",
-    "release": "pnpm install && changeset publish"
+    "version": "changeset version && pnpm install --no-frozen-lockfile"
   },
   "devDependencies": {
     "@babel/cli": "^7.21.0",
@@ -32,6 +32,8 @@
     "@effect-ts/core": "^0.60.5",
     "@effect/babel-plugin": "^0.2.0",
     "@effect/language-service": "^0.0.19",
+    "@effect/printer": "workspace:^",
+    "@effect/printer-ansi": "workspace:^",
     "@repo-tooling/eslint-plugin-dprint": "^0.0.4",
     "@rollup/pluginutils": "^5.0.2",
     "@types/benchmark": "^2.1.2",
