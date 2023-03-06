@@ -45,7 +45,6 @@ jobs:
       - run: pnpm run circular
       - run: pnpm run test
       - run: pnpm run lint
-      - run: pnpm run docs
       - name: Create Release Pull Request or Publish
         id: changesets
         uses: changesets/action@v1
