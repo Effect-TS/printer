@@ -19,7 +19,8 @@
     "test": "vitest",
     "autofix": "ultra -r autofix",
     "lint": "ultra -r lint",
-    "tc": "ultra -r tc"
+    "tc": "ultra -r tc",
+    "version": "changeset version && pnpm install --no-frozen-lockfile"
   },
   "devDependencies": {
     "@babel/cli": "^7.21.0",
