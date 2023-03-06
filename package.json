@@ -10,7 +10,6 @@
   ],
   "scripts": {
     "changeset": "changeset",
-    "release": "changeset publish",
     "clean": "ultra -r clean && rimraf tsconfig.tsbuildinfo",
     "build": "pnpm build-all && ultra -r -b build-pack",
     "build-all": "tsc -b tsconfig.build.json",
@@ -20,7 +19,8 @@
     "autofix": "ultra -r autofix",
     "lint": "ultra -r lint",
     "tc": "ultra -r tc",
-    "version": "changeset version && pnpm install --no-frozen-lockfile"
+    "version": "changeset version && pnpm install --frozen-lockfile false",
+    "release": "pnpm install && changeset publish"
   },
   "devDependencies": {
     "@babel/cli": "^7.21.0",
