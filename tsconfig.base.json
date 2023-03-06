@@ -29,7 +29,7 @@
     "stripInternal": true,
     "noImplicitAny": true,
     "noImplicitThis": true,
-    "noUncheckedIndexedAccess": true,
+    "noUncheckedIndexedAccess": false,
     "strictNullChecks": true,
     "baseUrl": ".",
     "target": "ES2021",
@@ -46,7 +46,14 @@
       "@effect/printer-ansi/examples/*": ["./packages/printer-ansi/examples/*"],
       "@effect/printer-ansi/*": ["./packages/printer-ansi/src/*"]
     },
-    "plugins": [{ "name": "@effect/language-service" }]
+    "plugins": [
+      {
+        "name": "@effect/language-service",
+        "diagnostics": {
+          "1002": "none"
+        }
+      }
+    ]
   },
   "include": [],
   "exclude": ["node_modules", "build", "lib"]

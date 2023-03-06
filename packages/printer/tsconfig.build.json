@@ -4,7 +4,6 @@
     "outDir": "build/esm",
     "declarationDir": "build/dts",
     "tsBuildInfoFile": "build/tsbuildinfo/esm.tsbuildinfo",
-    "tsPlusConfig": "../../tsplus.config.json",
     "rootDir": "src"
   },
   "include": ["src/**/*.ts"]

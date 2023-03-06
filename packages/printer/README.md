@@ -1,4 +1,4 @@
-[![Main CI](https://github.com/Effect-TS/printer/actions/workflows/main.yml/badge.svg)](https://github.com/Effect-TS/printer/actions/workflows/main.yml)
+[![CI](https://github.com/Effect-TS/printer/actions/workflows/main.yml/badge.svg)](https://github.com/Effect-TS/printer/actions/workflows/main.yml)
 [![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-ready--to--code-908a85?logo=gitpod)](https://gitpod.io/#https://github.com/Effect-TS/printer)
 
 # Pretty Printer for Effect-TS
@@ -37,7 +37,7 @@ yarn add @effect/printer
 
 This module defines a pretty printer to format text in a flexible and convenient way. The idea is to combine a `Doc`ument out of many small components, then using a layouter to convert it to an easily renderable `DocStream`, which can then be rendered to a variety of formats.
 
-The documenists of several parts:
+The document consists of several parts:
  1. Just below is some general information about the library
  2. The actual library with extensive documentation and examples
 
@@ -54,8 +54,8 @@ First, let's setup the imports we need:
 ```ts
 import * as Doc from "@effect/printer/Doc"
 import * as Render from "@effect/printer/Render"
-import { pipe } from "@fp-ts/data/Function"
-import * as ReadonlyArray from "@fp-ts/data/ReadonlyArray"
+import { pipe } from "@effect/data/Function"
+import * as ReadonlyArray from "@effect/data/ReadonlyArray"
 ```
 
 Next, we intersperse the `"->"` character between our types and add a leading `"::"` character:
@@ -63,18 +63,19 @@ Next, we intersperse the `"->"` character between our types and add a leading `"
 ```ts
 const prettyTypes = (types: ReadonlyArray<string>): Doc.Doc<never> => {
   const symbolDocuments = pipe(
-    types.length - 1,
-    ReadonlyArray.makeBy(() => Doc.text("->")),
+    ReadonlyArray.makeBy(types.length - 1, () => Doc.text("->")),
     ReadonlyArray.prepend(Doc.text("::"))
   )
   const typeDocuments = types.map(Doc.text)
   const documents = pipe(
-    symbolDocuments,
-    ReadonlyArray.zipWith(typeDocuments, (left, right) =>
-      pipe(left, Doc.catWithSpace(right))
+
+    ReadonlyArray.zipWith(
+      symbolDocuments,
+      typeDocuments,
+      (left, right) => Doc.catWithSpace(left, right)
     )
   )
-  return pipe(documents, Doc.seps, Doc.align)
+  return Doc.align(Doc.seps(documents))
 }
 ```
 
@@ -86,12 +87,7 @@ Next, we prepend the name to the type,
 const prettyDeclaration = (
   name: string,
   types: ReadonlyArray<string>
-): Doc.Doc<never> => {
-  return pipe(
-    Doc.text(name),
-    Doc.catWithSpace(prettyTypes(types))
-  )
-}
+): Doc.Doc<never> => Doc.catWithSpace(Doc.text(name), prettyTypes(types))
 ```
 
 Now we can define a document that contains some type signature:
@@ -107,7 +103,7 @@ This document can now be printed! And as a bonus, it automatically adapts to ava
 If the page is wide enough (`80` characters in this case), the definitions are space-separated.
 
 ```ts
-const rendered = pipe(doc, Render.prettyDefault)
+const rendered = Render.prettyDefault(doc)
 console.log(rendered)
 // example :: Int -> Bool -> Char -> IO ()
 ```
@@ -115,7 +111,7 @@ console.log(rendered)
 If we narrow the page width to only `20` characters, the same document renders vertically aligned:
 
 ```ts
-const rendered = pipe(doc, Render.pretty(20))
+const rendered = Render.pretty(doc, { lineWidth: 20 })
 console.log(rendered)
 // example :: Int
 //         -> Bool
