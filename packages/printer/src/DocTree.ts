@@ -307,7 +307,7 @@ export const foldMap: {
  *   )
  * ])
  *
- * const tree = DocTree.treeForm(Layout.pretty(Layout.defaultLayoutOptions)(doc))
+ * const tree = DocTree.treeForm(Layout.pretty(Layout.defaultOptions)(doc))
  *
  * const rendered = pipe(
  *   tree,
