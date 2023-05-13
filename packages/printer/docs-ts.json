@@ -1,0 +1,28 @@
+{
+  "exclude": ["src/internal_effect_untraced/**/*.ts"],
+  "theme": "mikearnaldi/just-the-docs",
+  "parseCompilerOptions": {
+    "strict": true,
+    "noEmit": true,
+    "target": "ES2021",
+    "lib": ["ES2021"],
+    "paths": {
+      "@effect/printer": ["./src/index.ts"],
+      "@effect/printer/test/*": ["./test/*"],
+      "@effect/printer/examples/*": ["./examples/*"],
+      "@effect/printer/*": ["./src/*"]
+    }
+  },
+  "examplesCompilerOptions": {
+    "strict": true,
+    "noEmit": true,
+    "target": "ES2021",
+    "lib": ["ES2021"],
+    "paths": {
+      "@effect/printer": ["../../src/index.ts"],
+      "@effect/printer/test/*": ["../../test/*"],
+      "@effect/printer/examples/*": ["../../examples/*"],
+      "@effect/printer/*": ["../../src/*"]
+    }
+  }
+}
