@@ -136,7 +136,7 @@ Horizontally concatenates multiple `DocTree`s.
 **Signature**
 
 ```ts
-export declare const concat: <A>(trees: Chunk<DocTree<A>>) => DocTree<A>
+export declare const concat: <A>(trees: readonly DocTree<A>[]) => DocTree<A>
 ```
 
 Added in v1.0.0
@@ -278,7 +278,7 @@ Added in v1.0.0
 ```ts
 export interface ConcatTree<A> extends DocTree.Variance<A> {
   readonly _tag: 'ConcatTree'
-  readonly trees: Chunk<DocTree<A>>
+  readonly trees: ReadonlyArray<DocTree<A>>
 }
 ```
 
