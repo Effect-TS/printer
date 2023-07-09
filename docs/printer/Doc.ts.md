@@ -2579,7 +2579,7 @@ be broken into multiple lines.
 **Signature**
 
 ```ts
-export declare const reflow: (s: string, char?: string | undefined) => Doc<never>
+export declare const reflow: (s: string, char?: string) => Doc<never>
 ```
 
 **Example**
@@ -2702,7 +2702,7 @@ specified `char` to split on (defaults to `" "`).
 **Signature**
 
 ```ts
-export declare const words: (s: string, char?: string | undefined) => ReadonlyArray<Doc<never>>
+export declare const words: (s: string, char?: string) => ReadonlyArray<Doc<never>>
 ```
 
 **Example**

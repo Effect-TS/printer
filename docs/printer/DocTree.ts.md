@@ -473,7 +473,7 @@ import * as Doc from '@effect/printer/Doc'
 import * as DocTree from '@effect/printer/DocTree'
 import * as Layout from '@effect/printer/Layout'
 import { identity, pipe } from '@effect/data/Function'
-import * as String from '@effect/data/String'
+import * as Monoid from '@effect/typeclass/Monoid'
 
 const doc: Doc.Doc<void> = Doc.hsep([
   Doc.text('hello'),
@@ -484,7 +484,7 @@ const tree = DocTree.treeForm(Layout.pretty(Layout.defaultOptions)(doc))
 
 const rendered = pipe(
   tree,
-  DocTree.renderSimplyDecorated(String.Monoid, identity, (_, x) => `>>>${x}<<<`)
+  DocTree.renderSimplyDecorated(Monoid.string, identity, (_, x) => `>>>${x}<<<`)
 )
 
 assert.strictEqual(rendered, 'hello >>>world<<<!')

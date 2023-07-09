@@ -163,7 +163,7 @@ export const pretty: {
  * import * as Layout from "@effect/printer/Layout"
  * import * as PageWidth from "@effect/printer/PageWidth"
  * import * as Render from "@effect/printer/Render"
- * import { flow, pipe } from "@effect/data/Function"
+ * import { pipe } from "@effect/data/Function"
  * import * as String from "@effect/data/String"
  *
  * // Consider the following python-ish document:
@@ -176,7 +176,8 @@ export const pretty: {
  *     Doc.text(")")
  *   ])
  *
- * const funs = flow(fun, fun, fun, fun, fun)
+ * const funs = <A>(doc: Doc.Doc<A>): Doc.Doc<A> =>
+ *   pipe(doc, fun, fun, fun, fun, fun)
  *
  * const doc = funs(Doc.align(Doc.list(Doc.words("abcdef ghijklm"))))
  *
