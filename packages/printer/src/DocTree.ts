@@ -3,12 +3,12 @@
  */
 import type { Equal } from "@effect/data/Equal"
 import type { TypeLambda } from "@effect/data/HKT"
-import type * as covariant from "@effect/data/typeclass/Covariant"
-import type * as invariant from "@effect/data/typeclass/Invariant"
-import type * as monoid from "@effect/data/typeclass/Monoid"
-import type * as semigroup from "@effect/data/typeclass/Semigroup"
 import type * as DocStream from "@effect/printer/DocStream"
-import * as internal from "@effect/printer/internal_effect_untraced/docTree"
+import * as internal from "@effect/printer/internal/docTree"
+import type * as covariant from "@effect/typeclass/Covariant"
+import type * as invariant from "@effect/typeclass/Invariant"
+import type * as monoid from "@effect/typeclass/Monoid"
+import type * as semigroup from "@effect/typeclass/Semigroup"
 
 // -----------------------------------------------------------------------------
 // Models

@@ -6,7 +6,7 @@ import type { Option } from "@effect/data/Option"
 import type { Predicate } from "@effect/data/Predicate"
 import type { Doc } from "@effect/printer/Doc"
 import type { DocStream } from "@effect/printer/DocStream"
-import * as internal from "@effect/printer/internal_effect_untraced/layout"
+import * as internal from "@effect/printer/internal/layout"
 import type { PageWidth } from "@effect/printer/PageWidth"
 import { defaultPageWidth } from "@effect/printer/PageWidth"
 
