@@ -118,7 +118,7 @@ importers:
         version: 0.33.0
 
   packages/printer:
-    dependencies:
+    devDependencies:
       '@effect/data':
         specifier: ~0.17.1
         version: 0.17.1
@@ -131,7 +131,7 @@ importers:
     publishDirectory: dist
 
   packages/printer-ansi:
-    dependencies:
+    devDependencies:
       '@effect/data':
         specifier: ~0.17.1
         version: 0.17.1
@@ -707,11 +707,11 @@ packages:
 
   /@effect/data@0.16.3:
     resolution: {integrity: sha512-RxRN3Vm8YPys0GjH/yjl2Z57kGCwJGjY6omgcDbeXhLVd+SUaVWbM6hJysKvb/gD9cuN1XwhXUnJ0shVErDelg==}
-    dev: false
+    dev: true
 
   /@effect/data@0.17.1:
     resolution: {integrity: sha512-QCYkLE5Y5Dm5Yax5R3GmW4ZIgTx7W+kSZ7yq5eqQ/mFWa8i4yxbLuu8cudqzdeZtRtTGZKlhDxfFfgVtMywXJg==}
-    dev: false
+    dev: true
 
   /@effect/docgen@0.1.2(@types/node@20.4.5)(typescript@5.1.6):
     resolution: {integrity: sha512-qy1pA8SKsqla7/35Q2NuUeT/VwO/olg9hdmmY929wSrKhRVVPOmnF4cbCvFxbykikYek0/6/thupSUenYV0DvQ==}
@@ -740,7 +740,7 @@ packages:
     resolution: {integrity: sha512-Y45STkhyBmv/oep/+6kGEces9Btp/cfWkSX5Qqi4ar5MRK13DJrexWF8+jAuixGhXWwWQHHasE9z6w6lFgQWJQ==}
     dependencies:
       '@effect/data': 0.17.1
-    dev: false
+    dev: true
 
   /@effect/language-service@0.0.19:
     resolution: {integrity: sha512-sKNVo031dkwLfe1jHZzdTiF1UXgLq1lAYd2JG7q416dlmMoxRcMXrZWyw6a/SxIDM0hyIJAEmrz5iUkQPcPdBQ==}
@@ -753,7 +753,7 @@ packages:
     resolution: {integrity: sha512-lfxPoM7jYzT3uhsYQFG0AaDrNhv9YBIa1BEEZE0Ls7TIe/D/J9eqVhxE419bsO6+Zj4wWqBntCG7Rxgl2iT0Yw==}
     dependencies:
       '@effect/data': 0.16.3
-    dev: false
+    dev: true
 
   /@esbuild/android-arm64@0.18.17:
     resolution: {integrity: sha512-9np+YYdNDed5+Jgr1TdWBsozZ85U1Oa3xW0c7TWqH0y2aGghXtZsuT8nYRbzOMcl0bXZXjOGbksoTtVOlWrRZg==}
