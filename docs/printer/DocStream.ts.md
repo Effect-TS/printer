@@ -54,6 +54,10 @@ Added in v1.0.0
 - [symbol](#symbol)
   - [DocStreamTypeId](#docstreamtypeid)
   - [DocStreamTypeId (type alias)](#docstreamtypeid-type-alias)
+- [utils](#utils)
+  - [DocStream (namespace)](#docstream-namespace)
+    - [Variance (interface)](#variance-interface)
+    - [TypeLambda (type alias)](#typelambda-type-alias)
 
 ---
 
@@ -535,6 +539,36 @@ Added in v1.0.0
 
 ```ts
 export type DocStreamTypeId = typeof DocStreamTypeId
+```
+
+Added in v1.0.0
+
+# utils
+
+## DocStream (namespace)
+
+Added in v1.0.0
+
+### Variance (interface)
+
+**Signature**
+
+```ts
+export interface Variance<A> extends Equal {
+  readonly [DocStreamTypeId]: {
+    readonly _A: (_: never) => A
+  }
+}
+```
+
+Added in v1.0.0
+
+### TypeLambda (type alias)
+
+**Signature**
+
+```ts
+export type TypeLambda = DocStreamTypeLambda
 ```
 
 Added in v1.0.0

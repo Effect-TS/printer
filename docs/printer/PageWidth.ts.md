@@ -29,6 +29,9 @@ Added in v1.0.0
   - [PageWidthTypeId (type alias)](#pagewidthtypeid-type-alias)
 - [utilities](#utilities)
   - [remainingWidth](#remainingwidth)
+- [utils](#utils)
+  - [PageWidth (namespace)](#pagewidth-namespace)
+    - [Proto (interface)](#proto-interface)
 
 ---
 
@@ -198,6 +201,24 @@ export declare const remainingWidth: (
   lineIndent: number,
   currentColumn: number
 ) => number
+```
+
+Added in v1.0.0
+
+# utils
+
+## PageWidth (namespace)
+
+Added in v1.0.0
+
+### Proto (interface)
+
+**Signature**
+
+```ts
+export interface Proto extends Equal {
+  readonly [PageWidthTypeId]: PageWidthTypeId
+}
 ```
 
 Added in v1.0.0

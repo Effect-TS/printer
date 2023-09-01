@@ -23,6 +23,10 @@ Added in v1.0.0
   - [wadlerLeijen](#wadlerleijen)
 - [model](#model)
   - [Layout (interface)](#layout-interface)
+- [utils](#utils)
+  - [Layout (namespace)](#layout-namespace)
+    - [Options (interface)](#options-interface)
+    - [FittingPredicate (type alias)](#fittingpredicate-type-alias)
 
 ---
 
@@ -261,6 +265,47 @@ Added in v1.0.0
 export interface Layout<A> {
   (options: Layout.Options): DocStream<A>
 }
+```
+
+Added in v1.0.0
+
+# utils
+
+## Layout (namespace)
+
+Added in v1.0.0
+
+### Options (interface)
+
+Represents the options that will influence the layout algorithms.
+
+**Signature**
+
+```ts
+export interface Options {
+  readonly pageWidth: PageWidth
+}
+```
+
+Added in v1.0.0
+
+### FittingPredicate (type alias)
+
+Decides whether a `DocStream` fits the given constraints, namely:
+
+- original indentation of the current column
+- initial indentation of the alternative `DocStream` if it starts with
+  a line break (used by `layoutSmart`)
+- width in which to fit the first line
+
+**Signature**
+
+```ts
+export type FittingPredicate<A> = (
+  lineIndent: number,
+  currentColumn: number,
+  initialIndentY: Option<number>
+) => Predicate<DocStream<A>>
 ```
 
 Added in v1.0.0

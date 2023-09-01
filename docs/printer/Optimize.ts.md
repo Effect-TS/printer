@@ -22,6 +22,9 @@ Added in v1.0.0
   - [Shallow (interface)](#shallow-interface)
 - [optimization](#optimization)
   - [optimize](#optimize)
+- [utils](#utils)
+  - [Optimize (namespace)](#optimize-namespace)
+    - [Depth (type alias)](#depth-type-alias)
 
 ---
 
@@ -155,6 +158,22 @@ const efficient = Doc.text('abcd')
 
 // We can optimize the `inefficient` document using `Optimize`
 Optimize.optimize(Optimize.Deep)(inefficient)
+```
+
+Added in v1.0.0
+
+# utils
+
+## Optimize (namespace)
+
+Added in v1.0.0
+
+### Depth (type alias)
+
+**Signature**
+
+```ts
+export type Depth = FusionDepth
 ```
 
 Added in v1.0.0

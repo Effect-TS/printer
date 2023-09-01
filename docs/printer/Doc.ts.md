@@ -161,6 +161,10 @@ Added in v1.0.0
   - [surround](#surround)
   - [textSpaces](#textspaces)
   - [words](#words)
+- [utils](#utils)
+  - [Doc (namespace)](#doc-namespace)
+    - [Variance (interface)](#variance-interface)
+    - [TypeLambda (type alias)](#typelambda-type-alias)
 
 ---
 
@@ -2714,6 +2718,36 @@ import * as Render from '@effect/printer/Render'
 const doc = Doc.tupled(Doc.words('lorem ipsum dolor'))
 
 assert.strictEqual(Render.prettyDefault(doc), '(lorem, ipsum, dolor)')
+```
+
+Added in v1.0.0
+
+# utils
+
+## Doc (namespace)
+
+Added in v1.0.0
+
+### Variance (interface)
+
+**Signature**
+
+```ts
+export interface Variance<A> extends Equal {
+  readonly [DocTypeId]: {
+    readonly _A: () => A
+  }
+}
+```
+
+Added in v1.0.0
+
+### TypeLambda (type alias)
+
+**Signature**
+
+```ts
+export type TypeLambda = DocTypeLambda
 ```
 
 Added in v1.0.0

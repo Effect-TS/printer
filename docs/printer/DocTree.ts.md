@@ -54,6 +54,10 @@ Added in v1.0.0
 - [symbol](#symbol)
   - [DocTreeTypeId](#doctreetypeid)
   - [DocTreeTypeId (type alias)](#doctreetypeid-type-alias)
+- [utils](#utils)
+  - [DocTree (namespace)](#doctree-namespace)
+    - [Variance (interface)](#variance-interface)
+    - [TypeLambda (type alias)](#typelambda-type-alias)
 
 ---
 
@@ -510,6 +514,36 @@ Added in v1.0.0
 
 ```ts
 export type DocTreeTypeId = typeof DocTreeTypeId
+```
+
+Added in v1.0.0
+
+# utils
+
+## DocTree (namespace)
+
+Added in v1.0.0
+
+### Variance (interface)
+
+**Signature**
+
+```ts
+export interface Variance<A> extends Equal {
+  readonly [DocTreeTypeId]: {
+    readonly _A: (_: never) => A
+  }
+}
+```
+
+Added in v1.0.0
+
+### TypeLambda (type alias)
+
+**Signature**
+
+```ts
+export type TypeLambda = DocTreeTypeLambda
 ```
 
 Added in v1.0.0
