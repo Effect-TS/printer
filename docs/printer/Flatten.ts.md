@@ -32,6 +32,10 @@ Added in v1.0.0
 - [symbol](#symbol)
   - [FlattenTypeId](#flattentypeid)
   - [FlattenTypeId (type alias)](#flattentypeid-type-alias)
+- [utils](#utils)
+  - [Flatten (namespace)](#flatten-namespace)
+    - [Variance (interface)](#variance-interface)
+    - [TypeLambda (type alias)](#typelambda-type-alias)
 
 ---
 
@@ -223,6 +227,36 @@ Added in v1.0.0
 
 ```ts
 export type FlattenTypeId = typeof FlattenTypeId
+```
+
+Added in v1.0.0
+
+# utils
+
+## Flatten (namespace)
+
+Added in v1.0.0
+
+### Variance (interface)
+
+**Signature**
+
+```ts
+export interface Variance<A> extends Equal {
+  readonly [FlattenTypeId]: {
+    readonly _A: (_: never) => A
+  }
+}
+```
+
+Added in v1.0.0
+
+### TypeLambda (type alias)
+
+**Signature**
+
+```ts
+export type TypeLambda = FlattenTypeLambda
 ```
 
 Added in v1.0.0
