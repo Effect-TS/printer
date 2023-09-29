@@ -77,8 +77,8 @@ export declare const compact: <A>(self: Doc<A>) => DocStream<A>
 ```ts
 import * as Doc from '@effect/printer/Doc'
 import * as Render from '@effect/printer/Render'
-import { pipe } from '@effect/data/Function'
-import * as String from '@effect/data/String'
+import { pipe } from 'effect/Function'
+import * as String from 'effect/String'
 
 const doc = pipe(
   Doc.vsep([Doc.text('lorem'), Doc.text('ipsum'), pipe(Doc.vsep([Doc.text('dolor'), Doc.text('sit')]), Doc.hang(4))]),
@@ -155,8 +155,8 @@ import type * as DocStream from '@effect/printer/DocStream'
 import * as Layout from '@effect/printer/Layout'
 import * as PageWidth from '@effect/printer/PageWidth'
 import * as Render from '@effect/printer/Render'
-import { pipe } from '@effect/data/Function'
-import * as String from '@effect/data/String'
+import { pipe } from 'effect/Function'
+import * as String from 'effect/String'
 
 // Consider the following python-ish document:
 const fun = <A>(doc: Doc.Doc<A>): Doc.Doc<A> =>

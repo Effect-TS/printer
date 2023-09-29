@@ -476,7 +476,7 @@ export declare const renderSimplyDecorated: {
 import * as Doc from '@effect/printer/Doc'
 import * as DocTree from '@effect/printer/DocTree'
 import * as Layout from '@effect/printer/Layout'
-import { identity, pipe } from '@effect/data/Function'
+import { identity, pipe } from 'effect/Function'
 import * as String from '@effect/typeclass/data/String'
 
 const doc: Doc.Doc<void> = Doc.hsep([
