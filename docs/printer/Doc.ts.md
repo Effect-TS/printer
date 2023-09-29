@@ -186,7 +186,7 @@ export declare const align: <A>(self: Doc<A>) => Doc<A>
 ```ts
 import * as Doc from '@effect/printer/Doc'
 import * as Render from '@effect/printer/Render'
-import * as String from '@effect/data/String'
+import * as String from 'effect/String'
 
 // As an example, the documents below will be placed one above the other
 // regardless of the current nesting level
@@ -241,8 +241,8 @@ export declare const encloseSep: {
 ```ts
 import * as Doc from '@effect/printer/Doc'
 import * as Render from '@effect/printer/Render'
-import { pipe } from '@effect/data/Function'
-import * as String from '@effect/data/String'
+import { pipe } from 'effect/Function'
+import * as String from 'effect/String'
 
 const doc = Doc.hsep([
   Doc.text('list'),
@@ -292,8 +292,8 @@ export declare const hang: { (indent: number): <A>(self: Doc<A>) => Doc<A>; <A>(
 ```ts
 import * as Doc from '@effect/printer/Doc'
 import * as Render from '@effect/printer/Render'
-import { pipe } from '@effect/data/Function'
-import * as String from '@effect/data/String'
+import { pipe } from 'effect/Function'
+import * as String from 'effect/String'
 
 const doc = Doc.hsep([Doc.text('prefix'), pipe(Doc.reflow('Indenting these words with hang'), Doc.hang(4))])
 
@@ -328,8 +328,8 @@ export declare const indent: {
 ```ts
 import * as Doc from '@effect/printer/Doc'
 import * as Render from '@effect/printer/Render'
-import { pipe } from '@effect/data/Function'
-import * as String from '@effect/data/String'
+import { pipe } from 'effect/Function'
+import * as String from 'effect/String'
 
 const doc = Doc.hcat([Doc.text('prefix'), pipe(Doc.reflow('The indent function indents these words!'), Doc.indent(4))])
 
@@ -397,8 +397,8 @@ export declare const nest: { (indent: number): <A>(self: Doc<A>) => Doc<A>; <A>(
 ```ts
 import * as Doc from '@effect/printer/Doc'
 import * as Render from '@effect/printer/Render'
-import { pipe } from '@effect/data/Function'
-import * as String from '@effect/data/String'
+import { pipe } from 'effect/Function'
+import * as String from 'effect/String'
 
 const doc = Doc.vsep([pipe(Doc.vsep(Doc.words('lorem ipsum dolor')), Doc.nest(4)), Doc.text('sit'), Doc.text('amet')])
 
@@ -467,8 +467,8 @@ export declare const flatAlt: {
 ```ts
 import * as Doc from '@effect/printer/Doc'
 import * as Render from '@effect/printer/Render'
-import { pipe } from '@effect/data/Function'
-import * as String from '@effect/data/String'
+import { pipe } from 'effect/Function'
+import * as String from 'effect/String'
 
 const open = pipe(Doc.empty, Doc.flatAlt(Doc.text('{ ')))
 const close = pipe(Doc.empty, Doc.flatAlt(Doc.text(' }')))
@@ -671,8 +671,8 @@ export declare const catWithLine: {
 ```ts
 import * as Doc from '@effect/printer/Doc'
 import * as Render from '@effect/printer/Render'
-import { pipe } from '@effect/data/Function'
-import * as String from '@effect/data/String'
+import { pipe } from 'effect/Function'
+import * as String from 'effect/String'
 
 const doc: Doc.Doc<never> = pipe(Doc.char('a'), Doc.catWithLine(Doc.char('b')))
 
@@ -706,8 +706,8 @@ export declare const catWithLineBreak: {
 ```ts
 import * as Doc from '@effect/printer/Doc'
 import * as Render from '@effect/printer/Render'
-import { pipe } from '@effect/data/Function'
-import * as String from '@effect/data/String'
+import { pipe } from 'effect/Function'
+import * as String from 'effect/String'
 
 const doc: Doc.Doc<never> = pipe(Doc.char('a'), Doc.catWithLineBreak(Doc.char('b')))
 
@@ -743,8 +743,8 @@ export declare const catWithSoftLine: {
 ```ts
 import * as Doc from '@effect/printer/Doc'
 import * as Render from '@effect/printer/Render'
-import { pipe } from '@effect/data/Function'
-import * as String from '@effect/data/String'
+import { pipe } from 'effect/Function'
+import * as String from 'effect/String'
 
 const doc: Doc.Doc<never> = pipe(Doc.char('a'), Doc.catWithSoftLine(Doc.char('b')))
 
@@ -780,8 +780,8 @@ export declare const catWithSoftLineBreak: {
 ```ts
 import * as Doc from '@effect/printer/Doc'
 import * as Render from '@effect/printer/Render'
-import { pipe } from '@effect/data/Function'
-import * as String from '@effect/data/String'
+import { pipe } from 'effect/Function'
+import * as String from 'effect/String'
 
 const doc: Doc.Doc<never> = pipe(Doc.char('a'), Doc.catWithSoftLineBreak(Doc.char('b')))
 
@@ -817,7 +817,7 @@ export declare const catWithSpace: {
 ```ts
 import * as Doc from '@effect/printer/Doc'
 import * as Render from '@effect/printer/Render'
-import { pipe } from '@effect/data/Function'
+import { pipe } from 'effect/Function'
 
 const doc: Doc.Doc<never> = pipe(Doc.char('a'), Doc.catWithSpace(Doc.char('b')))
 
@@ -844,7 +844,7 @@ export declare const cats: <A>(docs: Iterable<Doc<A>>) => Doc<A>
 ```ts
 import * as Doc from '@effect/printer/Doc'
 import * as Render from '@effect/printer/Render'
-import * as String from '@effect/data/String'
+import * as String from 'effect/String'
 
 const doc: Doc.Doc<never> = Doc.hsep([Doc.text('Docs:'), Doc.cats(Doc.words('lorem ipsum dolor'))])
 
@@ -883,7 +883,7 @@ export declare const concatWith: {
 ```ts
 import * as Doc from '@effect/printer/Doc'
 import * as Render from '@effect/printer/Render'
-import { pipe } from '@effect/data/Function'
+import { pipe } from 'effect/Function'
 
 const doc: Doc.Doc<never> = pipe(
   [Doc.char('a'), Doc.char('b')],
@@ -930,7 +930,7 @@ export declare const hcat: <A>(docs: Iterable<Doc<A>>) => Doc<A>
 ```ts
 import * as Doc from '@effect/printer/Doc'
 import * as Render from '@effect/printer/Render'
-import * as String from '@effect/data/String'
+import * as String from 'effect/String'
 
 const doc: Doc.Doc<never> = Doc.hcat(Doc.words('lorem ipsum dolor'))
 
@@ -958,7 +958,7 @@ export declare const vcat: <A>(docs: Iterable<Doc<A>>) => Doc<A>
 ```ts
 import * as Doc from '@effect/printer/Doc'
 import * as Render from '@effect/printer/Render'
-import * as String from '@effect/data/String'
+import * as String from 'effect/String'
 
 const doc: Doc.Doc<never> = Doc.vcat(Doc.words('lorem ipsum dolor'))
 
@@ -1007,7 +1007,7 @@ export declare const pageWidth: <A>(react: (pageWidth: PageWidth) => Doc<A>) => 
 ```ts
 import * as Doc from '@effect/printer/Doc'
 import * as Render from '@effect/printer/Render'
-import * as String from '@effect/data/String'
+import * as String from 'effect/String'
 
 const doc = Doc.hsep([
   Doc.text('prefix'),
@@ -1090,8 +1090,8 @@ export declare const fill: { (w: number): <A>(self: Doc<A>) => Doc<A>; <A>(self:
 ```ts
 import * as Doc from '@effect/printer/Doc'
 import * as Render from '@effect/printer/Render'
-import { pipe } from '@effect/data/Function'
-import * as String from '@effect/data/String'
+import { pipe } from 'effect/Function'
+import * as String from 'effect/String'
 
 type Signature = [name: string, type: string]
 
@@ -1136,8 +1136,8 @@ export declare const fillBreak: { (w: number): <A>(self: Doc<A>) => Doc<A>; <A>(
 ```ts
 import * as Doc from '@effect/printer/Doc'
 import * as Render from '@effect/printer/Render'
-import { pipe } from '@effect/data/Function'
-import * as String from '@effect/data/String'
+import { pipe } from 'effect/Function'
+import * as String from 'effect/String'
 
 type Signature = [name: string, type: string]
 
@@ -1649,7 +1649,7 @@ export declare const empty: Doc<never>
 ```ts
 import * as Doc from '@effect/printer/Doc'
 import * as Render from '@effect/printer/Render'
-import * as String from '@effect/data/String'
+import * as String from 'effect/String'
 
 const doc = Doc.vsep([
   Doc.text('hello'),
@@ -1710,7 +1710,7 @@ export declare const hardLine: Doc<never>
 ```ts
 import * as Doc from '@effect/printer/Doc'
 import * as Render from '@effect/printer/Render'
-import * as String from '@effect/data/String'
+import * as String from 'effect/String'
 
 const doc: Doc.Doc<never> = Doc.hcat([Doc.text('lorem ipsum'), Doc.hardLine, Doc.text('dolor sit amet')])
 
@@ -1779,7 +1779,7 @@ export declare const line: Doc<never>
 ```ts
 import * as Doc from '@effect/printer/Doc'
 import * as Render from '@effect/printer/Render'
-import * as String from '@effect/data/String'
+import * as String from 'effect/String'
 
 const doc: Doc.Doc<never> = Doc.hcat([Doc.text('lorem ipsum'), Doc.line, Doc.text('dolor sit amet')])
 
@@ -1811,7 +1811,7 @@ export declare const lineBreak: Doc<never>
 ```ts
 import * as Doc from '@effect/printer/Doc'
 import * as Render from '@effect/printer/Render'
-import * as String from '@effect/data/String'
+import * as String from 'effect/String'
 
 const doc: Doc.Doc<never> = Doc.hcat([Doc.text('lorem ipsum'), Doc.lineBreak, Doc.text('dolor sit amet')])
 
@@ -1927,7 +1927,7 @@ export declare const softLine: Doc<never>
 ```ts
 import * as Doc from '@effect/printer/Doc'
 import * as Render from '@effect/printer/Render'
-import * as String from '@effect/data/String'
+import * as String from 'effect/String'
 
 const doc: Doc.Doc<never> = Doc.hcat([Doc.text('lorem ipsum'), Doc.softLine, Doc.text('dolor sit amet')])
 
@@ -1964,7 +1964,7 @@ export declare const softLineBreak: Doc<never>
 ```ts
 import * as Doc from '@effect/printer/Doc'
 import * as Render from '@effect/printer/Render'
-import * as String from '@effect/data/String'
+import * as String from 'effect/String'
 
 const doc: Doc.Doc<never> = Doc.hcat([Doc.text('ThisText'), Doc.softLineBreak, Doc.text('IsWayTooLong')])
 
@@ -2037,7 +2037,7 @@ export declare const column: <A>(react: (position: number) => Doc<A>) => Doc<A>
 ```ts
 import * as Doc from '@effect/printer/Doc'
 import * as Render from '@effect/printer/Render'
-import * as String from '@effect/data/String'
+import * as String from 'effect/String'
 
 // Example 1:
 const example1 = Doc.column((l) => Doc.hsep([Doc.text('Columns are'), Doc.text(`${l}-based`)]))
@@ -2077,7 +2077,7 @@ export declare const nesting: <A>(react: (level: number) => Doc<A>) => Doc<A>
 ```ts
 import * as Doc from '@effect/printer/Doc'
 import * as Render from '@effect/printer/Render'
-import * as String from '@effect/data/String'
+import * as String from 'effect/String'
 
 const doc = Doc.hsep([Doc.text('prefix'), Doc.nesting((l) => Doc.squareBracketed(Doc.text(`Nested: ${l}`)))])
 
@@ -2114,8 +2114,8 @@ export declare const width: {
 ```ts
 import * as Doc from '@effect/printer/Doc'
 import * as Render from '@effect/printer/Render'
-import { pipe } from '@effect/data/Function'
-import * as String from '@effect/data/String'
+import { pipe } from 'effect/Function'
+import * as String from 'effect/String'
 
 const annotate = <A>(doc: Doc.Doc<A>): Doc.Doc<A> =>
   pipe(
@@ -2385,7 +2385,7 @@ export declare const seps: <A>(docs: Iterable<Doc<A>>) => Doc<A>
 ```ts
 import * as Doc from '@effect/printer/Doc'
 import * as Render from '@effect/printer/Render'
-import * as String from '@effect/data/String'
+import * as String from 'effect/String'
 
 const doc: Doc.Doc<never> = Doc.hsep([Doc.text('prefix'), Doc.seps(Doc.words('text to lay out'))])
 
@@ -2426,7 +2426,7 @@ export declare const vsep: <A>(docs: Iterable<Doc<A>>) => Doc<A>
 ```ts
 import * as Doc from '@effect/printer/Doc'
 import * as Render from '@effect/printer/Render'
-import * as String from '@effect/data/String'
+import * as String from 'effect/String'
 
 const unaligned = Doc.hsep([Doc.text('prefix'), Doc.vsep(Doc.words('text to lay out'))])
 
@@ -2550,8 +2550,8 @@ export declare const punctuate: {
 ```ts
 import * as Doc from '@effect/printer/Doc'
 import * as Render from '@effect/printer/Render'
-import { pipe } from '@effect/data/Function'
-import * as String from '@effect/data/String'
+import { pipe } from 'effect/Function'
+import * as String from 'effect/String'
 
 const docs = pipe(Doc.words('lorem ipsum dolor sit amet'), Doc.punctuate(Doc.comma))
 
@@ -2591,7 +2591,7 @@ export declare const reflow: (s: string, char?: string) => Doc<never>
 ```ts
 import * as Doc from '@effect/printer/Doc'
 import * as Render from '@effect/printer/Render'
-import * as String from '@effect/data/String'
+import * as String from 'effect/String'
 
 const doc = Doc.reflow(
   'Lorem ipsum dolor sit amet, consectetur adipisicing elit, ' +
@@ -2679,7 +2679,7 @@ export declare const surround: {
 ```ts
 import * as Doc from '@effect/printer/Doc'
 import * as Render from '@effect/printer/Render'
-import { pipe } from '@effect/data/Function'
+import { pipe } from 'effect/Function'
 
 const doc = pipe(Doc.char('-'), Doc.surround(Doc.char('A'), Doc.char('Z')))
 
