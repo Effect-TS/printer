@@ -1,7 +1,7 @@
 ---
 title: AnsiStyle.ts
 nav_order: 3
-parent: "@effect/printer-printer-ansi"
+parent: "@effect/printer-ansi"
 ---
 
 ## AnsiStyle overview

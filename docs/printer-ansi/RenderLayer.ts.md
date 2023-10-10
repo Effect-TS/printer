@@ -1,7 +1,7 @@
 ---
 title: RenderLayer.ts
 nav_order: 6
-parent: "@effect/printer-printer-ansi"
+parent: "@effect/printer-ansi"
 ---
 
 ## RenderLayer overview

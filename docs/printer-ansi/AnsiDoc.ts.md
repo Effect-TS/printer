@@ -1,7 +1,7 @@
 ---
 title: AnsiDoc.ts
 nav_order: 1
-parent: "@effect/printer-printer-ansi"
+parent: "@effect/printer-ansi"
 ---
 
 ## AnsiDoc overview

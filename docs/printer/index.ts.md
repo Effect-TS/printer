@@ -6,6 +6,22 @@ parent: "@effect/printer"
 
 ## index overview
 
+The abstract data type `Doc<A>` represents prettified documents that have
+been annotated with data of type `A`.
+
+More specifically, a value of type `Doc` represents a non-empty set of
+possible layouts for a given document. The layout algorithms select one of
+these possibilities, taking into account variables such as the width of the
+document.
+
+The annotation is an arbitrary piece of data associated with (part of) a
+document. Annotations may be used by rendering algorithms to display
+documents differently by providing information such as:
+
+- color information (e.g., when rendering to the terminal)
+- mouseover text (e.g., when rendering to rich HTML)
+- whether to show something or not (to allow simple or detailed versions)
+
 Added in v1.0.0
 
 ---
@@ -28,96 +44,110 @@ Added in v1.0.0
 
 ## From "@effect/printer/Doc"
 
-Re-exports all named exports from the "@effect/printer/Doc" module.
+The abstract data type `Doc<A>` represents prettified documents that have
+been annotated with data of type `A`.
+
+More specifically, a value of type `Doc` represents a non-empty set of
+possible layouts for a given document. The layout algorithms select one of
+these possibilities, taking into account variables such as the width of the
+document.
+
+The annotation is an arbitrary piece of data associated with (part of) a
+document. Annotations may be used by rendering algorithms to display
+documents differently by providing information such as:
+
+- color information (e.g., when rendering to the terminal)
+- mouseover text (e.g., when rendering to rich HTML)
+- whether to show something or not (to allow simple or detailed versions)
 
 **Signature**
 
 ```ts
-export * from '@effect/printer/Doc'
+export * as Doc from '@effect/printer/Doc'
 ```
 
 Added in v1.0.0
 
 ## From "@effect/printer/DocStream"
 
-Re-exports all named exports from the "@effect/printer/DocStream" module.
+Re-exports all named exports from the "@effect/printer/DocStream" module as `DocStream`.
 
 **Signature**
 
 ```ts
-export * from '@effect/printer/DocStream'
+export * as DocStream from '@effect/printer/DocStream'
 ```
 
 Added in v1.0.0
 
 ## From "@effect/printer/DocTree"
 
-Re-exports all named exports from the "@effect/printer/DocTree" module.
+Re-exports all named exports from the "@effect/printer/DocTree" module as `DocTree`.
 
 **Signature**
 
 ```ts
-export * from '@effect/printer/DocTree'
+export * as DocTree from '@effect/printer/DocTree'
 ```
 
 Added in v1.0.0
 
 ## From "@effect/printer/Flatten"
 
-Re-exports all named exports from the "@effect/printer/Flatten" module.
+Re-exports all named exports from the "@effect/printer/Flatten" module as `Flatten`.
 
 **Signature**
 
 ```ts
-export * from '@effect/printer/Flatten'
+export * as Flatten from '@effect/printer/Flatten'
 ```
 
 Added in v1.0.0
 
 ## From "@effect/printer/Layout"
 
-Re-exports all named exports from the "@effect/printer/Layout" module.
+Re-exports all named exports from the "@effect/printer/Layout" module as `Layout`.
 
 **Signature**
 
 ```ts
-export * from '@effect/printer/Layout'
+export * as Layout from '@effect/printer/Layout'
 ```
 
 Added in v1.0.0
 
 ## From "@effect/printer/Optimize"
 
-Re-exports all named exports from the "@effect/printer/Optimize" module.
+Re-exports all named exports from the "@effect/printer/Optimize" module as `Optimize`.
 
 **Signature**
 
 ```ts
-export * from '@effect/printer/Optimize'
+export * as Optimize from '@effect/printer/Optimize'
 ```
 
 Added in v1.0.0
 
 ## From "@effect/printer/PageWidth"
 
-Re-exports all named exports from the "@effect/printer/PageWidth" module.
+Re-exports all named exports from the "@effect/printer/PageWidth" module as `PageWidth`.
 
 **Signature**
 
 ```ts
-export * from '@effect/printer/PageWidth'
+export * as PageWidth from '@effect/printer/PageWidth'
 ```
 
 Added in v1.0.0
 
 ## From "@effect/printer/Render"
 
-Re-exports all named exports from the "@effect/printer/Render" module.
+Re-exports all named exports from the "@effect/printer/Render" module as `Render`.
 
 **Signature**
 
 ```ts
-export * from '@effect/printer/Render'
+export * as Render from '@effect/printer/Render'
 ```
 
 Added in v1.0.0
