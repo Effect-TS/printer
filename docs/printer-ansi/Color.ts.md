@@ -1,7 +1,7 @@
 ---
 title: Color.ts
 nav_order: 4
-parent: "@effect/printer-printer-ansi"
+parent: "@effect/printer-ansi"
 ---
 
 ## Color overview

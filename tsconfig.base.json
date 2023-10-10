@@ -10,8 +10,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "preserveSymlinks": true,
-    "moduleResolution": "node",
-    "noEmit": false,
+    "moduleResolution": "NodeNext",
     "lib": ["ES2021"],
     "sourceMap": true,
     "declarationMap": true,
@@ -21,7 +20,7 @@
     "noUnusedParameters": false,
     "noFallthroughCasesInSwitch": true,
     "noEmitOnError": false,
-    "noErrorTruncation": false,
+    "noErrorTruncation": true,
     "allowJs": false,
     "checkJs": false,
     "forceConsistentCasingInFileNames": true,
@@ -30,30 +29,24 @@
     "noImplicitThis": true,
     "noUncheckedIndexedAccess": false,
     "strictNullChecks": true,
-    "baseUrl": ".",
     "target": "ES2021",
-    "module": "ES6",
+    "module": "NodeNext",
     "incremental": true,
     "removeComments": false,
+    "baseUrl": ".",
     "paths": {
       "@effect/printer": ["./packages/printer/src/index.ts"],
-      "@effect/printer/test/*": ["./packages/printer/test/*"],
-      "@effect/printer/examples/*": ["./packages/printer/examples/*"],
-      "@effect/printer/*": ["./packages/printer/src/*"],
+      "@effect/printer/test/*": ["./packages/printer/test/*.ts"],
+      "@effect/printer/examples/*": ["./packages/printer/examples/*.ts"],
+      "@effect/printer/*": ["./packages/printer/src/*.ts"],
       "@effect/printer-ansi": ["./packages/printer-ansi/src/index.ts"],
-      "@effect/printer-ansi/test/*": ["./packages/printer-ansi/test/*"],
-      "@effect/printer-ansi/examples/*": ["./packages/printer-ansi/examples/*"],
-      "@effect/printer-ansi/*": ["./packages/printer-ansi/src/*"]
+      "@effect/printer-ansi/test/*": ["./packages/printer-ansi/test/*.ts"],
+      "@effect/printer-ansi/examples/*": [
+        "./packages/printer-ansi/examples/*.ts"
+      ],
+      "@effect/printer-ansi/*": ["./packages/printer-ansi/src/*.ts"]
     },
-    "plugins": [
-      {
-        "name": "@effect/language-service",
-        "diagnostics": {
-          "1002": "none"
-        }
-      }
-    ]
-  },
-  "include": [],
-  "exclude": ["node_modules", "build", "lib"]
+    "types": ["vitest/globals", "node"],
+    "plugins": [{ "name": "@effect/language-service" }]
+  }
 }

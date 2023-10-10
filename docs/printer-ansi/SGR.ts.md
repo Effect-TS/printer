@@ -1,7 +1,7 @@
 ---
 title: SGR.ts
 nav_order: 7
-parent: "@effect/printer-printer-ansi"
+parent: "@effect/printer-ansi"
 ---
 
 ## SGR overview
