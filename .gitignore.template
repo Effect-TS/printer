@@ -10,17 +10,3 @@ dist/
 .cache/
 .direnv/
 /docs
-
-
-# files
-/src/tsconfig.json
-/dist
-/internal
-/Doc
-/DocStream
-/DocTree
-/Flatten
-/Layout
-/Optimize
-/PageWidth
-/Render
