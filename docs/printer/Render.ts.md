@@ -42,8 +42,8 @@ Added in v1.0.0
 
 ```ts
 export declare const pretty: {
-  (options: Partial<Omit<AvailablePerLine, '_tag'>>): <A>(self: Doc<A>) => string
-  <A>(self: Doc<A>, options: Partial<Omit<AvailablePerLine, '_tag'>>): string
+  (options: Partial<Omit<AvailablePerLine, "_tag">>): <A>(self: Doc<A>) => string
+  <A>(self: Doc<A>, options: Partial<Omit<AvailablePerLine, "_tag">>): string
 }
 ```
 
@@ -90,8 +90,8 @@ Added in v1.0.0
 
 ```ts
 export declare const smart: {
-  (options: Partial<Omit<AvailablePerLine, '_tag'>>): <A>(self: Doc<A>) => string
-  <A>(self: Doc<A>, options: Partial<Omit<AvailablePerLine, '_tag'>>): string
+  (options: Partial<Omit<AvailablePerLine, "_tag">>): <A>(self: Doc<A>) => string
+  <A>(self: Doc<A>, options: Partial<Omit<AvailablePerLine, "_tag">>): string
 }
 ```
 

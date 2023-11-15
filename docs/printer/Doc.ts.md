@@ -184,16 +184,16 @@ export declare const align: <A>(self: Doc<A>) => Doc<A>
 **Example**
 
 ```ts
-import * as Doc from '@effect/printer/Doc'
-import * as Render from '@effect/printer/Render'
-import * as String from 'effect/String'
+import * as Doc from "@effect/printer/Doc"
+import * as Render from "@effect/printer/Render"
+import * as String from "effect/String"
 
 // As an example, the documents below will be placed one above the other
 // regardless of the current nesting level
 
 // Without `align`ment, the second line is simply placed below everything
 // that has been laid out so far
-const unaligned = Doc.hsep([Doc.text('lorem'), Doc.vsep([Doc.text('ipsum'), Doc.text('dolor')])])
+const unaligned = Doc.hsep([Doc.text("lorem"), Doc.vsep([Doc.text("ipsum"), Doc.text("dolor")])])
 
 assert.strictEqual(
   Render.prettyDefault(unaligned),
@@ -204,7 +204,7 @@ assert.strictEqual(
 )
 
 // With `align`ment, the `vsep`ed documents all start at the same column
-const aligned = Doc.hsep([Doc.text('lorem'), Doc.align(Doc.vsep([Doc.text('ipsum'), Doc.text('dolor')]))])
+const aligned = Doc.hsep([Doc.text("lorem"), Doc.align(Doc.vsep([Doc.text("ipsum"), Doc.text("dolor")]))])
 
 assert.strictEqual(
   Render.prettyDefault(aligned),
@@ -239,23 +239,23 @@ export declare const encloseSep: {
 **Example**
 
 ```ts
-import * as Doc from '@effect/printer/Doc'
-import * as Render from '@effect/printer/Render'
-import { pipe } from 'effect/Function'
-import * as String from 'effect/String'
+import * as Doc from "@effect/printer/Doc"
+import * as Render from "@effect/printer/Render"
+import { pipe } from "effect/Function"
+import * as String from "effect/String"
 
 const doc = Doc.hsep([
-  Doc.text('list'),
+  Doc.text("list"),
   Doc.align(
     pipe(
-      ['1', '20', '300', '4000'].map((n) => (n.length === 1 ? Doc.char(n) : Doc.text(n))),
+      ["1", "20", "300", "4000"].map((n) => (n.length === 1 ? Doc.char(n) : Doc.text(n))),
       Doc.encloseSep(Doc.lbracket, Doc.rbracket, Doc.comma)
     )
-  ),
+  )
 ])
 
 // The documents are laid out horizontally if the document fits the page
-assert.strictEqual(Render.prettyDefault(doc), 'list [1,20,300,4000]')
+assert.strictEqual(Render.prettyDefault(doc), "list [1,20,300,4000]")
 
 // Otherwise they are laid out vertically, with separators put in the front
 assert.strictEqual(
@@ -290,12 +290,12 @@ export declare const hang: { (indent: number): <A>(self: Doc<A>) => Doc<A>; <A>(
 **Example**
 
 ```ts
-import * as Doc from '@effect/printer/Doc'
-import * as Render from '@effect/printer/Render'
-import { pipe } from 'effect/Function'
-import * as String from 'effect/String'
+import * as Doc from "@effect/printer/Doc"
+import * as Render from "@effect/printer/Render"
+import { pipe } from "effect/Function"
+import * as String from "effect/String"
 
-const doc = Doc.hsep([Doc.text('prefix'), pipe(Doc.reflow('Indenting these words with hang'), Doc.hang(4))])
+const doc = Doc.hsep([Doc.text("prefix"), pipe(Doc.reflow("Indenting these words with hang"), Doc.hang(4))])
 
 assert.strictEqual(
   Render.pretty(doc, { lineWidth: 24 }),
@@ -326,12 +326,12 @@ export declare const indent: {
 **Example**
 
 ```ts
-import * as Doc from '@effect/printer/Doc'
-import * as Render from '@effect/printer/Render'
-import { pipe } from 'effect/Function'
-import * as String from 'effect/String'
+import * as Doc from "@effect/printer/Doc"
+import * as Render from "@effect/printer/Render"
+import { pipe } from "effect/Function"
+import * as String from "effect/String"
 
-const doc = Doc.hcat([Doc.text('prefix'), pipe(Doc.reflow('The indent function indents these words!'), Doc.indent(4))])
+const doc = Doc.hcat([Doc.text("prefix"), pipe(Doc.reflow("The indent function indents these words!"), Doc.indent(4))])
 
 assert.strictEqual(
   Render.pretty(doc, { lineWidth: 24 }),
@@ -360,12 +360,12 @@ export declare const list: <A>(docs: Iterable<Doc<A>>) => Doc<A>
 **Example**
 
 ```ts
-import * as Doc from '@effect/printer/Doc'
-import * as Render from '@effect/printer/Render'
+import * as Doc from "@effect/printer/Doc"
+import * as Render from "@effect/printer/Render"
 
-const doc = Doc.list(['1', '20', '300', '4000'].map((n) => (n.length === 1 ? Doc.char(n) : Doc.text(n))))
+const doc = Doc.list(["1", "20", "300", "4000"].map((n) => (n.length === 1 ? Doc.char(n) : Doc.text(n))))
 
-assert.strictEqual(Render.prettyDefault(doc), '[1, 20, 300, 4000]')
+assert.strictEqual(Render.prettyDefault(doc), "[1, 20, 300, 4000]")
 ```
 
 Added in v1.0.0
@@ -395,12 +395,12 @@ export declare const nest: { (indent: number): <A>(self: Doc<A>) => Doc<A>; <A>(
 **Example**
 
 ```ts
-import * as Doc from '@effect/printer/Doc'
-import * as Render from '@effect/printer/Render'
-import { pipe } from 'effect/Function'
-import * as String from 'effect/String'
+import * as Doc from "@effect/printer/Doc"
+import * as Render from "@effect/printer/Render"
+import { pipe } from "effect/Function"
+import * as String from "effect/String"
 
-const doc = Doc.vsep([pipe(Doc.vsep(Doc.words('lorem ipsum dolor')), Doc.nest(4)), Doc.text('sit'), Doc.text('amet')])
+const doc = Doc.vsep([pipe(Doc.vsep(Doc.words("lorem ipsum dolor")), Doc.nest(4)), Doc.text("sit"), Doc.text("amet")])
 
 assert.strictEqual(
   Render.prettyDefault(doc),
@@ -430,12 +430,12 @@ export declare const tupled: <A>(docs: Iterable<Doc<A>>) => Doc<A>
 **Example**
 
 ```ts
-import * as Doc from '@effect/printer/Doc'
-import * as Render from '@effect/printer/Render'
+import * as Doc from "@effect/printer/Doc"
+import * as Render from "@effect/printer/Render"
 
-const doc = Doc.tupled(['1', '20', '300', '4000'].map((n) => (n.length === 1 ? Doc.char(n) : Doc.text(n))))
+const doc = Doc.tupled(["1", "20", "300", "4000"].map((n) => (n.length === 1 ? Doc.char(n) : Doc.text(n))))
 
-assert.strictEqual(Render.prettyDefault(doc), '(1, 20, 300, 4000)')
+assert.strictEqual(Render.prettyDefault(doc), "(1, 20, 300, 4000)")
 ```
 
 Added in v1.0.0
@@ -465,23 +465,23 @@ export declare const flatAlt: {
 **Example**
 
 ```ts
-import * as Doc from '@effect/printer/Doc'
-import * as Render from '@effect/printer/Render'
-import { pipe } from 'effect/Function'
-import * as String from 'effect/String'
+import * as Doc from "@effect/printer/Doc"
+import * as Render from "@effect/printer/Render"
+import { pipe } from "effect/Function"
+import * as String from "effect/String"
 
-const open = pipe(Doc.empty, Doc.flatAlt(Doc.text('{ ')))
-const close = pipe(Doc.empty, Doc.flatAlt(Doc.text(' }')))
-const separator = pipe(Doc.empty, Doc.flatAlt(Doc.text('; ')))
+const open = pipe(Doc.empty, Doc.flatAlt(Doc.text("{ ")))
+const close = pipe(Doc.empty, Doc.flatAlt(Doc.text(" }")))
+const separator = pipe(Doc.empty, Doc.flatAlt(Doc.text("; ")))
 
 const prettyDo = <A>(documents: Array<Doc.Doc<A>>): Doc.Doc<A> => {
-  return pipe(Doc.hsep([Doc.text('do'), pipe(documents, Doc.encloseSep(open, close, separator), Doc.align)]), Doc.group)
+  return pipe(Doc.hsep([Doc.text("do"), pipe(documents, Doc.encloseSep(open, close, separator), Doc.align)]), Doc.group)
 }
 
 const statements = [
-  Doc.text('name:_ <- getArgs'),
+  Doc.text("name:_ <- getArgs"),
   Doc.text('let greet = "Hello, " <> name'),
-  Doc.text('putStrLn greet'),
+  Doc.text("putStrLn greet")
 ]
 
 // If it fits, then the content is put onto a single line with the `{;}` style
@@ -669,12 +669,12 @@ export declare const catWithLine: {
 **Example**
 
 ```ts
-import * as Doc from '@effect/printer/Doc'
-import * as Render from '@effect/printer/Render'
-import { pipe } from 'effect/Function'
-import * as String from 'effect/String'
+import * as Doc from "@effect/printer/Doc"
+import * as Render from "@effect/printer/Render"
+import { pipe } from "effect/Function"
+import * as String from "effect/String"
 
-const doc: Doc.Doc<never> = pipe(Doc.char('a'), Doc.catWithLine(Doc.char('b')))
+const doc: Doc.Doc<never> = pipe(Doc.char("a"), Doc.catWithLine(Doc.char("b")))
 
 assert.strictEqual(
   Render.prettyDefault(doc),
@@ -704,12 +704,12 @@ export declare const catWithLineBreak: {
 **Example**
 
 ```ts
-import * as Doc from '@effect/printer/Doc'
-import * as Render from '@effect/printer/Render'
-import { pipe } from 'effect/Function'
-import * as String from 'effect/String'
+import * as Doc from "@effect/printer/Doc"
+import * as Render from "@effect/printer/Render"
+import { pipe } from "effect/Function"
+import * as String from "effect/String"
 
-const doc: Doc.Doc<never> = pipe(Doc.char('a'), Doc.catWithLineBreak(Doc.char('b')))
+const doc: Doc.Doc<never> = pipe(Doc.char("a"), Doc.catWithLineBreak(Doc.char("b")))
 
 assert.strictEqual(
   Render.prettyDefault(doc),
@@ -719,7 +719,7 @@ assert.strictEqual(
   )
 )
 
-assert.strictEqual(Render.prettyDefault(Doc.group(doc)), 'ab')
+assert.strictEqual(Render.prettyDefault(Doc.group(doc)), "ab")
 ```
 
 Added in v1.0.0
@@ -741,14 +741,14 @@ export declare const catWithSoftLine: {
 **Example**
 
 ```ts
-import * as Doc from '@effect/printer/Doc'
-import * as Render from '@effect/printer/Render'
-import { pipe } from 'effect/Function'
-import * as String from 'effect/String'
+import * as Doc from "@effect/printer/Doc"
+import * as Render from "@effect/printer/Render"
+import { pipe } from "effect/Function"
+import * as String from "effect/String"
 
-const doc: Doc.Doc<never> = pipe(Doc.char('a'), Doc.catWithSoftLine(Doc.char('b')))
+const doc: Doc.Doc<never> = pipe(Doc.char("a"), Doc.catWithSoftLine(Doc.char("b")))
 
-assert.strictEqual(Render.prettyDefault(doc), 'a b')
+assert.strictEqual(Render.prettyDefault(doc), "a b")
 
 assert.strictEqual(
   Render.pretty(doc, { lineWidth: 1 }),
@@ -778,14 +778,14 @@ export declare const catWithSoftLineBreak: {
 **Example**
 
 ```ts
-import * as Doc from '@effect/printer/Doc'
-import * as Render from '@effect/printer/Render'
-import { pipe } from 'effect/Function'
-import * as String from 'effect/String'
+import * as Doc from "@effect/printer/Doc"
+import * as Render from "@effect/printer/Render"
+import { pipe } from "effect/Function"
+import * as String from "effect/String"
 
-const doc: Doc.Doc<never> = pipe(Doc.char('a'), Doc.catWithSoftLineBreak(Doc.char('b')))
+const doc: Doc.Doc<never> = pipe(Doc.char("a"), Doc.catWithSoftLineBreak(Doc.char("b")))
 
-assert.strictEqual(Render.prettyDefault(doc), 'ab')
+assert.strictEqual(Render.prettyDefault(doc), "ab")
 
 assert.strictEqual(
   Render.pretty(doc, { lineWidth: 1 }),
@@ -815,13 +815,13 @@ export declare const catWithSpace: {
 **Example**
 
 ```ts
-import * as Doc from '@effect/printer/Doc'
-import * as Render from '@effect/printer/Render'
-import { pipe } from 'effect/Function'
+import * as Doc from "@effect/printer/Doc"
+import * as Render from "@effect/printer/Render"
+import { pipe } from "effect/Function"
 
-const doc: Doc.Doc<never> = pipe(Doc.char('a'), Doc.catWithSpace(Doc.char('b')))
+const doc: Doc.Doc<never> = pipe(Doc.char("a"), Doc.catWithSpace(Doc.char("b")))
 
-assert.strictEqual(Render.prettyDefault(doc), 'a b')
+assert.strictEqual(Render.prettyDefault(doc), "a b")
 ```
 
 Added in v1.0.0
@@ -842,13 +842,13 @@ export declare const cats: <A>(docs: Iterable<Doc<A>>) => Doc<A>
 **Example**
 
 ```ts
-import * as Doc from '@effect/printer/Doc'
-import * as Render from '@effect/printer/Render'
-import * as String from 'effect/String'
+import * as Doc from "@effect/printer/Doc"
+import * as Render from "@effect/printer/Render"
+import * as String from "effect/String"
 
-const doc: Doc.Doc<never> = Doc.hsep([Doc.text('Docs:'), Doc.cats(Doc.words('lorem ipsum dolor'))])
+const doc: Doc.Doc<never> = Doc.hsep([Doc.text("Docs:"), Doc.cats(Doc.words("lorem ipsum dolor"))])
 
-assert.strictEqual(Render.prettyDefault(doc), 'Docs: loremipsumdolor')
+assert.strictEqual(Render.prettyDefault(doc), "Docs: loremipsumdolor")
 
 // If the document exceeds the width of the page, the documents are rendered
 // one above another
@@ -881,16 +881,16 @@ export declare const concatWith: {
 **Example**
 
 ```ts
-import * as Doc from '@effect/printer/Doc'
-import * as Render from '@effect/printer/Render'
-import { pipe } from 'effect/Function'
+import * as Doc from "@effect/printer/Doc"
+import * as Render from "@effect/printer/Render"
+import { pipe } from "effect/Function"
 
 const doc: Doc.Doc<never> = pipe(
-  [Doc.char('a'), Doc.char('b')],
+  [Doc.char("a"), Doc.char("b")],
   Doc.concatWith((x, y) => Doc.catWithSpace(y)(x))
 )
 
-assert.strictEqual(Render.prettyDefault(doc), 'a b')
+assert.strictEqual(Render.prettyDefault(doc), "a b")
 ```
 
 Added in v1.0.0
@@ -928,13 +928,13 @@ export declare const hcat: <A>(docs: Iterable<Doc<A>>) => Doc<A>
 **Example**
 
 ```ts
-import * as Doc from '@effect/printer/Doc'
-import * as Render from '@effect/printer/Render'
-import * as String from 'effect/String'
+import * as Doc from "@effect/printer/Doc"
+import * as Render from "@effect/printer/Render"
+import * as String from "effect/String"
 
-const doc: Doc.Doc<never> = Doc.hcat(Doc.words('lorem ipsum dolor'))
+const doc: Doc.Doc<never> = Doc.hcat(Doc.words("lorem ipsum dolor"))
 
-assert.strictEqual(Render.prettyDefault(doc), 'loremipsumdolor')
+assert.strictEqual(Render.prettyDefault(doc), "loremipsumdolor")
 ```
 
 Added in v1.0.0
@@ -956,11 +956,11 @@ export declare const vcat: <A>(docs: Iterable<Doc<A>>) => Doc<A>
 **Example**
 
 ```ts
-import * as Doc from '@effect/printer/Doc'
-import * as Render from '@effect/printer/Render'
-import * as String from 'effect/String'
+import * as Doc from "@effect/printer/Doc"
+import * as Render from "@effect/printer/Render"
+import * as String from "effect/String"
 
-const doc: Doc.Doc<never> = Doc.vcat(Doc.words('lorem ipsum dolor'))
+const doc: Doc.Doc<never> = Doc.vcat(Doc.words("lorem ipsum dolor"))
 
 assert.strictEqual(
   Render.prettyDefault(doc),
@@ -1005,23 +1005,23 @@ export declare const pageWidth: <A>(react: (pageWidth: PageWidth) => Doc<A>) => 
 **Example**
 
 ```ts
-import * as Doc from '@effect/printer/Doc'
-import * as Render from '@effect/printer/Render'
-import * as String from 'effect/String'
+import * as Doc from "@effect/printer/Doc"
+import * as Render from "@effect/printer/Render"
+import * as String from "effect/String"
 
 const doc = Doc.hsep([
-  Doc.text('prefix'),
+  Doc.text("prefix"),
   Doc.pageWidth((pageWidth) => {
     switch (pageWidth._tag) {
-      case 'AvailablePerLine': {
+      case "AvailablePerLine": {
         const { lineWidth, ribbonFraction } = pageWidth
         return Doc.squareBracketed(Doc.text(`Width: ${lineWidth}, Ribbon Fraction: ${ribbonFraction}`))
       }
-      case 'Unbounded': {
+      case "Unbounded": {
         return Doc.empty
       }
     }
-  }),
+  })
 ])
 
 const example = Doc.vsep([0, 4, 8].map((n) => Doc.indent(n)(doc)))
@@ -1088,23 +1088,23 @@ export declare const fill: { (w: number): <A>(self: Doc<A>) => Doc<A>; <A>(self:
 **Example**
 
 ```ts
-import * as Doc from '@effect/printer/Doc'
-import * as Render from '@effect/printer/Render'
-import { pipe } from 'effect/Function'
-import * as String from 'effect/String'
+import * as Doc from "@effect/printer/Doc"
+import * as Render from "@effect/printer/Render"
+import { pipe } from "effect/Function"
+import * as String from "effect/String"
 
 type Signature = [name: string, type: string]
 
 const signatures: Array<Signature> = [
-  ['empty', 'Doc'],
-  ['nest', 'Int -> Doc -> Doc'],
-  ['fillSep', '[Doc] -> Doc'],
+  ["empty", "Doc"],
+  ["nest", "Int -> Doc -> Doc"],
+  ["fillSep", "[Doc] -> Doc"]
 ]
 
 const prettySignature = <A>([name, type]: Signature): Doc.Doc<A> =>
-  Doc.hsep([pipe(Doc.text(name), Doc.fill(5)), Doc.text('::'), Doc.text(type)])
+  Doc.hsep([pipe(Doc.text(name), Doc.fill(5)), Doc.text("::"), Doc.text(type)])
 
-const doc = Doc.hsep([Doc.text('let'), Doc.align(Doc.vcat(signatures.map(prettySignature)))])
+const doc = Doc.hsep([Doc.text("let"), Doc.align(Doc.vcat(signatures.map(prettySignature)))])
 
 assert.strictEqual(
   Render.prettyDefault(doc),
@@ -1134,23 +1134,23 @@ export declare const fillBreak: { (w: number): <A>(self: Doc<A>) => Doc<A>; <A>(
 **Example**
 
 ```ts
-import * as Doc from '@effect/printer/Doc'
-import * as Render from '@effect/printer/Render'
-import { pipe } from 'effect/Function'
-import * as String from 'effect/String'
+import * as Doc from "@effect/printer/Doc"
+import * as Render from "@effect/printer/Render"
+import { pipe } from "effect/Function"
+import * as String from "effect/String"
 
 type Signature = [name: string, type: string]
 
 const signatures: Array<Signature> = [
-  ['empty', 'Doc'],
-  ['nest', 'Int -> Doc -> Doc'],
-  ['fillSep', '[Doc] -> Doc'],
+  ["empty", "Doc"],
+  ["nest", "Int -> Doc -> Doc"],
+  ["fillSep", "[Doc] -> Doc"]
 ]
 
 const prettySignature = <A>([name, type]: Signature): Doc.Doc<A> =>
-  Doc.hsep([pipe(Doc.text(name), Doc.fillBreak(5)), Doc.text('::'), Doc.text(type)])
+  Doc.hsep([pipe(Doc.text(name), Doc.fillBreak(5)), Doc.text("::"), Doc.text(type)])
 
-const doc = Doc.hsep([Doc.text('let'), Doc.align(Doc.vcat(signatures.map(prettySignature)))])
+const doc = Doc.hsep([Doc.text("let"), Doc.align(Doc.vcat(signatures.map(prettySignature)))])
 
 assert.strictEqual(
   Render.prettyDefault(doc),
@@ -1300,7 +1300,7 @@ Represents a document with an associated annotation.
 
 ```ts
 export interface Annotated<A> extends Doc.Variance<A> {
-  readonly _tag: 'Annotated'
+  readonly _tag: "Annotated"
   readonly annotation: A
   readonly doc: Doc<A>
 }
@@ -1316,7 +1316,7 @@ Represents the concatenation of two documents.
 
 ```ts
 export interface Cat<A> extends Doc.Variance<A> {
-  readonly _tag: 'Cat'
+  readonly _tag: "Cat"
   readonly left: Doc<A>
   readonly right: Doc<A>
 }
@@ -1336,7 +1336,7 @@ Represents a document containing a single character.
 
 ```ts
 export interface Char<A> extends Doc.Variance<A> {
-  readonly _tag: 'Char'
+  readonly _tag: "Char"
   readonly char: string
 }
 ```
@@ -1351,7 +1351,7 @@ Represents a document that reacts to the current cursor position.
 
 ```ts
 export interface Column<A> extends Doc.Variance<A> {
-  readonly _tag: 'Column'
+  readonly _tag: "Column"
   readonly react: (position: number) => Doc<A>
 }
 ```
@@ -1390,7 +1390,7 @@ Added in v1.0.0
 
 ```ts
 export interface DocTypeLambda extends TypeLambda {
-  readonly type: Doc<this['Target']>
+  readonly type: Doc<this["Target"]>
 }
 ```
 
@@ -1406,7 +1406,7 @@ Conceptually, the `Empty` document can be thought of as the unit of `Cat`.
 
 ```ts
 export interface Empty<A> extends Doc.Variance<A> {
-  readonly _tag: 'Empty'
+  readonly _tag: "Empty"
 }
 ```
 
@@ -1422,7 +1422,7 @@ a more suitable rendering.
 
 ```ts
 export interface Fail<A> extends Doc.Variance<A> {
-  readonly _tag: 'Fail'
+  readonly _tag: "Fail"
 }
 ```
 
@@ -1441,7 +1441,7 @@ is less wide than the flattened second alternative.
 
 ```ts
 export interface FlatAlt<A> extends Doc.Variance<A> {
-  readonly _tag: 'FlatAlt'
+  readonly _tag: "FlatAlt"
   readonly left: Doc<A>
   readonly right: Doc<A>
 }
@@ -1457,7 +1457,7 @@ Represents a document that contains a hard line break.
 
 ```ts
 export interface Line<A> extends Doc.Variance<A> {
-  readonly _tag: 'Line'
+  readonly _tag: "Line"
 }
 ```
 
@@ -1471,7 +1471,7 @@ Represents a document that is indented by a certain number of columns.
 
 ```ts
 export interface Nest<A> extends Doc.Variance<A> {
-  readonly _tag: 'Nest'
+  readonly _tag: "Nest"
   readonly indent: number
   readonly doc: Doc<A>
 }
@@ -1487,7 +1487,7 @@ Represents a document that reacts to the current nesting level.
 
 ```ts
 export interface Nesting<A> extends Doc.Variance<A> {
-  readonly _tag: 'Nesting'
+  readonly _tag: "Nesting"
   readonly react: (level: number) => Doc<A>
 }
 ```
@@ -1507,7 +1507,7 @@ Represents a document containing a string of text.
 
 ```ts
 export interface Text<A> extends Doc.Variance<A> {
-  readonly _tag: 'Text'
+  readonly _tag: "Text"
   readonly text: string
 }
 ```
@@ -1529,7 +1529,7 @@ for `group`.
 
 ```ts
 export interface Union<A> extends Doc.Variance<A> {
-  readonly _tag: 'Union'
+  readonly _tag: "Union"
   readonly left: Doc<A>
   readonly right: Doc<A>
 }
@@ -1545,7 +1545,7 @@ Represents a document that reacts to the current page width.
 
 ```ts
 export interface WithPageWidth<A> extends Doc.Variance<A> {
-  readonly _tag: 'WithPageWidth'
+  readonly _tag: "WithPageWidth"
   readonly react: (pageWidth: PageWidth) => Doc<A>
 }
 ```
@@ -1560,7 +1560,7 @@ Represents a document that reacts to the current page width.
 
 ```ts
 export interface WithPageWidth<A> extends Doc.Variance<A> {
-  readonly _tag: 'WithPageWidth'
+  readonly _tag: "WithPageWidth"
   readonly react: (pageWidth: PageWidth) => Doc<A>
 }
 ```
@@ -1647,15 +1647,15 @@ export declare const empty: Doc<never>
 **Example**
 
 ```ts
-import * as Doc from '@effect/printer/Doc'
-import * as Render from '@effect/printer/Render'
-import * as String from 'effect/String'
+import * as Doc from "@effect/printer/Doc"
+import * as Render from "@effect/printer/Render"
+import * as String from "effect/String"
 
 const doc = Doc.vsep([
-  Doc.text('hello'),
+  Doc.text("hello"),
   // `parentheses` for visibility purposes only
   Doc.parenthesized(Doc.empty),
-  Doc.text('world'),
+  Doc.text("world")
 ])
 
 const expected = `|hello
@@ -1708,11 +1708,11 @@ export declare const hardLine: Doc<never>
 **Example**
 
 ```ts
-import * as Doc from '@effect/printer/Doc'
-import * as Render from '@effect/printer/Render'
-import * as String from 'effect/String'
+import * as Doc from "@effect/printer/Doc"
+import * as Render from "@effect/printer/Render"
+import * as String from "effect/String"
 
-const doc: Doc.Doc<never> = Doc.hcat([Doc.text('lorem ipsum'), Doc.hardLine, Doc.text('dolor sit amet')])
+const doc: Doc.Doc<never> = Doc.hcat([Doc.text("lorem ipsum"), Doc.hardLine, Doc.text("dolor sit amet")])
 
 // Even with enough space, a line break is introduced
 assert.strictEqual(
@@ -1777,11 +1777,11 @@ export declare const line: Doc<never>
 **Example**
 
 ```ts
-import * as Doc from '@effect/printer/Doc'
-import * as Render from '@effect/printer/Render'
-import * as String from 'effect/String'
+import * as Doc from "@effect/printer/Doc"
+import * as Render from "@effect/printer/Render"
+import * as String from "effect/String"
 
-const doc: Doc.Doc<never> = Doc.hcat([Doc.text('lorem ipsum'), Doc.line, Doc.text('dolor sit amet')])
+const doc: Doc.Doc<never> = Doc.hcat([Doc.text("lorem ipsum"), Doc.line, Doc.text("dolor sit amet")])
 
 assert.strictEqual(
   Render.prettyDefault(doc),
@@ -1790,7 +1790,7 @@ assert.strictEqual(
      |dolor sit amet`
   )
 )
-assert.strictEqual(Render.prettyDefault(Doc.group(doc)), 'lorem ipsum dolor sit amet')
+assert.strictEqual(Render.prettyDefault(Doc.group(doc)), "lorem ipsum dolor sit amet")
 ```
 
 Added in v1.0.0
@@ -1809,11 +1809,11 @@ export declare const lineBreak: Doc<never>
 **Example**
 
 ```ts
-import * as Doc from '@effect/printer/Doc'
-import * as Render from '@effect/printer/Render'
-import * as String from 'effect/String'
+import * as Doc from "@effect/printer/Doc"
+import * as Render from "@effect/printer/Render"
+import * as String from "effect/String"
 
-const doc: Doc.Doc<never> = Doc.hcat([Doc.text('lorem ipsum'), Doc.lineBreak, Doc.text('dolor sit amet')])
+const doc: Doc.Doc<never> = Doc.hcat([Doc.text("lorem ipsum"), Doc.lineBreak, Doc.text("dolor sit amet")])
 
 assert.strictEqual(
   Render.prettyDefault(doc),
@@ -1822,7 +1822,7 @@ assert.strictEqual(
      |dolor sit amet`
   )
 )
-assert.strictEqual(Render.prettyDefault(Doc.group(doc)), 'lorem ipsumdolor sit amet')
+assert.strictEqual(Render.prettyDefault(Doc.group(doc)), "lorem ipsumdolor sit amet")
 ```
 
 Added in v1.0.0
@@ -1925,14 +1925,14 @@ export declare const softLine: Doc<never>
 **Example**
 
 ```ts
-import * as Doc from '@effect/printer/Doc'
-import * as Render from '@effect/printer/Render'
-import * as String from 'effect/String'
+import * as Doc from "@effect/printer/Doc"
+import * as Render from "@effect/printer/Render"
+import * as String from "effect/String"
 
-const doc: Doc.Doc<never> = Doc.hcat([Doc.text('lorem ipsum'), Doc.softLine, Doc.text('dolor sit amet')])
+const doc: Doc.Doc<never> = Doc.hcat([Doc.text("lorem ipsum"), Doc.softLine, Doc.text("dolor sit amet")])
 
 // Here we have enough space to put everything onto one line
-assert.strictEqual(Render.pretty(doc, { lineWidth: 80 }), 'lorem ipsum dolor sit amet')
+assert.strictEqual(Render.pretty(doc, { lineWidth: 80 }), "lorem ipsum dolor sit amet")
 
 // If the page width is narrowed to `10`, the layout algorithm will
 // introduce a line break
@@ -1962,14 +1962,14 @@ export declare const softLineBreak: Doc<never>
 **Example**
 
 ```ts
-import * as Doc from '@effect/printer/Doc'
-import * as Render from '@effect/printer/Render'
-import * as String from 'effect/String'
+import * as Doc from "@effect/printer/Doc"
+import * as Render from "@effect/printer/Render"
+import * as String from "effect/String"
 
-const doc: Doc.Doc<never> = Doc.hcat([Doc.text('ThisText'), Doc.softLineBreak, Doc.text('IsWayTooLong')])
+const doc: Doc.Doc<never> = Doc.hcat([Doc.text("ThisText"), Doc.softLineBreak, Doc.text("IsWayTooLong")])
 
 // With enough space, we get direct concatenation of documents:
-assert.strictEqual(Render.pretty(doc, { lineWidth: 80 }), 'ThisTextIsWayTooLong')
+assert.strictEqual(Render.pretty(doc, { lineWidth: 80 }), "ThisTextIsWayTooLong")
 
 // If the page width is narrowed to `10`, the layout algorithm will
 // introduce a line break
@@ -2035,17 +2035,17 @@ export declare const column: <A>(react: (position: number) => Doc<A>) => Doc<A>
 **Example**
 
 ```ts
-import * as Doc from '@effect/printer/Doc'
-import * as Render from '@effect/printer/Render'
-import * as String from 'effect/String'
+import * as Doc from "@effect/printer/Doc"
+import * as Render from "@effect/printer/Render"
+import * as String from "effect/String"
 
 // Example 1:
-const example1 = Doc.column((l) => Doc.hsep([Doc.text('Columns are'), Doc.text(`${l}-based`)]))
+const example1 = Doc.column((l) => Doc.hsep([Doc.text("Columns are"), Doc.text(`${l}-based`)]))
 
-assert.strictEqual(Render.prettyDefault(example1), 'Columns are 0-based')
+assert.strictEqual(Render.prettyDefault(example1), "Columns are 0-based")
 
 // Example 2:
-const doc = Doc.hsep([Doc.text('prefix'), Doc.column((l) => Doc.text(`| <- column ${l}`))])
+const doc = Doc.hsep([Doc.text("prefix"), Doc.column((l) => Doc.text(`| <- column ${l}`))])
 
 const example2 = Doc.vsep([0, 4, 8].map((n) => Doc.indent(n)(doc)))
 
@@ -2075,11 +2075,11 @@ export declare const nesting: <A>(react: (level: number) => Doc<A>) => Doc<A>
 **Example**
 
 ```ts
-import * as Doc from '@effect/printer/Doc'
-import * as Render from '@effect/printer/Render'
-import * as String from 'effect/String'
+import * as Doc from "@effect/printer/Doc"
+import * as Render from "@effect/printer/Render"
+import * as String from "effect/String"
 
-const doc = Doc.hsep([Doc.text('prefix'), Doc.nesting((l) => Doc.squareBracketed(Doc.text(`Nested: ${l}`)))])
+const doc = Doc.hsep([Doc.text("prefix"), Doc.nesting((l) => Doc.squareBracketed(Doc.text(`Nested: ${l}`)))])
 
 const example = Doc.vsep([0, 4, 8].map((n) => Doc.indent(n)(doc)))
 
@@ -2112,10 +2112,10 @@ export declare const width: {
 **Example**
 
 ```ts
-import * as Doc from '@effect/printer/Doc'
-import * as Render from '@effect/printer/Render'
-import { pipe } from 'effect/Function'
-import * as String from 'effect/String'
+import * as Doc from "@effect/printer/Doc"
+import * as Render from "@effect/printer/Render"
+import { pipe } from "effect/Function"
+import * as String from "effect/String"
 
 const annotate = <A>(doc: Doc.Doc<A>): Doc.Doc<A> =>
   pipe(
@@ -2124,10 +2124,10 @@ const annotate = <A>(doc: Doc.Doc<A>): Doc.Doc<A> =>
   )
 
 const docs = [
-  Doc.text('---'),
-  Doc.text('------'),
-  Doc.indent(Doc.text('---'), 3),
-  Doc.vsep([Doc.text('---'), Doc.indent(Doc.text('---'), 4)]),
+  Doc.text("---"),
+  Doc.text("------"),
+  Doc.indent(Doc.text("---"), 3),
+  Doc.vsep([Doc.text("---"), Doc.indent(Doc.text("---"), 4)])
 ]
 
 const doc = Doc.align(Doc.vsep(docs.map(annotate)))
@@ -2353,16 +2353,16 @@ export declare const hsep: <A>(docs: Iterable<Doc<A>>) => Doc<A>
 **Example**
 
 ```ts
-import * as Doc from '@effect/printer/Doc'
-import * as Render from '@effect/printer/Render'
+import * as Doc from "@effect/printer/Doc"
+import * as Render from "@effect/printer/Render"
 
-const doc: Doc.Doc<never> = Doc.hsep(Doc.words('lorem ipsum dolor sit amet'))
+const doc: Doc.Doc<never> = Doc.hsep(Doc.words("lorem ipsum dolor sit amet"))
 
-assert.strictEqual(Render.pretty(doc, { lineWidth: 80 }), 'lorem ipsum dolor sit amet')
+assert.strictEqual(Render.pretty(doc, { lineWidth: 80 }), "lorem ipsum dolor sit amet")
 
 // The `hsep` combinator will not introduce line breaks on its own, even when
 // the page is too narrow
-assert.strictEqual(Render.pretty(doc, { lineWidth: 5 }), 'lorem ipsum dolor sit amet')
+assert.strictEqual(Render.pretty(doc, { lineWidth: 5 }), "lorem ipsum dolor sit amet")
 ```
 
 Added in v1.0.0
@@ -2383,13 +2383,13 @@ export declare const seps: <A>(docs: Iterable<Doc<A>>) => Doc<A>
 **Example**
 
 ```ts
-import * as Doc from '@effect/printer/Doc'
-import * as Render from '@effect/printer/Render'
-import * as String from 'effect/String'
+import * as Doc from "@effect/printer/Doc"
+import * as Render from "@effect/printer/Render"
+import * as String from "effect/String"
 
-const doc: Doc.Doc<never> = Doc.hsep([Doc.text('prefix'), Doc.seps(Doc.words('text to lay out'))])
+const doc: Doc.Doc<never> = Doc.hsep([Doc.text("prefix"), Doc.seps(Doc.words("text to lay out"))])
 
-assert.strictEqual(Render.prettyDefault(doc), 'prefix text to lay out')
+assert.strictEqual(Render.prettyDefault(doc), "prefix text to lay out")
 
 // If the page width is too narrow, documents are separated by newlines
 assert.strictEqual(
@@ -2424,11 +2424,11 @@ export declare const vsep: <A>(docs: Iterable<Doc<A>>) => Doc<A>
 **Example**
 
 ```ts
-import * as Doc from '@effect/printer/Doc'
-import * as Render from '@effect/printer/Render'
-import * as String from 'effect/String'
+import * as Doc from "@effect/printer/Doc"
+import * as Render from "@effect/printer/Render"
+import * as String from "effect/String"
 
-const unaligned = Doc.hsep([Doc.text('prefix'), Doc.vsep(Doc.words('text to lay out'))])
+const unaligned = Doc.hsep([Doc.text("prefix"), Doc.vsep(Doc.words("text to lay out"))])
 
 assert.strictEqual(
   Render.prettyDefault(unaligned),
@@ -2442,7 +2442,7 @@ assert.strictEqual(
 
 // The `align` function can be used to align the documents under their first
 // element
-const aligned = Doc.hsep([Doc.text('prefix'), Doc.align(Doc.vsep(Doc.words('text to lay out')))])
+const aligned = Doc.hsep([Doc.text("prefix"), Doc.align(Doc.vsep(Doc.words("text to lay out")))])
 
 assert.strictEqual(
   Render.prettyDefault(aligned),
@@ -2548,14 +2548,14 @@ export declare const punctuate: {
 **Example**
 
 ```ts
-import * as Doc from '@effect/printer/Doc'
-import * as Render from '@effect/printer/Render'
-import { pipe } from 'effect/Function'
-import * as String from 'effect/String'
+import * as Doc from "@effect/printer/Doc"
+import * as Render from "@effect/printer/Render"
+import { pipe } from "effect/Function"
+import * as String from "effect/String"
 
-const docs = pipe(Doc.words('lorem ipsum dolor sit amet'), Doc.punctuate(Doc.comma))
+const docs = pipe(Doc.words("lorem ipsum dolor sit amet"), Doc.punctuate(Doc.comma))
 
-assert.strictEqual(Render.prettyDefault(Doc.hsep(docs)), 'lorem, ipsum, dolor, sit, amet')
+assert.strictEqual(Render.prettyDefault(Doc.hsep(docs)), "lorem, ipsum, dolor, sit, amet")
 
 // The separators are put at the end of the entries, which can be better
 // visualzied if the documents are rendered vertically
@@ -2589,13 +2589,13 @@ export declare const reflow: (s: string, char?: string) => Doc<never>
 **Example**
 
 ```ts
-import * as Doc from '@effect/printer/Doc'
-import * as Render from '@effect/printer/Render'
-import * as String from 'effect/String'
+import * as Doc from "@effect/printer/Doc"
+import * as Render from "@effect/printer/Render"
+import * as String from "effect/String"
 
 const doc = Doc.reflow(
-  'Lorem ipsum dolor sit amet, consectetur adipisicing elit, ' +
-    'sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+  "Lorem ipsum dolor sit amet, consectetur adipisicing elit, " +
+    "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
 )
 
 assert.strictEqual(
@@ -2638,8 +2638,8 @@ export declare const spaces: (n: number) => Doc<never>
 **Example**
 
 ```ts
-import * as Doc from '@effect/printer/Doc'
-import * as Render from '@effect/printer/Render'
+import * as Doc from "@effect/printer/Doc"
+import * as Render from "@effect/printer/Render"
 
 const doc = Doc.squareBracketed(Doc.doubleQuoted(Doc.spaces(5)))
 
@@ -2677,13 +2677,13 @@ export declare const surround: {
 **Example**
 
 ```ts
-import * as Doc from '@effect/printer/Doc'
-import * as Render from '@effect/printer/Render'
-import { pipe } from 'effect/Function'
+import * as Doc from "@effect/printer/Doc"
+import * as Render from "@effect/printer/Render"
+import { pipe } from "effect/Function"
 
-const doc = pipe(Doc.char('-'), Doc.surround(Doc.char('A'), Doc.char('Z')))
+const doc = pipe(Doc.char("-"), Doc.surround(Doc.char("A"), Doc.char("Z")))
 
-assert.strictEqual(Render.prettyDefault(doc), 'A-Z')
+assert.strictEqual(Render.prettyDefault(doc), "A-Z")
 ```
 
 Added in v1.0.0
@@ -2712,12 +2712,12 @@ export declare const words: (s: string, char?: string) => ReadonlyArray<Doc<neve
 **Example**
 
 ```ts
-import * as Doc from '@effect/printer/Doc'
-import * as Render from '@effect/printer/Render'
+import * as Doc from "@effect/printer/Doc"
+import * as Render from "@effect/printer/Render"
 
-const doc = Doc.tupled(Doc.words('lorem ipsum dolor'))
+const doc = Doc.tupled(Doc.words("lorem ipsum dolor"))
 
-assert.strictEqual(Render.prettyDefault(doc), '(lorem, ipsum, dolor)')
+assert.strictEqual(Render.prettyDefault(doc), "(lorem, ipsum, dolor)")
 ```
 
 Added in v1.0.0

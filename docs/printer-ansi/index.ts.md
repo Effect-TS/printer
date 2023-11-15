@@ -13,85 +13,85 @@ Added in v1.0.0
 <h2 class="text-delta">Table of contents</h2>
 
 - [exports](#exports)
-  - [From "@effect/printer-ansi/AnsiDoc"](#from-effectprinter-ansiansidoc)
-  - [From "@effect/printer-ansi/AnsiRender"](#from-effectprinter-ansiansirender)
-  - [From "@effect/printer-ansi/AnsiStyle"](#from-effectprinter-ansiansistyle)
-  - [From "@effect/printer-ansi/Color"](#from-effectprinter-ansicolor)
-  - [From "@effect/printer-ansi/RenderLayer"](#from-effectprinter-ansirenderlayer)
-  - [From "@effect/printer-ansi/SGR"](#from-effectprinter-ansisgr)
+  - [From "./AnsiDoc.js"](#from-ansidocjs)
+  - [From "./AnsiRender.js"](#from-ansirenderjs)
+  - [From "./AnsiStyle.js"](#from-ansistylejs)
+  - [From "./Color.js"](#from-colorjs)
+  - [From "./RenderLayer.js"](#from-renderlayerjs)
+  - [From "./SGR.js"](#from-sgrjs)
 
 ---
 
 # exports
 
-## From "@effect/printer-ansi/AnsiDoc"
+## From "./AnsiDoc.js"
 
-Re-exports all named exports from the "@effect/printer-ansi/AnsiDoc" module as `AnsiDoc`.
+Re-exports all named exports from the "./AnsiDoc.js" module as `AnsiDoc`.
 
 **Signature**
 
 ```ts
-export * as AnsiDoc from '@effect/printer-ansi/AnsiDoc'
+export * as AnsiDoc from "./AnsiDoc.js"
 ```
 
 Added in v1.0.0
 
-## From "@effect/printer-ansi/AnsiRender"
+## From "./AnsiRender.js"
 
-Re-exports all named exports from the "@effect/printer-ansi/AnsiRender" module as `AnsiRender`.
+Re-exports all named exports from the "./AnsiRender.js" module as `AnsiRender`.
 
 **Signature**
 
 ```ts
-export * as AnsiRender from '@effect/printer-ansi/AnsiRender'
+export * as AnsiRender from "./AnsiRender.js"
 ```
 
 Added in v1.0.0
 
-## From "@effect/printer-ansi/AnsiStyle"
+## From "./AnsiStyle.js"
 
-Re-exports all named exports from the "@effect/printer-ansi/AnsiStyle" module as `AnsiStyle`.
+Re-exports all named exports from the "./AnsiStyle.js" module as `AnsiStyle`.
 
 **Signature**
 
 ```ts
-export * as AnsiStyle from '@effect/printer-ansi/AnsiStyle'
+export * as AnsiStyle from "./AnsiStyle.js"
 ```
 
 Added in v1.0.0
 
-## From "@effect/printer-ansi/Color"
+## From "./Color.js"
 
-Re-exports all named exports from the "@effect/printer-ansi/Color" module as `Color`.
+Re-exports all named exports from the "./Color.js" module as `Color`.
 
 **Signature**
 
 ```ts
-export * as Color from '@effect/printer-ansi/Color'
+export * as Color from "./Color.js"
 ```
 
 Added in v1.0.0
 
-## From "@effect/printer-ansi/RenderLayer"
+## From "./RenderLayer.js"
 
-Re-exports all named exports from the "@effect/printer-ansi/RenderLayer" module as `RenderLayer`.
+Re-exports all named exports from the "./RenderLayer.js" module as `RenderLayer`.
 
 **Signature**
 
 ```ts
-export * as RenderLayer from '@effect/printer-ansi/RenderLayer'
+export * as RenderLayer from "./RenderLayer.js"
 ```
 
 Added in v1.0.0
 
-## From "@effect/printer-ansi/SGR"
+## From "./SGR.js"
 
-Re-exports all named exports from the "@effect/printer-ansi/SGR" module as `SGR`.
+Re-exports all named exports from the "./SGR.js" module as `SGR`.
 
 **Signature**
 
 ```ts
-export * as SGR from '@effect/printer-ansi/SGR'
+export * as SGR from "./SGR.js"
 ```
 
 Added in v1.0.0

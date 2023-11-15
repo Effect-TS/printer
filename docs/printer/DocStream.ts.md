@@ -284,7 +284,7 @@ Represents a `Doc` containing a single character.
 
 ```ts
 export interface CharStream<A> extends DocStream.Variance<A> {
-  readonly _tag: 'CharStream'
+  readonly _tag: "CharStream"
   readonly char: string
   readonly stream: DocStream<A>
 }
@@ -324,7 +324,7 @@ Added in v1.0.0
 
 ```ts
 export interface DocStreamTypeLambda extends TypeLambda {
-  readonly type: DocStream<this['Target']>
+  readonly type: DocStream<this["Target"]>
 }
 ```
 
@@ -338,7 +338,7 @@ Represents the an empty `Doc`.
 
 ```ts
 export interface EmptyStream<A> extends DocStream.Variance<A> {
-  readonly _tag: 'EmptyStream'
+  readonly _tag: "EmptyStream"
 }
 ```
 
@@ -352,7 +352,7 @@ Represents a `Doc` that failed to be laid out.
 
 ```ts
 export interface FailedStream<A> extends DocStream.Variance<A> {
-  readonly _tag: 'FailedStream'
+  readonly _tag: "FailedStream"
 }
 ```
 
@@ -368,7 +368,7 @@ represents the indentation level for the subsequent line in the
 
 ```ts
 export interface LineStream<A> extends DocStream.Variance<A> {
-  readonly _tag: 'LineStream'
+  readonly _tag: "LineStream"
   readonly indentation: number
   readonly stream: DocStream<A>
 }
@@ -384,7 +384,7 @@ Represents the removal of a previously pushed annotation from a `Doc`.
 
 ```ts
 export interface PopAnnotationStream<A> extends DocStream.Variance<A> {
-  readonly _tag: 'PopAnnotationStream'
+  readonly _tag: "PopAnnotationStream"
   readonly stream: DocStream<A>
 }
 ```
@@ -399,7 +399,7 @@ Represents the addition of an annotation of type `A` to a `Doc`.
 
 ```ts
 export interface PushAnnotationStream<A> extends DocStream.Variance<A> {
-  readonly _tag: 'PushAnnotationStream'
+  readonly _tag: "PushAnnotationStream"
   readonly annotation: A
   readonly stream: DocStream<A>
 }
@@ -415,7 +415,7 @@ Represents a `Doc` containing a string of text.
 
 ```ts
 export interface TextStream<A> extends DocStream.Variance<A> {
-  readonly _tag: 'TextStream'
+  readonly _tag: "TextStream"
   readonly text: string
   readonly stream: DocStream<A>
 }

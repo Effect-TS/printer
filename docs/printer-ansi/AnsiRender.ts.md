@@ -31,7 +31,7 @@ Added in v1.0.0
 **Signature**
 
 ```ts
-export declare const compact: (self: Doc<AnsiStyle>) => string
+export declare const compact: (self: AnsiDoc) => string
 ```
 
 Added in v1.0.0
@@ -42,8 +42,8 @@ Added in v1.0.0
 
 ```ts
 export declare const pretty: {
-  (options: Partial<Omit<AvailablePerLine, '_tag'>>): (self: Doc<AnsiStyle>) => string
-  (self: Doc<AnsiStyle>, options: Partial<Omit<AvailablePerLine, '_tag'>>): string
+  (options: Partial<Omit<AvailablePerLine, "_tag">>): (self: Doc<AnsiStyle>) => string
+  (self: Doc<AnsiStyle>, options: Partial<Omit<AvailablePerLine, "_tag">>): string
 }
 ```
 
@@ -54,7 +54,7 @@ Added in v1.0.0
 **Signature**
 
 ```ts
-export declare const prettyDefault: (self: Doc<AnsiStyle>) => string
+export declare const prettyDefault: (self: AnsiDoc) => string
 ```
 
 Added in v1.0.0
@@ -64,7 +64,7 @@ Added in v1.0.0
 **Signature**
 
 ```ts
-export declare const prettyUnbounded: (self: Doc<AnsiStyle>) => string
+export declare const prettyUnbounded: (self: AnsiDoc) => string
 ```
 
 Added in v1.0.0
@@ -85,8 +85,8 @@ Added in v1.0.0
 
 ```ts
 export declare const smart: {
-  (options: Partial<Omit<AvailablePerLine, '_tag'>>): (self: Doc<AnsiStyle>) => string
-  (self: Doc<AnsiStyle>, options: Partial<Omit<AvailablePerLine, '_tag'>>): string
+  (options: Partial<Omit<AvailablePerLine, "_tag">>): (self: Doc<AnsiStyle>) => string
+  (self: Doc<AnsiStyle>, options: Partial<Omit<AvailablePerLine, "_tag">>): string
 }
 ```
 
@@ -97,7 +97,7 @@ Added in v1.0.0
 **Signature**
 
 ```ts
-export declare const smartDefault: (self: Doc<AnsiStyle>) => string
+export declare const smartDefault: (self: AnsiDoc) => string
 ```
 
 Added in v1.0.0

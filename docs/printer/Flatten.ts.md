@@ -96,7 +96,7 @@ Represents a `FlattenResult` where the input was already flat.
 
 ```ts
 export interface AlreadyFlat<A> extends Flatten.Variance<A> {
-  readonly _tag: 'AlreadyFlat'
+  readonly _tag: "AlreadyFlat"
 }
 ```
 
@@ -124,7 +124,7 @@ Added in v1.0.0
 
 ```ts
 export interface FlattenTypeLambda extends TypeLambda {
-  readonly type: Flatten<this['Target']>
+  readonly type: Flatten<this["Target"]>
 }
 ```
 
@@ -138,7 +138,7 @@ Represents a `FlattenResult` where `A` is likely flatter than the input.
 
 ```ts
 export interface Flattened<A> extends Flatten.Variance<A> {
-  readonly _tag: 'Flattened'
+  readonly _tag: "Flattened"
   readonly value: A
 }
 ```
@@ -153,7 +153,7 @@ Represents a `FlattenResult` where the input cannot be flattened.
 
 ```ts
 export interface NeverFlat<A> extends Flatten.Variance<A> {
-  readonly _tag: 'NeverFlat'
+  readonly _tag: "NeverFlat"
 }
 ```
 

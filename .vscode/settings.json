@@ -45,24 +45,4 @@
     "**/target": true
   },
   "files.insertFinalNewline": true,
-  "files.exclude": {
-    "packages/printer-ansi/dist": true,
-    "packages/printer-ansi/internal": true,
-    "packages/printer-ansi/AnsiDoc": true,
-    "packages/printer-ansi/AnsiRender": true,
-    "packages/printer-ansi/AnsiStyle": true,
-    "packages/printer-ansi/Color": true,
-    "packages/printer-ansi/RenderLayer": true,
-    "packages/printer-ansi/SGR": true,
-    "packages/printer/dist": true,
-    "packages/printer/internal": true,
-    "packages/printer/Doc": true,
-    "packages/printer/DocStream": true,
-    "packages/printer/DocTree": true,
-    "packages/printer/Flatten": true,
-    "packages/printer/Layout": true,
-    "packages/printer/Optimize": true,
-    "packages/printer/PageWidth": true,
-    "packages/printer/Render": true
-  }
 }

@@ -254,7 +254,7 @@ Added in v1.0.0
 
 ```ts
 export interface AnnotationTree<A> extends DocTree.Variance<A> {
-  readonly _tag: 'AnnotationTree'
+  readonly _tag: "AnnotationTree"
   readonly annotation: A
   readonly tree: DocTree<A>
 }
@@ -268,7 +268,7 @@ Added in v1.0.0
 
 ```ts
 export interface CharTree<A> extends DocTree.Variance<A> {
-  readonly _tag: 'CharTree'
+  readonly _tag: "CharTree"
   readonly char: string
 }
 ```
@@ -281,7 +281,7 @@ Added in v1.0.0
 
 ```ts
 export interface ConcatTree<A> extends DocTree.Variance<A> {
-  readonly _tag: 'ConcatTree'
+  readonly _tag: "ConcatTree"
   readonly trees: ReadonlyArray<DocTree<A>>
 }
 ```
@@ -315,7 +315,7 @@ Added in v1.0.0
 
 ```ts
 export interface DocTreeTypeLambda extends TypeLambda {
-  readonly type: DocTree<this['Target']>
+  readonly type: DocTree<this["Target"]>
 }
 ```
 
@@ -327,7 +327,7 @@ Added in v1.0.0
 
 ```ts
 export interface EmptyTree<A> extends DocTree.Variance<A> {
-  readonly _tag: 'EmptyTree'
+  readonly _tag: "EmptyTree"
 }
 ```
 
@@ -339,7 +339,7 @@ Added in v1.0.0
 
 ```ts
 export interface LineTree<A> extends DocTree.Variance<A> {
-  readonly _tag: 'LineTree'
+  readonly _tag: "LineTree"
   readonly indentation: number
 }
 ```
@@ -352,7 +352,7 @@ Added in v1.0.0
 
 ```ts
 export interface TextTree<A> extends DocTree.Variance<A> {
-  readonly _tag: 'TextTree'
+  readonly _tag: "TextTree"
   readonly text: string
 }
 ```
@@ -458,9 +458,11 @@ to surround annotated regions with »>>>« and »<<<«.
 
 ```ts
 export declare const renderSimplyDecorated: {
-  <A, M>(M: monoid.Monoid<M>, renderText: (text: string) => M, renderAnnotation: (annotation: A, out: M) => M): (
-    self: DocTree<A>
-  ) => M
+  <A, M>(
+    M: monoid.Monoid<M>,
+    renderText: (text: string) => M,
+    renderAnnotation: (annotation: A, out: M) => M
+  ): (self: DocTree<A>) => M
   <A, M>(
     self: DocTree<A>,
     M: monoid.Monoid<M>,
@@ -473,15 +475,15 @@ export declare const renderSimplyDecorated: {
 **Example**
 
 ```ts
-import * as Doc from '@effect/printer/Doc'
-import * as DocTree from '@effect/printer/DocTree'
-import * as Layout from '@effect/printer/Layout'
-import { identity, pipe } from 'effect/Function'
-import * as String from '@effect/typeclass/data/String'
+import * as Doc from "@effect/printer/Doc"
+import * as DocTree from "@effect/printer/DocTree"
+import * as Layout from "@effect/printer/Layout"
+import { identity, pipe } from "effect/Function"
+import * as String from "@effect/typeclass/data/String"
 
 const doc: Doc.Doc<void> = Doc.hsep([
-  Doc.text('hello'),
-  pipe(Doc.text('world'), Doc.annotate(undefined), Doc.cat(Doc.char('!'))),
+  Doc.text("hello"),
+  pipe(Doc.text("world"), Doc.annotate(undefined), Doc.cat(Doc.char("!")))
 ])
 
 const tree = DocTree.treeForm(Layout.pretty(Layout.defaultOptions)(doc))
@@ -491,7 +493,7 @@ const rendered = pipe(
   DocTree.renderSimplyDecorated(String.Monoid, identity, (_, x) => `>>>${x}<<<`)
 )
 
-assert.strictEqual(rendered, 'hello >>>world<<<!')
+assert.strictEqual(rendered, "hello >>>world<<<!")
 ```
 
 Added in v1.0.0

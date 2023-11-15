@@ -78,7 +78,7 @@ exceeding the specified space per line.
 
 ```ts
 export interface AvailablePerLine extends PageWidth.Proto {
-  readonly _tag: 'AvailablePerLine'
+  readonly _tag: "AvailablePerLine"
   /**
    * The number of characters, including whitespace, that can fit on a single
    * line.
@@ -118,7 +118,7 @@ introducing line breaks into a document.
 
 ```ts
 export interface Unbounded extends PageWidth.Proto {
-  readonly _tag: 'Unbounded'
+  readonly _tag: "Unbounded"
 }
 ```
 
