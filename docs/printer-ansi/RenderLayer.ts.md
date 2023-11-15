@@ -52,7 +52,7 @@ Added in v1.0.0
 
 ```ts
 export interface Background {
-  readonly _tag: 'Background'
+  readonly _tag: "Background"
 }
 ```
 
@@ -64,7 +64,7 @@ Added in v1.0.0
 
 ```ts
 export interface Foreground {
-  readonly _tag: 'Foreground'
+  readonly _tag: "Foreground"
 }
 ```
 

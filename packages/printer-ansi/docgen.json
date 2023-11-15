@@ -1,28 +1,21 @@
 {
   "exclude": ["src/internal/**/*.ts"],
-  "theme": "mikearnaldi/just-the-docs",
   "parseCompilerOptions": {
     "strict": true,
-    "noEmit": true,
-    "target": "ES2021",
-    "lib": ["ES2021"],
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM"],
     "paths": {
-      "@effect/printer-ansi": ["./src/index.ts"],
-      "@effect/printer-ansi/test/*": ["./test/*"],
-      "@effect/printer-ansi/examples/*": ["./examples/*"],
-      "@effect/printer-ansi/*": ["./src/*"]
+      "@effect/printer": ["../printer/src/index.js"],
+      "@effect/printer/*": ["../printer/src/*.js"]
     }
   },
   "examplesCompilerOptions": {
     "strict": true,
-    "noEmit": true,
-    "target": "ES2021",
-    "lib": ["ES2021"],
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM"],
     "paths": {
-      "@effect/printer-ansi": ["../../src/index.ts"],
-      "@effect/printer-ansi/test/*": ["../../test/*"],
-      "@effect/printer-ansi/examples/*": ["../../examples/*"],
-      "@effect/printer-ansi/*": ["../../src/*"]
+      "@effect/printer": ["../printer/src/index.js"],
+      "@effect/printer/*": ["../printer/src/*.js"]
     }
   }
 }

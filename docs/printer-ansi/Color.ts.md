@@ -138,7 +138,7 @@ Added in v1.0.0
 
 ```ts
 export interface Black {
-  readonly _tag: 'Black'
+  readonly _tag: "Black"
 }
 ```
 
@@ -150,7 +150,7 @@ Added in v1.0.0
 
 ```ts
 export interface Blue {
-  readonly _tag: 'Blue'
+  readonly _tag: "Blue"
 }
 ```
 
@@ -172,7 +172,7 @@ Added in v1.0.0
 
 ```ts
 export interface Cyan {
-  readonly _tag: 'Cyan'
+  readonly _tag: "Cyan"
 }
 ```
 
@@ -184,7 +184,7 @@ Added in v1.0.0
 
 ```ts
 export interface Green {
-  readonly _tag: 'Green'
+  readonly _tag: "Green"
 }
 ```
 
@@ -196,7 +196,7 @@ Added in v1.0.0
 
 ```ts
 export interface Magenta {
-  readonly _tag: 'Magenta'
+  readonly _tag: "Magenta"
 }
 ```
 
@@ -208,7 +208,7 @@ Added in v1.0.0
 
 ```ts
 export interface Red {
-  readonly _tag: 'Red'
+  readonly _tag: "Red"
 }
 ```
 
@@ -220,7 +220,7 @@ Added in v1.0.0
 
 ```ts
 export interface White {
-  readonly _tag: 'White'
+  readonly _tag: "White"
 }
 ```
 
@@ -232,7 +232,7 @@ Added in v1.0.0
 
 ```ts
 export interface Yellow {
-  readonly _tag: 'Yellow'
+  readonly _tag: "Yellow"
 }
 ```
 

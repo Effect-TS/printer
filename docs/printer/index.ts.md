@@ -29,20 +29,20 @@ Added in v1.0.0
 <h2 class="text-delta">Table of contents</h2>
 
 - [exports](#exports)
-  - [From "@effect/printer/Doc"](#from-effectprinterdoc)
-  - [From "@effect/printer/DocStream"](#from-effectprinterdocstream)
-  - [From "@effect/printer/DocTree"](#from-effectprinterdoctree)
-  - [From "@effect/printer/Flatten"](#from-effectprinterflatten)
-  - [From "@effect/printer/Layout"](#from-effectprinterlayout)
-  - [From "@effect/printer/Optimize"](#from-effectprinteroptimize)
-  - [From "@effect/printer/PageWidth"](#from-effectprinterpagewidth)
-  - [From "@effect/printer/Render"](#from-effectprinterrender)
+  - [From "./Doc.js"](#from-docjs)
+  - [From "./DocStream.js"](#from-docstreamjs)
+  - [From "./DocTree.js"](#from-doctreejs)
+  - [From "./Flatten.js"](#from-flattenjs)
+  - [From "./Layout.js"](#from-layoutjs)
+  - [From "./Optimize.js"](#from-optimizejs)
+  - [From "./PageWidth.js"](#from-pagewidthjs)
+  - [From "./Render.js"](#from-renderjs)
 
 ---
 
 # exports
 
-## From "@effect/printer/Doc"
+## From "./Doc.js"
 
 The abstract data type `Doc<A>` represents prettified documents that have
 been annotated with data of type `A`.
@@ -63,91 +63,91 @@ documents differently by providing information such as:
 **Signature**
 
 ```ts
-export * as Doc from '@effect/printer/Doc'
+export * as Doc from "./Doc.js"
 ```
 
 Added in v1.0.0
 
-## From "@effect/printer/DocStream"
+## From "./DocStream.js"
 
-Re-exports all named exports from the "@effect/printer/DocStream" module as `DocStream`.
+Re-exports all named exports from the "./DocStream.js" module as `DocStream`.
 
 **Signature**
 
 ```ts
-export * as DocStream from '@effect/printer/DocStream'
+export * as DocStream from "./DocStream.js"
 ```
 
 Added in v1.0.0
 
-## From "@effect/printer/DocTree"
+## From "./DocTree.js"
 
-Re-exports all named exports from the "@effect/printer/DocTree" module as `DocTree`.
+Re-exports all named exports from the "./DocTree.js" module as `DocTree`.
 
 **Signature**
 
 ```ts
-export * as DocTree from '@effect/printer/DocTree'
+export * as DocTree from "./DocTree.js"
 ```
 
 Added in v1.0.0
 
-## From "@effect/printer/Flatten"
+## From "./Flatten.js"
 
-Re-exports all named exports from the "@effect/printer/Flatten" module as `Flatten`.
+Re-exports all named exports from the "./Flatten.js" module as `Flatten`.
 
 **Signature**
 
 ```ts
-export * as Flatten from '@effect/printer/Flatten'
+export * as Flatten from "./Flatten.js"
 ```
 
 Added in v1.0.0
 
-## From "@effect/printer/Layout"
+## From "./Layout.js"
 
-Re-exports all named exports from the "@effect/printer/Layout" module as `Layout`.
+Re-exports all named exports from the "./Layout.js" module as `Layout`.
 
 **Signature**
 
 ```ts
-export * as Layout from '@effect/printer/Layout'
+export * as Layout from "./Layout.js"
 ```
 
 Added in v1.0.0
 
-## From "@effect/printer/Optimize"
+## From "./Optimize.js"
 
-Re-exports all named exports from the "@effect/printer/Optimize" module as `Optimize`.
+Re-exports all named exports from the "./Optimize.js" module as `Optimize`.
 
 **Signature**
 
 ```ts
-export * as Optimize from '@effect/printer/Optimize'
+export * as Optimize from "./Optimize.js"
 ```
 
 Added in v1.0.0
 
-## From "@effect/printer/PageWidth"
+## From "./PageWidth.js"
 
-Re-exports all named exports from the "@effect/printer/PageWidth" module as `PageWidth`.
+Re-exports all named exports from the "./PageWidth.js" module as `PageWidth`.
 
 **Signature**
 
 ```ts
-export * as PageWidth from '@effect/printer/PageWidth'
+export * as PageWidth from "./PageWidth.js"
 ```
 
 Added in v1.0.0
 
-## From "@effect/printer/Render"
+## From "./Render.js"
 
-Re-exports all named exports from the "@effect/printer/Render" module as `Render`.
+Re-exports all named exports from the "./Render.js" module as `Render`.
 
 **Signature**
 
 ```ts
-export * as Render from '@effect/printer/Render'
+export * as Render from "./Render.js"
 ```
 
 Added in v1.0.0

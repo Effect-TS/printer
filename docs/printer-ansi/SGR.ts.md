@@ -113,7 +113,7 @@ Added in v1.0.0
 
 ```ts
 export interface Reset {
-  readonly _tag: 'Reset'
+  readonly _tag: "Reset"
 }
 ```
 
@@ -135,7 +135,7 @@ Added in v1.0.0
 
 ```ts
 export interface SetBold {
-  readonly _tag: 'SetBold'
+  readonly _tag: "SetBold"
   readonly bold: boolean
 }
 ```
@@ -148,7 +148,7 @@ Added in v1.0.0
 
 ```ts
 export interface SetColor {
-  readonly _tag: 'SetColor'
+  readonly _tag: "SetColor"
   readonly color: Color
   readonly vivid: boolean
   readonly layer: RenderLayer
@@ -163,7 +163,7 @@ Added in v1.0.0
 
 ```ts
 export interface SetItalicized {
-  readonly _tag: 'SetItalicized'
+  readonly _tag: "SetItalicized"
   readonly italicized: boolean
 }
 ```
@@ -176,7 +176,7 @@ Added in v1.0.0
 
 ```ts
 export interface SetUnderlined {
-  readonly _tag: 'SetUnderlined'
+  readonly _tag: "SetUnderlined"
   readonly underlined: boolean
 }
 ```

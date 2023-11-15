@@ -69,7 +69,7 @@ This value should only be utilized if profiling demonstrates that it is
 
 ```ts
 export interface Deep {
-  readonly _tag: 'Deep'
+  readonly _tag: "Deep"
 }
 ```
 
@@ -112,7 +112,7 @@ documents, fusing mostly concatenations of text nodes together.
 
 ```ts
 export interface Shallow {
-  readonly _tag: 'Shallow'
+  readonly _tag: "Shallow"
 }
 ```
 
@@ -145,16 +145,16 @@ export declare const optimize: {
 **Example**
 
 ```ts
-import * as Doc from '@effect/printer/Doc'
-import * as Optimize from '@effect/printer/Optimize'
+import * as Doc from "@effect/printer/Doc"
+import * as Optimize from "@effect/printer/Optimize"
 
 // The document below contains a chain of four entries in the output `DocStream`
-const inefficient = Doc.hsep([Doc.char('a'), Doc.char('b'), Doc.char('c'), Doc.char('d')])
+const inefficient = Doc.hsep([Doc.char("a"), Doc.char("b"), Doc.char("c"), Doc.char("d")])
 
 // However, the above document is fully equivalent to the tightly packed
 // document below which is only a single entry in the output `DocStream` and
 // can be processed much more efficiently.
-const efficient = Doc.text('abcd')
+const efficient = Doc.text("abcd")
 
 // We can optimize the `inefficient` document using `Optimize`
 Optimize.optimize(Optimize.Deep)(inefficient)

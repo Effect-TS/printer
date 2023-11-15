@@ -75,13 +75,13 @@ export declare const compact: <A>(self: Doc<A>) => DocStream<A>
 **Example**
 
 ```ts
-import * as Doc from '@effect/printer/Doc'
-import * as Render from '@effect/printer/Render'
-import { pipe } from 'effect/Function'
-import * as String from 'effect/String'
+import * as Doc from "@effect/printer/Doc"
+import * as Render from "@effect/printer/Render"
+import { pipe } from "effect/Function"
+import * as String from "effect/String"
 
 const doc = pipe(
-  Doc.vsep([Doc.text('lorem'), Doc.text('ipsum'), pipe(Doc.vsep([Doc.text('dolor'), Doc.text('sit')]), Doc.hang(4))]),
+  Doc.vsep([Doc.text("lorem"), Doc.text("ipsum"), pipe(Doc.vsep([Doc.text("dolor"), Doc.text("sit")]), Doc.hang(4))]),
   Doc.hang(4)
 )
 
@@ -150,27 +150,27 @@ export declare const smart: {
 **Example**
 
 ```ts
-import * as Doc from '@effect/printer/Doc'
-import type * as DocStream from '@effect/printer/DocStream'
-import * as Layout from '@effect/printer/Layout'
-import * as PageWidth from '@effect/printer/PageWidth'
-import * as Render from '@effect/printer/Render'
-import { pipe } from 'effect/Function'
-import * as String from 'effect/String'
+import * as Doc from "@effect/printer/Doc"
+import type * as DocStream from "@effect/printer/DocStream"
+import * as Layout from "@effect/printer/Layout"
+import * as PageWidth from "@effect/printer/PageWidth"
+import * as Render from "@effect/printer/Render"
+import { pipe } from "effect/Function"
+import * as String from "effect/String"
 
 // Consider the following python-ish document:
 const fun = <A>(doc: Doc.Doc<A>): Doc.Doc<A> =>
-  Doc.hcat([pipe(Doc.hcat([Doc.text('fun('), Doc.softLineBreak, doc]), Doc.hang(2)), Doc.text(')')])
+  Doc.hcat([pipe(Doc.hcat([Doc.text("fun("), Doc.softLineBreak, doc]), Doc.hang(2)), Doc.text(")")])
 
 const funs = <A>(doc: Doc.Doc<A>): Doc.Doc<A> => pipe(doc, fun, fun, fun, fun, fun)
 
-const doc = funs(Doc.align(Doc.list(Doc.words('abcdef ghijklm'))))
+const doc = funs(Doc.align(Doc.list(Doc.words("abcdef ghijklm"))))
 
 // The document will be rendered using the following pipeline, where the choice
 // of layout algorithm has been left open:
 const pageWidth = PageWidth.availablePerLine(26, 1)
 const layoutOptions = Layout.options(pageWidth)
-const dashes = Doc.text(Array.from({ length: 26 - 2 }, () => '-').join(''))
+const dashes = Doc.text(Array.from({ length: 26 - 2 }, () => "-").join(""))
 const hr = Doc.hcat([Doc.vbar, dashes, Doc.vbar])
 
 const render =
