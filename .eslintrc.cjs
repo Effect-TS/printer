@@ -66,7 +66,7 @@ module.exports = {
       {
         config: {
           "indentWidth": 2,
-          "lineWidth": 120,
+          "lineWidth": 100,
           "semiColons": "asi",
           "quoteStyle": "alwaysDouble",
           "trailingCommas": "never",
