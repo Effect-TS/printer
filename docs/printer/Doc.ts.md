@@ -2733,7 +2733,7 @@ Added in v1.0.0
 **Signature**
 
 ```ts
-export interface Variance<A> extends Equal {
+export interface Variance<A> extends Equal, Pipeable {
   readonly [DocTypeId]: {
     readonly _A: () => A
   }
