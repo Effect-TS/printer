@@ -1,3 +1,11 @@
+# ⚠️ @effect/printer has moved
+
+This repository has been deprecated following the consolidation of its codebase into the [`effect` monorepo](https://github.com/Effect-TS/effect).
+
+You can find `@effect/printer` here: https://github.com/effect-ts/effect/tree/main/packages/printer
+
+---
+
 [![Main CI](https://github.com/Effect-TS/printer/actions/workflows/main.yml/badge.svg)](https://github.com/Effect-TS/printer/actions/workflows/main.yml)
 [![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-ready--to--code-908a85?logo=gitpod)](https://gitpod.io/#https://github.com/Effect-TS/printer)
 
